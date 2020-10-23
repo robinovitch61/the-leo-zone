@@ -1,0 +1,15 @@
+{{ define "main" }}
+<h2>writingz</h2>
+<ul>
+  {{ range where .Site.RegularPages ".Type" "posts" }}
+  <li class="post"><i>{{ .Date.Format "Jan 02, 2006" }}</i> - <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+
+<h2>recurse center log</h2>
+<ul>
+  {{ range where .Site.RegularPages ".Type" "recurse" }}
+  <li class="post"><i>{{ .Date.Format "Jan 02, 2006" }}</i> - <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+{{ end }}
