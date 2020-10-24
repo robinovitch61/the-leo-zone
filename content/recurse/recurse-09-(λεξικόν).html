@@ -1,0 +1,90 @@
+---
+title: Recurse 09 (λεξικόν)
+date: 2019-11-30
+---
+
+<p>
+  In my third to last week of RC (!!!), I learned about Nix, Jest for Test
+  Driven Development in Javascript, completed project 10 of nand2tetris, and
+  continued interview prep.
+</p>
+
+<p>
+  Project 10 consists of the first half of the Jack compiler. The overall
+  compiler is split in to tokenization + lexical analysis (project 10) and VM
+  code generation (project 11).
+</p>
+
+<p>
+  The first half of the compiler was the most time consuming project of the
+  course so far. It results in a compiler that doesn't yet produce any actual VM
+  code - the output is a <code>.xml</code> file that visualizes the lexical tree
+  for each <code>.jack</code> Jack class. This tree is determined by the
+  language grammar, and demonstrates that the compiler correctly parses the
+  structure of the grammar in a bug-free, recursive pass on the high-level code.
+</p>
+<figure>
+  <img
+    style="max-width: 80%"
+    src="/assets/images/lexical_tree.png"
+    alt="Lexical Tree"
+  />
+  <figcaption class="figcaption-text">
+    Example Lexical Tree from the Elements of Computing Systems
+  </figcaption>
+</figure>
+
+<p>
+  The complete Jack language grammar is shown below. I spent a lot of time
+  staring at it this week. Once I figured out how to structure the recursive
+  calls to my <code>generate_tree</code> function, it became fun to build up the
+  grammar and see how it all works out. Everything is greatly simplified due to
+  things like lack of object inheretence, enforcement of prefix words like
+  <code>do my_function()</code> rather than simply calling
+  <code>my_function()</code> and other idiosyncracies and simplifications made
+  in the design of the Jack language.
+</p>
+
+<figure>
+  <div style="display: flex; max-width: 90%">
+    <img
+      style="max-width: 50%; align-self: center"
+      src="/assets/images/jack_grammar1.png"
+      alt="Jack Grammar 1"
+    />
+    <img
+      style="max-width: 50%; align-self: center"
+      src="/assets/images/jack_grammar2.png"
+      alt="Jack Grammar 2"
+    />
+  </div>
+  <figcaption class="figcaption-text">
+    The Complete Grammar of the Jack Language
+  </figcaption>
+</figure>
+
+<p>
+  I paired almost every day with my friend and fellow recurser Waj on interview
+  questions. It's really interesting seeing someone else think through a
+  problem, and I've learned so much from actively practicing together.
+</p>
+
+<p>
+  I'm currently in JFK flying to SF for some interviews. Stoked. I also started
+  some really great books this week:
+</p>
+
+<ul>
+  <li>
+    <span class="bold"
+      >Code: The Hidden Language of Computer Hardware and Software by Charles
+      Petzold</span
+    >. It's like nand2tetris but in Novel and not Project form. I think it's
+    incredibly approachable, interesting, and doesn't shy away from complexity
+    and detail.
+  </li>
+  <li>
+    <span class="bold">Exhalation: Stories by Ted Chiang</span>. This is the
+    best short story book I've picked up in a long time.
+  </li>
+</ul>

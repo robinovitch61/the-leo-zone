@@ -1,3 +1,3 @@
 ---
-title: 'i like surfing, computers, and friendship'
+title: 'i like computers, surfing, and friendship'
 ---
