@@ -9,13 +9,6 @@
 
     {{ $style := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
-
-    <link href="/css/styles.css" rel="stylesheet">
-    <link href="/css/prism.css"/ rel="stylesheet">
-
-    <script src="/js/prism.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
 
   <body>
@@ -24,6 +17,12 @@
     <div class="top-title">
       <div class="container">
         <h2>{{ .Title }}</h2>
+      </div>
+    </div>
+
+    <div class="post-date">
+      <div class="container">
+        <p>{{ block "subtitle" . }}{{ end }}</p>
       </div>
     </div>
 

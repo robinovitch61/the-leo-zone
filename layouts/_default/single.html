@@ -2,6 +2,10 @@
 {{ .Title }} &ndash; {{ .Site.Title }}
 {{ end }}
 
+{{ define "subtitle" }}
+{{ .Date.Format "Jan 02, 2006" }} &ndash; Leo Robinovitch
+{{ end }}
+
 {{ define "main" }}
 {{ .Content }}
 {{ end }}

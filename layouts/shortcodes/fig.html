@@ -1,3 +1,6 @@
+{{ $src := .Get `src` }}
 <figure>
-  <img style="max-width: {{ .Get `maxWidthPerc` }}%" src="{{ .Get `src` }}" alt="{{ .Get `alt` }}" />
+  <img style="max-width: {{ .Get `width` | default 95 }}%;" src="/img/{{ $src }}" alt="{{ .Get `alt` | default $src }}" />
+  {{ with .Get `caption`}}<figcaption class="figcaption-text">{{ . }}</figcaption>{{ end }}
+  {{ with .Get `source`}}<figcaption class="figcaption-text">Source: <a href="{{ . }}">{{ . }}</a></figcaption>{{ end }}
 </figure>
