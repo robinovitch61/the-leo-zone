@@ -2,6 +2,8 @@
 title: lynx
 ---
 
+Interesting stuff I find on the internet and want to promote or revisit.
+
 {{< fig maxWidthPerc="80" src="/img/lynx.png" alt="Lynx Links" >}}
 
 {{< ul >}}

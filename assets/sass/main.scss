@@ -1,8 +1,21 @@
+// contants
+$FOOTER_HEIGHT: 50px;
+$HIGHLIGHT_COLOR: rgb(122, 255, 166);
+
 body {
   margin: 0;
+  padding: 0;
   font-family: Geneva, Tahoma, Verdana, sans-serif;
   font-size: 18px;
   color: black;
+  min-height: 100vh;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    height: $FOOTER_HEIGHT;
+  }
 }
 
 // Typography
@@ -37,26 +50,26 @@ a {
   text-decoration: none;
   color: blue;
   overflow-wrap: break-word;
-}
-
-a:not(.btn):hover,
-a:not(.btn):focus,
-a:not(.btn):active {
-  font-style: italic;
-}
-
-a.a-menu-item {
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  padding: 0.25em 0.5em;
-  font-size: 1.2rem;
-}
-
-a.a-menu-item:hover,
-a.a-menu-item:focus,
-a.a-menu-item:active {
-  font-style: italic;
+  
+  &:not(.btn):hover,
+  &:not(.btn):focus,
+  &:not(.btn):active {
+    font-style: italic;
+  }
+  
+  &.menu-item {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 0.25em 0.5em;
+    font-size: 1.2rem;
+  }
+  
+  &.menu-item:hover,
+  &.menu-item:focus,
+  &.menu-item:active {
+    font-style: italic;
+  }
 }
 
 .post-date {
@@ -110,75 +123,76 @@ blockquote {
 }
 
 // Navbar
-.header {
+header {
   padding: 0;
   width: 100%;
+
+  .menu {
+    display: flex;
+    align-items: center;
+
+    .menu-item {
+      padding: 0.5em 1em;
+    }
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  .menu-btn:checked~.menu-icon {
+    .navicon-mid {
+      background: transparent;
+    }
+  
+    .navicon-bottom {
+      transform: translateY(-11px) rotate(-45deg);
+    }
+
+    .navicon-top {
+      transform: translateY(11px) rotate(45deg);
+    }
+  }
+
+  .menu-icon {
+    cursor: pointer;
+    flex-direction: column;
+    padding: 0;
+
+    .navicon-top,
+    .navicon-mid,
+    .navicon-bottom {
+      background: black;
+      height: 3px;
+      width: 40px;
+      display: block;
+      margin: 4px 0;
+      transition: all .2s ease-out;
+    }
+
+    .navicon-mid {
+      transition: background .2s ease-out;
+    }
+  }
 }
 
 .nav-container {
   max-width: 100%;
   height: 4rem;
-  margin-top: 1rem;
-  padding: 0 1em;
+  padding: 0.5em 0 0.5em;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-}
-
-// Button and navicon animation
-.nav-text-and-pics {
-  display: flex;
   align-items: center;
 }
 
-.dropdown {
+.nav-left {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 0.5em 0;
-}
-
-.header .menu-btn {
-  display: none;
-}
-
-.header .menu-icon {
-  cursor: pointer;
-  flex-direction: column;
-  padding: 0;
-}
-
-.header .menu-icon .navicon-top,
-.header .menu-icon .navicon-mid,
-.header .menu-icon .navicon-bottom {
-  background: black;
-  height: 3px;
-  width: 40px;
-  display: block;
-  margin: 3px 0;
-  transition: all .2s ease-out;
-}
-
-.header .menu-icon .navicon-mid {
-  transition: background .2s ease-out;
-}
-
-.header .menu-btn:checked~.menu-icon .navicon-mid {
-  background: transparent;
-}
-
-.header .menu-btn:checked~.menu-icon .navicon-bottom {
-  transform: translateY(-9px) rotate(-45deg);
-}
-
-.header .menu-btn:checked~.menu-icon .navicon-top {
-  transform: translateY(9px) rotate(45deg);
+  align-items: center;
 }
 
 .hamburger {
   display: none;
 }
-
 
 @media screen and (max-width:600px) {
   h2 {
@@ -186,7 +200,17 @@ blockquote {
   }
 
   .nav-container {
-    padding: 0em;
+    align-items: flex-start;
+    padding: 0.9em 0 0;
+  }
+
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0.3em 0;
+    min-width: 150px;
+    width: 30%;
   }
 
   // show hamburger button
@@ -208,15 +232,36 @@ blockquote {
     margin-top: 0.5em;
     border: 0.5px solid grey;
     transition: visibility 0.25s, opacity 0.25s ease-in-out;
+
+    .menu-item {
+      width: 100%;
+      padding: 1em 5em;
+    }
   }
 
-  .header .menu-btn:checked~.menu {
+  header .menu-btn:checked~.menu {
     visibility: visible;
     opacity: 1;
   }
+}
 
-  a.a-menu-item {
-    padding: 0.5em 1em;
+// Footer
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $FOOTER_HEIGHT;
+  background-color: $HIGHLIGHT_COLOR;
+
+  .footer-content {
+    height: $FOOTER_HEIGHT;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    a {
+      color: black;
+    }
   }
 }
 
@@ -252,16 +297,11 @@ blockquote {
 #linkedin {
   max-height: 27px;
   max-width: 30px;
-  margin: 0.25em 0.5em 0;
-}
-
-#github {
-  margin-left: 1em;
 }
 
 // Layout
 div.top-title {
-  background: rgb(122, 255, 166);
+  background: $HIGHLIGHT_COLOR;
 }
 
 figure {
@@ -276,10 +316,6 @@ figure {
 
 img {
   max-width: 95%;
-}
-
-footer {
-  margin-top: 2em;
 }
 
 ul {
@@ -322,10 +358,6 @@ ul li:before {
 
 .no-bull-list {
   margin: 10px 10px 30px 70px;
-}
-
-.fake-quote {
-  text-indent: 40px;
 }
 
 .indent {

@@ -1,4 +1,15 @@
-{{ define "title" }}{{ .Title }} &ndash; {{ .Site.Title }}{{ end }}
+{{ define "title" }}
+{{ .Title }} &ndash; {{ .Site.Title }}
+{{ end }}
+
 {{ define "main" }}
 {{ .Content }}
+{{ end }}
+
+{{ define "footer" }}
+{{ if eq .Title "about me" }}
+{{ partial "about-footer" . }}
+{{ else }}
+{{ partial "footer" . }}
+{{ end}}
 {{ end }}

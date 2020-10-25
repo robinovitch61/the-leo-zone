@@ -1,5 +1,5 @@
 {{ define "main" }}
-<h3>writingz</h3>
+<h3>writing</h3>
 <ul>
   {{ range where .Site.RegularPages ".Type" "posts" }}
   <li class="post"><i>{{ .Date.Format "Jan 02, 2006" }}</i> - <a href="{{ .Permalink }}">{{ .Title }}</a></li>
@@ -10,6 +10,13 @@
 <ul>
   {{ range where .Site.RegularPages ".Type" "recurse" }}
   <li class="post"><i>{{ .Date.Format "Jan 02, 2006" }}</i> - <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+
+<h3>lists</h3>
+<ul>
+  {{ range where .Site.RegularPages ".Type" "lists" }}
+  <li class="post"><a href="{{ .Permalink }}">{{ .Title }}</a></li>
   {{ end }}
 </ul>
 {{ end }}

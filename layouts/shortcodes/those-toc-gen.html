@@ -1,0 +1,16 @@
+<script>
+  const tocParent = document.querySelector("div > .toc_list")
+  document.querySelectorAll("div")
+      .forEach(elem => {
+          if (elem.id === "") { return }
+          const titleElem = elem.children[0]
+          if (titleElem.nodeName !== "H3") { return }
+          const title = titleElem.innerHTML
+          if (title === "") { return }
+
+          const tocItem = document.createElement("a")
+          tocItem.href = "#" + elem.id
+          tocItem.innerHTML = title
+          tocParent.append(tocItem)
+      })
+</script>

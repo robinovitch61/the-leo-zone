@@ -32,6 +32,6 @@
       {{ end }}
     </div>
     
-    {{ partial "footer" . }}
+    {{ block "footer" . }}{{ partial "footer" . }}{{ end }}
   </body>
 </html>

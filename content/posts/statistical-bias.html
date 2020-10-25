@@ -4,7 +4,7 @@ date: 2019-10-25
 ---
 
 <figure>
-    <img style="max-width: 70%" src="/assets/images/jigsaw.png" alt="Jigsaw">
+    <img style="max-width: 70%" src="/img/jigsaw.png" alt="Jigsaw">
     <figcaption class="figcaption-text">"Eat my spheres!"</figcaption>
 </figure>
 
@@ -17,7 +17,7 @@ date: 2019-10-25
 <p>The concept of bias-variance tradeoff is fundamental in modeling. Intuitively, bias is the average difference in model prediction to true value, as discussed above. Variance is how much the model changes when you alter the sample data.</p>
 
 <figure>
-    <img src="/assets/images/high_and_low_bias.png" alt="High and Low Bias">
+    <img src="/img/high_and_low_bias.png" alt="High and Low Bias">
     <figcaption class="figcaption-text">High and low model bias</figcaption>
 </figure>
 
@@ -26,7 +26,7 @@ date: 2019-10-25
 <p>Demonstrated visually, 3 models fit the data below. They increase in number of predictors, i.e. flexibility of the model. Note how there is always some model error (dashed line on right) - this is the irreducible error, due to things like randomness in the generation of future data and inability to parameterize the universe. The red line represents our test error, our test set being some data we withheld from the model while estimating its parameters. The grey line represents the training error, based on the data we estimated our model parameters with. Training error CAN go to zero, as in the left image above, but we really care about our test error. Test error represents our model's ability to make accurate future predictions.</p>
 
 <figure>
-    <img src="/assets/images/bias_variance.png" alt="The bias variance tradeoff">
+    <img src="/img/bias_variance.png" alt="The bias variance tradeoff">
     <figcaption class="figcaption-text">The bias-variance tradeoff</figcaption>
 </figure>
 
@@ -45,14 +45,14 @@ date: 2019-10-25
 <p>A concrete example of biased estimators exists below. Generating many samples from an underlying function, both MLE and OLS methods result in unbiased estimates of weights:</p>
 
 <figure>
-    <img src="/assets/images/unbiased_weights.png" alt="Unbiased estimated weights">
+    <img src="/img/unbiased_weights.png" alt="Unbiased estimated weights">
     <figcaption class="figcaption-text">The mean estimate for each weight is the same as the red true value</figcaption>
 </figure>
 
 <p>Importantly, the MLE estimate for error variance \( \sigma^2 \) is biased, whereas the OLS estimate is unbiased. Note that the only difference between the MLE and OLS estimates is dividing by \( m - n \), the number of samples minus the number of predictors. Some intuition for how sample variance is biased without this division can be built from <a href="https://proofwiki.org/wiki/Bias_of_Sample_Variance">this proof</a>, while a more involved proof of the unbiased OLS error variance formula <a href="https://stats.stackexchange.com/questions/20227/why-is-rss-distributed-chi-square-times-n-p">lies here</a>.
 
 <figure>
-    <img src="/assets/images/biased_mle_error_var.png" alt="MLE estimate is biased">
+    <img src="/img/biased_mle_error_var.png" alt="MLE estimate is biased">
     <figcaption class="figcaption-text">MLE (left) mean estimate differs from the true value</figcaption>
 </figure>
 
