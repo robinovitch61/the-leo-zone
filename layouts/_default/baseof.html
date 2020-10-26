@@ -9,6 +9,8 @@
 
     {{ $style := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   </head>
 
   <body>
@@ -33,4 +35,5 @@
     
     {{ block "footer" . }}{{ partial "footer" . }}{{ end }}
   </body>
+  {{ partial "mathjax_support.html" . }}
 </html>

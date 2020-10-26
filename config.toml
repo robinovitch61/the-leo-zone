@@ -15,3 +15,6 @@ title = "The Leo Zone"
     noClasses = true
     style = "pygments"
     tabWidth = 4
+
+[markup.goldmark.renderer]
+  unsafe= true
