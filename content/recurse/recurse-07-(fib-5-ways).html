@@ -231,12 +231,12 @@ iter_fib(10)
 <p>
   This is the "Virtual Machine Code" for a Fibonacci sequence. It is much like
   an
-  <a href="/2019/11/09/recurse-06-(intermediate-representations).html"
+  <a href="{{< ref `recurse-06-(intermediate-representations)` >}}"
     >LLVM intermediate representation</a
   >, but in the virtual machine language created by the Nand2Tetris team.
 </p>
 
-<pre><code class="language-bash">
+<code>
 // Main.vm
 // This file is part of www.nand2tetris.org
 // and the book The Elements of Computing Systems
@@ -285,7 +285,7 @@ push constant 4
 call Main.fibonacci 1   // computes the 4'th fibonacci element
 label WHILE
 goto WHILE              // loops infinitely
-</code></pre>
+</code>
 
 <p>
   My VM translator
