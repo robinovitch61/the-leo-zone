@@ -21,28 +21,21 @@ Note that I will put most everything in multiple linear regression matrix format
 * *Response* (also known as dependent variable): $ y_0, y_1, y_2, ... y_{m-1} $, the actual data values associated with each set of $\mathbf{n}$ predictors
 * *Fitted Values* (also known as outputs): $\hat{y}_0$, $\hat{y}_1$, $\hat{y}_2$, $\hat{y}\_{m-1}$, the predictions of the response given some estimated weights $ \hat{\beta}_0, \hat{\beta}_1, \hat{\beta}_2, ... \hat{\beta}\_{n-1} $
 
-
-
-<!-- Linearity definition -->
 ## What does *linear* mean?
-
 All that *linear* means is that the model is of the following form:
 
 $$f(\mathbf{X}) = \mathbf{X}\beta$$
 
 Here, matrix $\bf{X} \in \mathbb{R}^{m \times n}$, weight vector $\beta \in \mathbb{R}^{n \times 1}$ and the leftmost column of $ \mathbf{X} $ denoted $ X_0 $ is a column of 1s to represent the intercept.
 
-Linear regression is often thought of as a "straight line fit" to a set of observations. It doesn't necessarily result in a straight line or flat plane, though. Consider that <span class="inline-math">$ f(\mathbf{X}) = X_0\beta_0 + X_1\beta_1 + X_1^2\beta_2 + X_1^3\beta_3 $* is still linear, even though it will be look like a cubic fit. Predictors (columns of $ \mathbf{X} $) can be transformations (e.g. $ X_2 = \log(X_1) $), basis expansions (e.g. $ X_2 = X_1^2 $ as in the example above), or interactions between other predictors, (e.g. $ X_3 = X_1X_2 $).
+* Linear regression is often thought of as a "straight line fit" to a set of observations. It doesn't [necessarily result in a straight line or flat plane, though. Consider that <span class="inline-math](necessarily result in a straight line or flat plane, though. Consider that <span class="inline-math)
 The "true" relationship or "population regression line" between $ Y \in \mathbb{R}^{m \times 1} $ (the response values associated with each row/observation of $ \mathbf{X} $) and $ \mathbf{X} $ is
     
 $$ Y = f(\mathbf{X}) + \epsilon = \mathbf{X}\beta + \epsilon $$
 
 Epsilon ($ \epsilon $) here represents the error term, encompassing omitted and unmeasurable predictors, measurement error of included predictors, and the generic inability of our selected linear model to fit the true relationship.
 
-
-<!-- Assumptions -->
 ## Indicators that Linear Regression Model is Lacking
-
 After coming up with a linear regression model, there are various required checks in order to validate that the model is acceptable as a description of the data. If any of the following are true, it is necessary to either improve the data, model or accept linear regression is insufficient as a modeling technique under the given conditions.
 
 {{< fig src="anscombe.png" >}}
@@ -94,7 +87,6 @@ Endogeneity occurs when there is correlation between model predictor(s) and the 
 
 $ R^2 $ does nothing except measure the proportion of variability in Y that can be explained using X. It can always be made closer to 1 by adding more features/variables into the linear model, which at a certain point likely results in a too-flexible (overfit) model that fails to minimize test error. Where $ R^2 $ can be useful is in confirming previously held beliefs about what you are modeling. For example, modeling something in physics that theoretically should be extremely linear, an $ R^2 $ much smaller than 1 indicates something may be off with the model or data. Conversely, a low $ R^2 $ would actually be expected when modeling a complex situation with high residual errors due to other factors.
 
-<!-- OLS Closed Form Derivation -->
 ## Normal Equation for Estimated Weights $ \hat{\beta} $
 In the Ordinary Least Squares approach, RSS (Residual Sum of Squares) as a function of $ \hat{\beta} $ is the function to minimize:
 
@@ -102,7 +94,6 @@ In the Ordinary Least Squares approach, RSS (Residual Sum of Squares) as a funct
 
 $$ RSS = \sum_{i=1}^{m}e_i^2 = \sum_{i=1}^{m}(y_i - \hat{y}_i)^2  = \sum_{i=1}^{m}(y_i - x_i^T\hat{\beta})^2$$
 where $y_i$ is the response and $\hat{y}_i = x_i^T\hat{\beta}$ is the fitted value. This is assuming $x_i \in \mathbb{R}^{n \times 1}$ and $\hat{\beta} \in \mathbb{R}^{n \times 1}$ are column vectors and that the first value in each $ x_i $ is 1.
-
 
 We can rewrite this in matrix form with $\bf{X} \in \mathbb{R}^{m \times n}$ and $y \in \mathbb{R}^{m \times 1}$ as
 $$RSS(\hat{\beta})=(y - \mathbf{X}\hat{\beta})^T(y - \mathbf{X}\hat{\beta})$$
@@ -161,20 +152,21 @@ $$ \hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^Ty$$
 This is called the normal equation. It is helpful when the inverse $ (\mathbf{X}^T\mathbf{X})^{-1}\ $ is not too computationally intensive.
 
 ## Maximum Likelihood Estimate Formulation
+From [wikipedia](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation): "Maximum Likelihood Estimation is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable". Some probabilistic process generated some data - which process parameters would have made our dataset the most likely? Expressed as conditional probability distributions, for some data, which parameters maximize $ P(data | parameters) $?
 
-From <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation">wikipedia): "Maximum Likelihood Estimation is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable". Some probabilistic process generated some data - which process parameters would have made our dataset the most likely? Expressed as conditional probability distributions, for some data, which parameters maximize $ P(data | parameters) $?
+As stated before, the population regression line is:
 
-
-
-As stated before, the population regression line is
 $$ Y = \mathbf{X}\beta + \epsilon $$
+
 where $ \mathbf{X}\beta $ is constant. Gaussian linear regression assumes that $ \epsilon $ is normally distributed with mean 0 and variance $ \sigma^2 $, $ \epsilon \sim N(0, \sigma^2) $. Examining the distribution of $ Y$ under this assumption, noting that $E[X + Y] = E[X] + E[Y] $ regardless of independence:
+
 $$ E[Y] = E[\mathbf{X}\beta + \epsilon] $$
 $$ = E[\mathbf{X}\beta] + E[\epsilon] $$
 $$ = E[\mathbf{X}\beta] + 0 $$
 $$ = \mathbf{X}\beta $$
 
-And for variance, since $Var(X) = E[X^2] - (E[X])^2 $ (from <a href="https://en.wikipedia.org/wiki/Variance">here)) and $ Cov(X,Y) = E[XY] - E[X]E[Y] $ (from <a href="https://en.wikipedia.org/wiki/Covariance">here)), then:
+And for variance, since $Var(X) = E[X^2] - (E[X])^2 $ (from [here](https://en.wikipedia.org/wiki/Variance)) and $ Cov(X,Y) = E[XY] - E[X]E[Y] $ (from [here](https://en.wikipedia.org/wiki/Covariance)), then:
+
 $$ Var(A + B) = E[(A + B)^2] - (E[A + B])^2 $$
 $$ = E[A^2 + 2AB + B^2] - (E[A] + E[B])^2 $$
 $$ = E[A^2] + E[2AB] + E[B^2] $$
@@ -184,29 +176,35 @@ $$  + E[B^2] - E[B]^2 $$
 $$  + 2(E[AB] - E[A]E[B]) $$
 $$ = Var(A) + Var(B) + 2Cov(A,B) $$
 
-Substituting $A = \mathbf{X}\beta $, $B = \epsilon$ and recognizing Covariance as a measure of correlation between variables - positive if both tend to increase together, negative when one tends to increase while the other decreases - we can say
+Substituting $A = \mathbf{X}\beta $, $B = \epsilon$ and recognizing Covariance as a measure of correlation between variables - positive if both tend to increase together, negative when one tends to increase while the other decreases - we can say:
+
 $$ Var(\mathbf{X}\beta + \epsilon) = Var(\mathbf{X}\beta) + Var(\epsilon) + 2Cov(\mathbf{X}\beta, \epsilon) $$
 $$ = 0 + \sigma^2 + 2Cov(\mathbf{X}\beta, \epsilon) $$
 
 Due to the assumptions of linear regression outlined above (exogeneity and homoscedasticity), the correlation between $\mathbf{X}\beta$ and $\epsilon$ is zero. We conclude:
+
 $$ Var(Y) = \sigma^2 $$
 
-so
+so:
+
 $$ Y \sim N(\mathbf{X}\beta, \sigma^2) $$
 
-With this in mind, we begin the actual MLE derivation. Given that the PDF of the gaussian distribution is
-$$ P(x|\mu_x, \sigma_x^2) = \frac{1}{\sigma_x\sqrt{2\pi}} \exp{\left\{-\frac{1}{2\sigma_x^2}(x-\mu_x)\right\}} $$
+With this in mind, we begin the actual MLE derivation. Given that the PDF of the gaussian distribution is:
 
-we can say the conditional probability of some datum $ y_i $ based on our parameters is
-$$ P(y_i|x_i, \beta, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} \exp{\left\{-\frac{1}{2\sigma^2}(y_i - x_i\beta)^2\right\}} $$
+$$ P(x|\mu_x, \sigma_x^2) = \frac{1}{\sigma_x\sqrt{2\pi}} \exp{\left\lbrace-\frac{1}{2\sigma_x^2}(x-\mu_x)\right\rbrace} $$
+
+we can say the conditional probability of some datum $ y_i $ based on our parameters is:
+
+$$ P(y_i|x_i, \beta, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} \exp{\left\lbrace-\frac{1}{2\sigma^2}(y_i - x_i\beta)^2\right\rbrace} $$
 
 where we somehow go through $ i = 0,1,2,...m $ data points and obtain the joint probability of all of them. Assuming our data are i.i.d. (independently and identically distributed, i.e. sampled from the same probability distribution and independent of one another) - we can say the joint probability of all the data is a product of individual probabilities:
-$$ P(\{y_i\}_{i=0}^m | \{x_i\}_{i=0}^m, \beta, \sigma^2) = $$
-$$  \prod_{i=0}^m{\frac{1}{\sigma\sqrt{2\pi}} \exp{\left\{-\frac{1}{2\sigma^2}(y_i - x_i\beta)^2\right\}}} $$
 
-In matrix form
+$$ P(\\{y_i\\}\_{i=0}^m | \\{x_i\\}\_{i=0}^m, \beta, \sigma^2) = $$
+$$  \prod_{i=0}^m{\frac{1}{\sigma\sqrt{2\pi}} \exp{\left\lbrace-\frac{1}{2\sigma^2}(y_i - x_i\beta)^2\right\rbrace}} $$
+
+In matrix form:
 $$ P(Y|X,\beta,\sigma^2) = $$
-$$ \left(\frac{1}{\sigma\sqrt{2\pi}}\right)^m \exp{\left\{-\frac{1}{2\sigma^2}(y-\mathbf{X}\beta)^T(y-\mathbf{X}\beta)\right\}} $$
+$$ \left(\frac{1}{\sigma\sqrt{2\pi}}\right)^m \exp{\left\lbrace-\frac{1}{2\sigma^2}(y-\mathbf{X}\beta)^T(y-\mathbf{X}\beta)\right\rbrace} $$
 
 With MLE, we often take the log, as maximizing a summation is easier than maximizing a product due to ease of derivation. Note that the parameters that maximize some random variable X are the same that maximize log(X), so we're ok doing this.
 $$ \ln(P(Y|X,\beta,\sigma^2)) = $$
@@ -244,47 +242,39 @@ And note how this (satisfyingly) resembles the population variance formula for a
 $$ \sigma^2_x = E[(x - \mu_x)^2] $$
 
 ## Confidence in Estimated Parameters
-
 (Insert justification for searching for unbiased sigma^2 and variance of beta in the first place here)
 
+Unfortunately, the MLE variance is actually a biased estimate of the population variance, i.e. $ E[\sigma^{2MLE}] \neq \sigma^2 $! For a discussion around this and empirical proof, see [here]({{< ref statistical-bias >}}). 
 
-Unfortunately, the MLE variance is actually a biased estimate of the population variance, i.e. $ E[\sigma^{2MLE}] \neq \sigma^2 $! For a discussion around this and empirical proof, see <a href="/2019-10-25-statistical-bias.html">here). 
+{{< fig src="biased_mle_error_var.png" caption="MLE (left) mean estimate differs from the true value" >}}
 
-
-<figure>
-    <img src="/assets/images/biased_mle_error_var.png" alt="MLE estimate is biased">
-    <figcaption class="figcaption-text">MLE (left) mean estimate differs from the true value</figcaption>
-</figure>
-
-
-The unbiased formula for estimated error variance comes from <a href="http://lukesonnet.com/teaching/inference/200d_standard_errors.pdf">here) and the rigorous proof <a href="https://stats.stackexchange.com/questions/20227/why-is-rss-distributed-chi-square-times-n-p">here:)
+The unbiased formula for estimated error variance comes from [here](http://lukesonnet.com/teaching/inference/200d_standard_errors.pdf) and the rigorous proof [here](https://stats.stackexchange.com/questions/20227/why-is-rss-distributed-chi-square-times-n-p):
     $$ \sigma^{2OLS} = \frac{1}{m-n} (y-\mathbf{X}\beta)^T (y-\mathbf{X}\beta) $$
-
 
 (Variance of beta here)
 
-*To be included soon: standard errors, confidence bounds, hypothesis tests, numerical methods.*
+*To be included sometime in the future: standard errors, confidence bounds, hypothesis tests, numerical methods.*
 
 <!-- Sources -->
 ## References:
-<a href="https://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression/">https://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression/)
-<a href="https://eli.thegreenplace.net/2015/the-normal-equation-and-matrix-calculus/#id3">https://eli.thegreenplace.net/2015/the-normal-equation-and-matrix-calculus/#id3)
-<a href="https://math.stackexchange.com/questions/2753210/when-can-we-say-that-a-mathrm-t-b-b-mathrm-t-a">https://math.stackexchange.com/questions/2753210/when-can-we-say-that-a-mathrm-t-b-b-mathrm-t-a)
-<a href="https://ayearofai.com/rohan-3-deriving-the-normal-equation-using-matrix-calculus-1a1b16f65dda">https://ayearofai.com/rohan-3-deriving-the-normal-equation-using-matrix-calculus-1a1b16f65dda)
-<a href="https://en.wikipedia.org/wiki/Transpose#Properties">https://en.wikipedia.org/wiki/Transpose#Properties)
-<a href="https://github.com/robinovitch61/coursera_MachineLearning_AndrewNg">https://github.com/robinovitch61/coursera_MachineLearning_AndrewNg)
-<a href="https://www.cs.princeton.edu/courses/archive/fall18/cos324/files/mle-regression.pdf">https://www.cs.princeton.edu/courses/archive/fall18/cos324/files/mle-regression.pdf)
-<a href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
-<a href="http://3.droppdf.com/files/pjxkI/regression-analysis-by-example-5th-edition.pdf">http://3.droppdf.com/files/pjxkI/regression-analysis-by-example-5th-edition.pdf)
-<a href="https://stats.stackexchange.com/questions/263324/how-can-the-regression-error-term-ever-be-correlated-with-the-explanatory-variab">https://stats.stackexchange.com/questions/263324/how-can-the-regression-error-term-ever-be-correlated-with-the-explanatory-variab)
-<a href="http://www.lithoguru.com/scientist/statistics/Lecture21.pdf">http://www.lithoguru.com/scientist/statistics/Lecture21.pdf)
-<a href="https://stats.stackexchange.com/questions/349244/beginner-q-residual-sum-squared-rss-and-r2">https://stats.stackexchange.com/questions/349244/beginner-q-residual-sum-squared-rss-and-r2)
-<a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation">https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
-<a href="https://www.youtube.com/watch?v=ulZW99jsMXY">https://www.youtube.com/watch?v=ulZW99jsMXY)
-<a href="https://medium.com/@komotlogelwa/r-squared-and-life-3cb220d5a03f">https://medium.com/@komotlogelwa/r-squared-and-life-3cb220d5a03f)
-<a href="https://www.usna.edu/Users/math/dphillip/sa421.s16/variance-of-a-sum.pdf">https://www.usna.edu/Users/math/dphillip/sa421.s16/variance-of-a-sum.pdf)
-<a href="https://en.wikipedia.org/wiki/Variance">https://en.wikipedia.org/wiki/Variance)
-<a href="https://en.wikipedia.org/wiki/Covariance">https://en.wikipedia.org/wiki/Covariance)
-<a href="https://brilliant.org/wiki/linearity-of-expectation/">https://brilliant.org/wiki/linearity-of-expectation/)
-<a href="http://lukesonnet.com/teaching/inference/200d_standard_errors.pdf">http://lukesonnet.com/teaching/inference/200d_standard_errors.pdf)
-<a href="https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf">https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf)
+* [https://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression/](https://eli.thegreenplace.net/2014/derivation-of-the-normal-equation-for-linear-regression/)
+* [https://eli.thegreenplace.net/2015/the-normal-equation-and-matrix-calculus/#id3](https://eli.thegreenplace.net/2015/the-normal-equation-and-matrix-calculus/#id3)
+* [https://math.stackexchange.com/questions/2753210/when-can-we-say-that-a-mathrm-t-b-b-mathrm-t-a](https://math.stackexchange.com/questions/2753210/when-can-we-say-that-a-mathrm-t-b-b-mathrm-t-a)
+* [https://ayearofai.com/rohan-3-deriving-the-normal-equation-using-matrix-calculus-1a1b16f65dda](https://ayearofai.com/rohan-3-deriving-the-normal-equation-using-matrix-calculus-1a1b16f65dda)
+* [https://en.wikipedia.org/wiki/Transpose#Properties](https://en.wikipedia.org/wiki/Transpose#Properties)
+* [https://github.com/robinovitch61/coursera_MachineLearning_AndrewNg](https://github.com/robinovitch61/coursera_MachineLearning_AndrewNg)
+* [https://www.cs.princeton.edu/courses/archive/fall18/cos324/files/mle-regression.pdf](https://www.cs.princeton.edu/courses/archive/fall18/cos324/files/mle-regression.pdf)
+* [https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
+* [http://3.droppdf.com/files/pjxkI/regression-analysis-by-example-5th-edition.pdf](http://3.droppdf.com/files/pjxkI/regression-analysis-by-example-5th-edition.pdf)
+* https://stats.stackexchange.com/questions/263324/[how-can-the-regression-error-term-ever-be-correlated-with-the-explanatory-variab](how-can-the-regression-error-term-ever-be-correlated-with-the-explanatory-variab)
+* [http://www.lithoguru.com/scientist/statistics/Lecture21.pdf](http://www.lithoguru.com/scientist/statistics/Lecture21.pdf)
+* [https://stats.stackexchange.com/questions/349244/beginner-q-residual-sum-squared-rss-and-r2](https://stats.stackexchange.com/questions/349244/beginner-q-residual-sum-squared-rss-and-r2)
+* [https://en.wikipedia.org/wiki/Maximum_likelihood_estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
+* [https://www.youtube.com/watch?v=ulZW99jsMXY](https://www.youtube.com/watch?v=ulZW99jsMXY)
+* [https://medium.com/@komotlogelwa/r-squared-and-life-3cb220d5a03f](https://medium.com/@komotlogelwa/r-squared-and-life-3cb220d5a03f)
+* [https://www.usna.edu/Users/math/dphillip/sa421.s16/variance-of-a-sum.pdf](https://www.usna.edu/Users/math/dphillip/sa421.s16/variance-of-a-sum.pdf)
+* [https://en.wikipedia.org/wiki/Variance](https://en.wikipedia.org/wiki/Variance)
+* [https://en.wikipedia.org/wiki/Covariance](https://en.wikipedia.org/wiki/Covariance)
+* [https://brilliant.org/wiki/linearity-of-expectation/](https://brilliant.org/wiki/linearity-of-expectation/)
+* [http://lukesonnet.com/teaching/inference/200d_standard_errors.pdf](http://lukesonnet.com/teaching/inference/200d_standard_errors.pdf)
+* [https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf](https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf)
