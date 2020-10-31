@@ -17,9 +17,9 @@ The other thing I've been sinking time into is a prototype herd immunity simulat
 
 Initial results for the simulator are really interesting! I came up with a simplified set of rules that give a certain level of complexity while still massively simplifying the real world. [All the code is here.](https://github.com/robinovitch61/herd_immunity)
 
-{{< fig src="good_immunity.png" caption="90% Immunity - Blue Immunity Protec" >}}
+{{< fig src="good_immunity.gif" caption="90% Immunity - Blue Immunity Protec" >}}
 
-{{< fig src="bad_immunity.png" caption="80% Immunity - Red Sickness Attac" >}}
+{{< fig src="bad_immunity.gif" caption="80% Immunity - Red Sickness Attac" >}}
 
 Alex and I will be working on porting a modified version of this logic in to an awesome interactive data visualization - Alex is great with React, javascript, html, css, and general design so I'm excited to learn a lot from him!
 
