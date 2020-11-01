@@ -296,8 +296,8 @@ footer {
 }
 
 .social-media-thumbnail {
-  height: 27px;
-  width: 30px;
+  max-height: 27px;
+  max-width: 30px;
 
   &:hover,
   &:focus,
