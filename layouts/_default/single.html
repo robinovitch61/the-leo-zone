@@ -3,7 +3,7 @@
 {{ end }}
 
 {{ define "subtitle" }}
-{{ .Date.Format "Jan 02, 2006" }} &ndash; Leo Robinovitch
+{{ with .Date }}{{ .Format "Jan 02, 2006" }} &ndash; Leo Robinovitch{{ end }}
 {{ end }}
 
 {{ define "main" }}
