@@ -1,5 +1,5 @@
 ---
-title: lynx
+title: interesting lynx
 ---
 
 Interesting stuff I find on the internet and want to promote or revisit.

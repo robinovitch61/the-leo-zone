@@ -1,5 +1,5 @@
 ---
-title: what are those
+title: what are those?
 ---
 
 What things are in three points or less. A continually updating brain dump.
