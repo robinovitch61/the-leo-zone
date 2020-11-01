@@ -139,19 +139,22 @@ header {
 
   .menu-btn {
     display: none;
-  }
 
-  .menu-btn:checked~.menu-icon {
-    .navicon-mid {
-      background: transparent;
-    }
-  
-    .navicon-bottom {
-      transform: translateY(-11px) rotate(-45deg);
-    }
+    &:checked~.menu-icon {
+      z-index: 10;
+      padding: 0 0 100vh 100vw;
+      
+      .navicon-mid {
+        background: transparent;
+      }
+    
+      .navicon-bottom {
+        transform: translateY(-11px) rotate(-45deg);
+      }
 
-    .navicon-top {
-      transform: translateY(11px) rotate(45deg);
+      .navicon-top {
+        transform: translateY(11px) rotate(45deg);
+      }
     }
   }
 
@@ -205,44 +208,50 @@ header {
     padding: 0.9em 0 0;
   }
 
-  .dropdown {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding: 0.3em 0;
-    min-width: 150px;
-    width: 30%;
-  }
-
   // show hamburger button
   .hamburger {
     display: flex;
   }
 
-  // Open menu if checked
-  .menu {
-    z-index: 5; // stack order, greater in front
-    width: 100%;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    padding: 0;
-    margin-top: 0.5em;
-    border: 0.5px solid grey;
-    transition: visibility 0.25s, opacity 0.25s ease-in-out;
-
-    .menu-item {
-      width: 100%;
-      padding: 1em 5em;
+  header {
+    .dropdown {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0.3em 0;
+      min-width: 170px;
+      width: 40%;
     }
-  }
-
-  header .menu-btn:checked~.menu {
-    visibility: visible;
-    opacity: 1;
+    
+    // Open menu if checked
+    .menu {
+      width: 200px;
+      z-index: 5; // stack order, greater in front
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      padding: 0;
+      margin-top: 0.5em;
+      border: 0.5px solid grey;
+      transition: visibility 0.25s, opacity 0.25s ease-in-out;
+  
+      .menu-item {
+        width: 100%;
+        padding: 0.7em 0;
+      }
+    }
+  
+    .menu-btn:checked {
+      ~.menu {
+        position: absolute;
+        top: 60px;
+        visibility: visible;
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -295,14 +304,16 @@ footer {
   font-style: italic;
 }
 
-.social-media-thumbnail {
-  max-height: 27px;
-  max-width: 30px;
-
+a {
   &:hover,
   &:focus,
   &:active {
     opacity: 70%;
+  }
+
+  .social-media-thumbnail {
+    max-height: 27px;
+    max-width: 30px;
   }
 }
 
