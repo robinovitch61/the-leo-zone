@@ -143,6 +143,7 @@ header {
     &:checked~.menu-icon {
       z-index: 10;
       padding: 0 0 100vh 100vw;
+      -webkit-tap-highlight-color: transparent;
       
       .navicon-mid {
         background: transparent;
