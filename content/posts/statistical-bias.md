@@ -41,7 +41,7 @@ Importantly, the MLE estimate for error variance $ \sigma^2 $ is biased, whereas
 
 Complete code for the simulation can be found in [the static notebook here](/ols_vs_mle_bias.html).
 
-I hope this helped develop a deeper understanding of statistical bias. If you have any additions or errors to correct, please open an issue on the source of this website [here](https://github.com/robinovitch61/robinovitch61.github.io).
+I hope this helped develop a deeper understanding of statistical bias. If you have any additions or errors to correct, please open an issue on the source of this website [here](https://github.com/robinovitch61/the-leo-zone/issues).
 
 ## References:
 * [https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229](https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229)
