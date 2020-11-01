@@ -295,10 +295,15 @@ footer {
   font-style: italic;
 }
 
-#github,
-#linkedin {
+.social-media-thumbnail {
   height: 27px;
   width: 30px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    opacity: 70%;
+  }
 }
 
 // Layout
