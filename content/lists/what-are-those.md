@@ -7,6 +7,12 @@ What things are in three points or less. A continually updating brain dump.
 {{< toc >}}
 
 {{< those
+  "MAC address"
+  "Media Access Control"
+  "Unique to device; hard-coded into a network adapter/network interface card"
+>}}
+
+{{< those
   gateway
   "A key stopping point for data traveling between networks"
   "Can be a computer routing traffic (workplace) or router (at home)"
@@ -33,7 +39,7 @@ What things are in three points or less. A continually updating brain dump.
 >}}
 
 {{< those
-  REST API
+  "REST API"
   "REpresentational State Transfer"
   "A set of guiding principles, design patterns, architecture for APIs"
   "Statelessly performs CRUD operations on resources usually through HTTP"
