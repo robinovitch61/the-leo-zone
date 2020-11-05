@@ -242,4 +242,4 @@ You have a fully functioning and replicable jupyter environment, portable to any
 ### Further thoughts
 
 * Another approach to version controlled customization could be to modify the Dockerfiles themselves. I prefer the `setup_envs.sh` script approach as rebuilding the images is time and disk space intensive. Modifying Dockerfiles, though, is a totally valid approach.
-* If you get stuck on anything in this process or see that I've been wrong/unclear about something, please open an issue on the source of this website <a href="https://github.com/robinovitch61/robinovitch61.github.io">here.
+* If you get stuck on anything in this process or see that I've been wrong/unclear about something, please open an issue on the source of this website <a href="https://github.com/robinovitch61/the-leo-zone">here.
