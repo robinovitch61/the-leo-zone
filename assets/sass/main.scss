@@ -50,7 +50,8 @@ div.top-title h2 {
 a {
   text-decoration: none;
   color: blue;
-  overflow-wrap: break-word;
+  overflow-wrap: break-word; // chrome
+  word-wrap: break-word; // safari
 
   &:not(.btn):hover,
   &:not(.btn):focus,
