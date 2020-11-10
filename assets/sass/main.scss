@@ -326,7 +326,7 @@ figure {
     figcaption {
       a {
         overflow-wrap: anywhere; // chrome
-        word-wrap: anywhere; // safari
+        word-break: break-all;
       }
     }
   }

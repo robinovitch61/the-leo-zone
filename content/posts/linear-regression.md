@@ -165,7 +165,15 @@ $$ = E[\mathbf{X}\beta] + E[\epsilon] $$
 $$ = E[\mathbf{X}\beta] + 0 $$
 $$ = \mathbf{X}\beta $$
 
-And for variance, since $Var(X) = E[X^2] - (E[X])^2 $ (from [here](https://en.wikipedia.org/wiki/Variance)) and $ Cov(X,Y) = E[XY] - E[X]E[Y] $ (from [here](https://en.wikipedia.org/wiki/Covariance)), then:
+And for variance, since
+
+$$ Var(X) = E[X^2] - (E[X])^2 $$
+
+from [here](https://en.wikipedia.org/wiki/Variance) and
+
+$$ Cov(X,Y) = E[XY] - E[X]E[Y] $$
+
+from [here](https://en.wikipedia.org/wiki/Covariance), then:
 
 $$ Var(A + B) = E[(A + B)^2] - (E[A + B])^2 $$
 $$ = E[A^2 + 2AB + B^2] - (E[A] + E[B])^2 $$
