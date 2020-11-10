@@ -429,13 +429,6 @@ span.bold {
   text-align: center;
 }
 
-// Code
-.highlight {
-  @media screen and (max-width:600px) {
-    font-size: 0.8em;
-  }
-}
-
 // MathJax
 code.has-jax {
   -webkit-font-smoothing: antialiased;
