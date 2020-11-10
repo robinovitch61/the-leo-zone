@@ -5,7 +5,7 @@ date: 2019-10-11
 
 This week, I completed project 3 of Nand2Tetris, learned some deeper fundamentals of statistical learning in R, and wrote my first interactive thing in D3.
 
-[D3.js](https://d3js.org/) is a widely used javascript library for creating beautiful, interactive visualizations on the web. I made quite a simple interactive sine wave plotter, but the exercise took hours and really helped me gain insight in to D3's declarative approach to data-centric object manipulation. Code for the thing [here](https://gist.githubusercontent.com/robinovitch61 5b61f550b3b0cd279c6e8a3679a9623e/raw/d8dfa4ee588339bae1ae60d0f0e60be68f4d3ba6/d3_sine_wave.html). Play with it [here](https://jsfiddle.net/robinovitch61/3nwjzkdx/).
+[D3.js](https://d3js.org/) is a widely used javascript library for creating beautiful, interactive visualizations on the web. I made quite a simple interactive sine wave plotter, but the exercise took hours and really helped me gain insight in to D3's declarative approach to data-centric object manipulation. Code for the thing [here](https://gist.githubusercontent.com/robinovitch61/5b61f550b3b0cd279c6e8a3679a9623e/raw/d8dfa4ee588339bae1ae60d0f0e60be68f4d3ba6/d3_sine_wave.html). Play with it [here](https://jsfiddle.net/robinovitch61/3nwjzkdx/).
 
 {{< fig src="d3-sine.gif" caption="D3 Makin' Waves" >}}
 
