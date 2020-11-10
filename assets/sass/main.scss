@@ -439,6 +439,8 @@ span.bold {
 
 // MathJax
 .MathJax {
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
