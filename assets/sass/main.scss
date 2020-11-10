@@ -439,7 +439,9 @@ span.bold {
 
 // MathJax
 .MathJax {
-  overflow: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 
 code.has-jax {
