@@ -51,6 +51,10 @@ a {
   text-decoration: none;
   color: blue;
   overflow-wrap: break-word;
+
+  @media screen and (max-width:600px) {
+    word-break: break-all;
+  }
   
   &:not(.btn):hover,
   &:not(.btn):focus,
@@ -106,22 +110,6 @@ blockquote {
   padding-left: 1em;
   font-style: italic;
 }
-
-// @media screen and (max-width:800px) {
-
-//   .block-math,
-//   .inline-math {
-//     font-size: 1rem !important;
-//   }
-// }
-
-// @media screen and (max-width:600px) {
-
-//   .block-math,
-//   .inline-math {
-//     font-size: 0.65rem !important;
-//   }
-// }
 
 // Navbar
 header {
