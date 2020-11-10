@@ -322,6 +322,13 @@ figure {
     img {
       max-width: 100% !important;
     }
+
+    figcaption {
+      a {
+        overflow-wrap: anywhere; // chrome
+        word-wrap: anywhere; // safari
+      }
+    }
   }
 }
 
@@ -431,6 +438,10 @@ span.bold {
 }
 
 // MathJax
+.MathJax {
+  overflow: auto;
+}
+
 code.has-jax {
   -webkit-font-smoothing: antialiased;
   background: inherit !important;
