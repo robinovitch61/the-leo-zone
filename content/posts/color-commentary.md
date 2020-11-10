@@ -18,7 +18,7 @@ Unless you're [Lynn Fisher](https://lynnandtonic.com/), it can be pretty difficu
 
 {{< fig width="70" src="figma-cc-mobile.png" caption="Note the original skull logo" >}}
 
-Turns out clicking and dragging is a lot easier than CSS when in ideation. The mocks were mostly done before I wrote a line of code. I was able to get feedback from friends on a real-looking site without any real up-front investment.
+Turns out clicking and dragging is a lot easier than CSS when in ideation. The mocks were mostly done before I wrote a line of code. I was able to get feedback from friends on a real-looking site without any serious up-front investment.
 
 ## sign up isn't just for data collection
 The things that take my breath away on the internet almost always load and immerse quickly. A [fluid simulation](https://paveldogreat.github.io/WebGL-Fluid-Simulation/) or a [peaceful meditation](https://www.pixelthoughts.co/) - no sign up flow, no pop ups or ads, no cookie consent required, nothing between you and the experience.
