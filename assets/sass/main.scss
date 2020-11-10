@@ -332,10 +332,12 @@ figure {
   align-items: center;
   font-style: italic;
   font-size: 15px;
-}
 
-img {
-  max-width: 95%;
+  @media screen and (max-width:600px) {
+    img {
+      max-width: 100% !important;
+    }
+  }
 }
 
 ul {
@@ -425,6 +427,13 @@ span.bold {
   padding: 0.3em 0;
   width: 100%;
   text-align: center;
+}
+
+// Code
+.highlight {
+  @media screen and (max-width:600px) {
+    font-size: 0.8em;
+  }
 }
 
 // MathJax
