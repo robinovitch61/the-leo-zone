@@ -266,4 +266,8 @@ Interesting stuff I find on the internet and want to promote or revisit.
   href="https://cses.fi/book/book.pdf"
   title="Competitive Programmer's Handbook"
 >}}
+{{< lynk
+  href="https://repo.zenk-security.com/Magazine%20E-book/Hacking-%20The%20Art%20of%20Exploitation%20(2nd%20ed.%202008)%20-%20Erickson.pdf"
+  title="Hacking: The Art of Exploitation"
+>}}
 {{< /ul >}}
