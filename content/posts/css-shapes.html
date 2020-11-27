@@ -499,6 +499,38 @@ date: 2020-11-26T14:03:25-08:00
     background-color: black;
     transform: skew(0, -20deg);
     position: absolute;
+  }
+
+  #yin-yang {
+    width: 50px;
+    height: 100px;
+    border: 2px solid black;
+    border-right: 50px solid black;
+    border-radius: 50%;
+    position: relative;
+  }
+  
+  #yin-yang::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: 19px solid black;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  
+  #yin-yang::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: black;
+    border: 19px solid white;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
   }  
 </style>
 
@@ -535,4 +567,5 @@ date: 2020-11-26T14:03:25-08:00
   <div class="shape" id="fartbook"></div>
   <div class="shape" id="magnifying-glass"></div>
   <div class="shape" id="chevron"></div>
+  <div class="shape" id="yin-yang"></div>
 </div>
