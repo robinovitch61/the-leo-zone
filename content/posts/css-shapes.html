@@ -12,7 +12,7 @@ date: 2020-11-26T14:03:25-08:00
   }
   
   .shape {
-    margin: 40px;
+    margin: 30px;
     height: max-content;
   }
   
@@ -364,6 +364,142 @@ date: 2020-11-26T14:03:25-08:00
     border: 40px solid black;
     border-bottom: 10px solid transparent;
   }
+  
+  #lock {
+    width: 120px;
+    height: 80px;
+    background-color: black;
+    border-radius: 10%;
+    position: relative;
+  }
+  
+  #lock::after{
+    content: "";
+    width: 60px;
+    height: 30px;
+    border: 15px solid black;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -40px;
+    left: 15px;
+  }
+  
+  #lock::before {
+    content: "";
+    width: 10px;
+    height: 30px;
+    background-color: white;
+    border-radius: 20%;
+    position: absolute;
+    left: 55px;
+    top: 25px;
+  }
+  
+  #cross {
+    width: 100px;
+    height: 15px;
+    background-color: black;
+    border-radius: 5px;
+    position: relative;
+    top: 20px;
+  }
+  
+  #cross::after {
+    content: "";
+    width: 100px;
+    height: 15px;
+    background-color: black;
+    border-radius: 5px;
+    transform: rotate(90deg);
+    position: absolute;
+  }
+  
+  #cone {
+    width: 0;
+    height: 0;
+    background-color: 0;
+    border: 80px solid transparent;
+    border-top: 100px solid black;
+    border-bottom: 0;
+    border-radius: 50%;
+  }
+  
+  #fartbook {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-top: 15px solid black;
+    border-right: 15px solid black;
+    border-radius: 5px;
+    background-color: black;
+    position: relative;
+  }
+  
+  #fartbook::after {
+    content: "";
+    width: 40px;
+    height: 80px;
+    border: 15px solid white;
+    border-radius: 20px;
+    position: absolute;
+    left: 60%;
+    top: 20%;
+  }
+  
+  #fartbook::before {
+    content: "";
+    width: 35px;
+    height: 14px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 55%;
+  }
+  
+  #magnifying-glass {
+    width: 60px;
+    height: 60px;
+    border: 10px solid black;
+    border-radius: 50%;
+    position: relative;
+  }
+  
+  #magnifying-glass::after {
+    content: "";
+    width: 40px;
+    height: 10px;
+    background-color: black;
+    border-radius: 15%;
+    position: absolute;
+    transform: rotate(45deg);
+    top: 100%;
+    left: 80%;
+  }
+  
+  #chevron {
+    width: 100px;
+    height: 50px;
+    position: relative;
+  }
+  
+  #chevron::before {
+    content: "";
+    height: 30px;
+    width: 50%;
+    background-color: black;
+    transform: skew(0, 20deg);
+    position: absolute;
+  }
+  
+  #chevron::after {
+    content: "";
+    height: 30px;
+    left: 50%;
+    width: 50%;
+    background-color: black;
+    transform: skew(0, -20deg);
+    position: absolute;
+  }  
 </style>
 
 <div class="wrapper">
@@ -393,4 +529,10 @@ date: 2020-11-26T14:03:25-08:00
   <div class="shape" id="pacman"></div>
   <div class="shape" id="speech-bubble">nomnom</div>
   <div class="shape" id="flag"></div>
+  <div class="shape" id="lock"></div>
+  <div class="shape" id="cross"></div>
+  <div class="shape" id="cone"></div>
+  <div class="shape" id="fartbook"></div>
+  <div class="shape" id="magnifying-glass"></div>
+  <div class="shape" id="chevron"></div>
 </div>
