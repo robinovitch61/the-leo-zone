@@ -3,7 +3,7 @@ title: "giving what we can pledge"
 date: 2021-01-10T16:48:23-08:00
 ---
 
-This is a bit of an uncomfortable post to post publicly. Talking about money in general can be uncomfortable, and talking about *giving* money can just come off as self-congratulatory. But I think it's an important topic that will have positive impact when talked about more often.
+This is a bit of an uncomfortable public post for me. Talking about money in general can be uncomfortable, and talking about *giving* money can just come off as self-congratulatory. But I think it's an important topic that will have positive impact when talked about more often.
 
 I've been excited about [GiveWell](https://www.givewell.org) for [a while now](/posts/givewell-is-awesome), and am generally interested in exploring the idea of doing the most good with money, time and effort. This post mostly focuses on doing good by giving money. It has been brewing for a while, and I've been pushed over the edge to publish it by [Sam Harris' recent podcast with Will MacAskill](https://samharris.org/podcasts/228-doing-good/).
 
