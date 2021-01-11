@@ -25,9 +25,9 @@ As these thoughts became louder, I ramped up my giving slowly. I gave about 1-2%
 
 Today, I signed the [Giving What We Can Pledge](https://www.givingwhatwecan.org/pledge/) to donate at minimum 10% of my pre-tax income to effective causes. I'll be donating to [GiveWell's Maximum Impact Fund](https://www.givewell.org/maximum-impact-fund) for the forseeable future, as I trust this organization to funnel cash to the desired possibly-boring but highly effective causes I'd like to target.
 
-I encourage others who find themselves fortunate enough to do this without serious detriment to their well-being to do so as well. Strategies for increasing giving could include something like:
-* Take the [Try Giving](https://app.effectivealtruism.org/pledge/take?pledgeType=trygiving) pledge, committing to a minimum of 1% of your pre-tax salary given to effective charities.
-* Commit something like 20-50% of your future raises/increased earnings to effective charities, up until you exceed 10% of your (future, increased) pre-tax income.
+I encourage others who find themselves fortunate enough to do this without serious detriment to their well-being to take the pledge as well. If you're uncomfortable with jumping right to 10%, strategies for increasing giving incrementally include:
+* Start with the [Try Giving](https://app.effectivealtruism.org/pledge/take?pledgeType=trygiving) pledge, committing to a minimum of 1% of your pre-tax salary given to effective charities.
+* Commit something like 20-50% of your future raises/increased earnings to effective charities, up until you meet 10% of your (future, increased) pre-tax income.
 
-I also encourage others to talk about giving habits more with others in similar positions. If you get only one other person excited about giving, you may have doubled your own impact as well as pointed them towards a more rich, fulfilling life.
+I also encourage others to talk about giving habits more with others in similar positions. If you get only one other person excited about giving, you may have doubled your own impact as well as pointed them in the direction of a more rich, fulfilling life.
 
