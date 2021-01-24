@@ -1,7 +1,6 @@
 ---
 title: "code and plant advents"
 date: 2021-01-24
-draft: true
 ---
 
 Last month, I participated in [advent of code](https://adventofcode.com/) for the first time. Everyday from Dec 1st through 25th, a problem is released. Each problem requires some programming to solve, and is split into two separate but related parts.
