@@ -26,7 +26,7 @@ After the first 10, I switched to using Python for the rest in order to get thro
 
 I went camping for the last half of December. The night before I left, I nailed the first half of Problem 20 (the seamonster problem), finishing sub-800! Confidence bolstered, I was then destroyed by the 2nd half of the problem, and had to leave defeated :). I plan to finish the last 5.5 problems before this December rolls around.
 
-It was also the time of year again for my friend's annual gift exchange, for which I was determined to [gift another website](/posts/gifting-websites).
+It was also the time of year again for my friend's annual gift exchange, for which I was determined to [gift another website]({{< ref `gifting-websites` >}}).
 
 I got my friend Matt's name out of a hat. Matt primarily loves bikes and plants, and I went with plants.
 

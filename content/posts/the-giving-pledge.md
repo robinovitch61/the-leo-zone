@@ -5,7 +5,7 @@ date: 2021-01-10T16:48:23-08:00
 
 This is a bit of an uncomfortable public post for me. Talking about money in general can be uncomfortable, and talking about *giving* money can just come off as self-congratulatory. But I think it's an important topic that will have positive impact when talked about more often.
 
-I've been excited about [GiveWell](https://www.givewell.org) for [a while now](/posts/givewell-is-awesome), and am interested in exploring the idea of doing the most good with money, time and effort. This post focuses on doing good through giving money. Many of these ideas are ellaborated on in [Sam Harris' recent podcast with Will MacAskill](https://samharris.org/podcasts/228-doing-good/).
+I've been excited about [GiveWell](https://www.givewell.org) for [a while now]({{< ref `givewell-is-awesome` >}}), and am interested in exploring the idea of doing the most good with money, time and effort. This post focuses on doing good through giving money. Many of these ideas are ellaborated on in [Sam Harris' recent podcast with Will MacAskill](https://samharris.org/podcasts/228-doing-good/).
 
 The discussion of where, how, and how much to give isn't particularly new. The Jewish scholar Maimonides discussed the [levels of charitable giving](https://www.jewishvirtuallibrary.org/eight-levels-of-charitable-giving), assigning moral weight to different classes of giving. Some of his metrics aren't great - donor emotional state, anonymity, and reciprocity don't intuitively seem like reliable indicators of better or worse giving. Other metrics, like amount, context, and necessity seem reasonable.
 
