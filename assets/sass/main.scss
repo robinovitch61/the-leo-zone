@@ -58,7 +58,7 @@ a {
   &:not(.btn):active {
     font-style: italic;
   }
-  
+
   &.menu-item {
     text-align: center;
     text-decoration: none;
@@ -66,7 +66,7 @@ a {
     padding: 0.25em 0.5em;
     font-size: 1.2rem;
   }
-  
+
   &.menu-item:hover,
   &.menu-item:focus,
   &.menu-item:active {
@@ -129,11 +129,11 @@ header {
       z-index: 10;
       padding: 0 0 100vh 100vw;
       -webkit-tap-highlight-color: transparent;
-      
+
       .navicon-mid {
         background: transparent;
       }
-    
+
       .navicon-bottom {
         transform: translateY(-11px) rotate(-45deg);
       }
@@ -189,6 +189,10 @@ header {
     font-size: 1.4em;
   }
 
+  .listing {
+    font-size: 0.7em;
+  }
+
   .nav-container {
     align-items: flex-start;
     padding: 0.9em 0 0;
@@ -208,7 +212,7 @@ header {
       min-width: 170px;
       width: 40%;
     }
-    
+
     // Open menu if checked
     .menu {
       width: 200px;
@@ -223,13 +227,13 @@ header {
       margin-top: 0.5em;
       border: 0.5px solid grey;
       transition: visibility 0.25s, opacity 0.25s ease-in-out;
-  
+
       .menu-item {
         width: 100%;
         padding: 0.7em 0;
       }
     }
-  
+
     .menu-btn:checked {
       ~.menu {
         position: absolute;
@@ -346,7 +350,7 @@ ul li {
 }
 
 ul li:before {
-  content: ">";
+  content: "-";
   padding-right: 5px;
 }
 
