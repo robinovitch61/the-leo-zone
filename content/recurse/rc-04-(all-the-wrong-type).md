@@ -1,5 +1,5 @@
 ---
-title: Recurse 04 (all the wrong type)
+title: RC 04 (all the wrong type)
 date: 2019-10-26
 ---
 

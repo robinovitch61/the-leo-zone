@@ -1,5 +1,5 @@
 ---
-title: Recurse 00 (it begins)
+title: RC 00 (it begins)
 date: 2019-09-25
 ---
 

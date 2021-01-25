@@ -1,5 +1,5 @@
 ---
-title: Recurse 06 (intermediate representations)
+title: RC 06 (intermediate representations)
 date: 2019-11-09
 ---
 

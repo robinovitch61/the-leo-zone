@@ -1,5 +1,5 @@
 ---
-title: Recurse 07 (fib 5 ways)
+title: RC 07 (fib 5 ways)
 date: 2019-11-19
 ---
 
@@ -144,7 +144,7 @@ This is as good as it gets: O(n) time and O(1) space.
 
 The Fibonacci sequence also came up in Nand2Tetris as a debugging program for my VM translator in Rust! While I can't show an easy example, it does serve to illustrate the idea for the VM Translator.
 
-This is the "Virtual Machine Code" for a Fibonacci sequence. It is much like an [LLVM intermediate representation]({{< ref `recurse-06-(intermediate-representations)` >}}), but in the virtual machine language created by the Nand2Tetris team.
+This is the "Virtual Machine Code" for a Fibonacci sequence. It is much like an [LLVM intermediate representation]({{< ref `rc-06-(intermediate-representations)` >}}), but in the virtual machine language created by the Nand2Tetris team.
 
 ```bash
 // Main.vm

@@ -1,5 +1,5 @@
 ---
-title: Recurse 08 (mooninites)
+title: RC 08 (mooninites)
 date: 2019-11-25
 ---
 

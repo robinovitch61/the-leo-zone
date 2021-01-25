@@ -1,5 +1,5 @@
 ---
-title: Recurse 03 (regressing linearly)
+title: RC 03 (regressing linearly)
 date: 2019-10-18
 ---
 

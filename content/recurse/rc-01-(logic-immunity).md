@@ -1,5 +1,5 @@
 ---
-title: Recurse 01 (logic immunity)
+title: RC 01 (logic immunity)
 date: 2019-10-04
 ---
 

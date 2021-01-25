@@ -1,5 +1,5 @@
 ---
-title: Recurse 02 (R, wavey!)
+title: RC 02 (R, wavey!)
 date: 2019-10-11
 ---
 
