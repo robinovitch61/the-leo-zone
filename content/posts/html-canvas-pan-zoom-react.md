@@ -78,7 +78,7 @@ export default function Canvas(props: CanvasProps) {
         context.canvas.width = props.canvasWidth * ratio;
         context.canvas.height = props.canvasHeight * ratio;
         context.scale(ratio, ratio);
-        setScale(ratio);
+        setScale(1);
 
         // reset state and refs
         setContext(context);
@@ -252,10 +252,12 @@ export default function Canvas(props: CanvasProps) {
         id="canvas"
         onMouseDown={startPan}
         ref={canvasRef}
-        width={props.canvasWidth}
-        height={props.canvasHeight}
+        width={props.canvasWidth * 2}
+        height={props.canvasHeight * 2}
         style={{
-          border: "2px solid #000"
+          border: "2px solid #000",
+          width: `${props.canvasWidth}px`,
+          height: `${props.canvasHeight}px`
         }}
       ></canvas>
     </div>
