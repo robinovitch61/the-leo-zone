@@ -215,13 +215,13 @@ export default function Canvas(props: CanvasProps) {
       event.preventDefault();
       if (context) {
         const zoom = 1 - event.deltaY / ZOOM_SENSITIVITY;
-        const adjustedOriginDelta = {
+        const viewportTopLeftDelta = {
           x: (mousePos.x / scale) * (1 - 1 / zoom),
           y: (mousePos.y / scale) * (1 - 1 / zoom)
         };
         const newViewportTopLeft = addPoints(
           viewportTopLeftRef.current,
-          adjustedOriginDelta
+          viewportTopLeftDelta
         );
 
         context.translate(
@@ -260,3 +260,4 @@ export default function Canvas(props: CanvasProps) {
   );
 }
 ```
+
