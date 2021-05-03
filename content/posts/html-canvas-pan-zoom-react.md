@@ -18,9 +18,6 @@ https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d
 ></iframe>
 
 ```typescript
-// sandbox here: https://codesandbox.io/s/p3itj?file=/src/Canvas.tsx:0-6785
-// gist for comments here: https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d
-
 import {
   useEffect,
   useCallback,
@@ -62,36 +59,41 @@ export default function Canvas(props: CanvasProps) {
   const [scale, setScale] = useState<number>(1);
   const [offset, setOffset] = useState<Point>(ORIGIN);
   const [mousePos, setMousePos] = useState<Point>(ORIGIN);
-  const [isReset, setIsReset] = useState(false);
-  const viewportTopLeftRef = useRef<Point>(ORIGIN);
+  const [viewportTopLeft, setViewportTopLeft] = useState<Point>(ORIGIN);
+  const isResetRef = useRef<boolean>(false);
   const lastMousePosRef = useRef<Point>(ORIGIN);
   const lastOffsetRef = useRef<Point>(ORIGIN);
 
-  // reset at start and on button click
-  const reset = useCallback(() => {
-    if (canvasRef.current) {
-      // get new drawing context
-      const renderCtx = canvasRef.current.getContext("2d");
+  // update last offset
+  useEffect(() => {
+    lastOffsetRef.current = offset;
+  }, [offset]);
 
-      if (renderCtx && !isReset) {
-        // scale for pixels
+  // reset
+  const reset = useCallback(
+    (context: CanvasRenderingContext2D) => {
+      if (context && !isResetRef.current) {
+        // adjust for device pixel density
         const { devicePixelRatio: ratio = 1 } = window;
-        renderCtx.canvas.width = props.canvasWidth * ratio;
-        renderCtx.canvas.height = props.canvasHeight * ratio;
-        renderCtx.scale(ratio, ratio);
+        context.canvas.width = props.canvasWidth * ratio;
+        context.canvas.height = props.canvasHeight * ratio;
+        context.scale(ratio, ratio);
         setScale(ratio);
 
-        // reset other values
-        setContext(renderCtx);
+        // reset state and refs
+        setContext(context);
         setOffset(ORIGIN);
         setMousePos(ORIGIN);
+        setViewportTopLeft(ORIGIN);
         lastOffsetRef.current = ORIGIN;
-        viewportTopLeftRef.current = ORIGIN;
         lastMousePosRef.current = ORIGIN;
-        setIsReset(true);
+
+        // this thing is so multiple resets in a row don't clear canvas
+        isResetRef.current = true;
       }
-    }
-  }, [props.canvasHeight, props.canvasWidth, isReset]);
+    },
+    [props.canvasWidth, props.canvasHeight]
+  );
 
   // functions for panning
   const mouseMove = useCallback(
@@ -123,11 +125,18 @@ export default function Canvas(props: CanvasProps) {
   );
 
   // setup canvas and set context
-  useEffect(() => {
-    reset();
-  }, []);
+  useLayoutEffect(() => {
+    if (canvasRef.current) {
+      // get new drawing context
+      const renderCtx = canvasRef.current.getContext("2d");
 
-  // pan when offset changes
+      if (renderCtx) {
+        reset(renderCtx);
+      }
+    }
+  }, [reset, props.canvasHeight, props.canvasWidth]);
+
+  // pan when offset or scale changes
   useLayoutEffect(() => {
     if (context && lastOffsetRef.current) {
       const offsetDiff = scalePoint(
@@ -135,18 +144,10 @@ export default function Canvas(props: CanvasProps) {
         scale
       );
       context.translate(offsetDiff.x, offsetDiff.y);
-      viewportTopLeftRef.current = diffPoints(
-        viewportTopLeftRef.current,
-        offsetDiff
-      );
-      setIsReset(false);
+      setViewportTopLeft((prevVal) => diffPoints(prevVal, offsetDiff));
+      isResetRef.current = false;
     }
   }, [context, offset, scale]);
-
-  // update last offset
-  useEffect(() => {
-    lastOffsetRef.current = offset;
-  }, [offset]);
 
   // draw
   useLayoutEffect(() => {
@@ -164,17 +165,18 @@ export default function Canvas(props: CanvasProps) {
         squareSize,
         squareSize
       );
-      context.arc(
-        viewportTopLeftRef.current.x,
-        viewportTopLeftRef.current.y,
-        5,
-        0,
-        2 * Math.PI
-      );
+      context.arc(viewportTopLeft.x, viewportTopLeft.y, 5, 0, 2 * Math.PI);
       context.fillStyle = "red";
       context.fill();
     }
-  }, [props.canvasWidth, props.canvasHeight, context, isReset, scale, offset]);
+  }, [
+    props.canvasWidth,
+    props.canvasHeight,
+    context,
+    scale,
+    offset,
+    viewportTopLeft
+  ]);
 
   // add event listener on canvas for mouse position
   useEffect(() => {
@@ -210,7 +212,9 @@ export default function Canvas(props: CanvasProps) {
       return;
     }
 
-    // this is really tricky
+    // this is tricky. Update the viewport's "origin" such that
+    // the mouse doesn't move during scale - the 'zoom point' of the mouse
+    // before and after zoom is relatively the same position on the viewport
     function handleWheel(event: WheelEvent) {
       event.preventDefault();
       if (context) {
@@ -220,32 +224,30 @@ export default function Canvas(props: CanvasProps) {
           y: (mousePos.y / scale) * (1 - 1 / zoom)
         };
         const newViewportTopLeft = addPoints(
-          viewportTopLeftRef.current,
+          viewportTopLeft,
           viewportTopLeftDelta
         );
 
-        context.translate(
-          viewportTopLeftRef.current.x,
-          viewportTopLeftRef.current.y
-        );
+        context.translate(viewportTopLeft.x, viewportTopLeft.y);
         context.scale(zoom, zoom);
         context.translate(-newViewportTopLeft.x, -newViewportTopLeft.y);
 
-        viewportTopLeftRef.current = newViewportTopLeft;
+        setViewportTopLeft(newViewportTopLeft);
         setScale(scale * zoom);
-        setIsReset(false);
+        isResetRef.current = false;
       }
     }
 
     canvasElem.addEventListener("wheel", handleWheel);
     return () => canvasElem.removeEventListener("wheel", handleWheel);
-  }, [context, mousePos.x, mousePos.y, scale]);
+  }, [context, mousePos.x, mousePos.y, viewportTopLeft, scale]);
 
   return (
     <div>
-      <button onClick={reset}>Reset</button>
+      <button onClick={() => context && reset(context)}>Reset</button>
       <pre>scale: {scale}</pre>
       <pre>offset: {JSON.stringify(offset)}</pre>
+      <pre>viewportTopLeft: {JSON.stringify(viewportTopLeft)}</pre>
       <canvas
         id="canvas"
         onMouseDown={startPan}
@@ -260,4 +262,3 @@ export default function Canvas(props: CanvasProps) {
   );
 }
 ```
-
