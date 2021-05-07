@@ -39,6 +39,9 @@ type Point = {
 
 const ORIGIN = Object.freeze({ x: 0, y: 0 });
 
+// adjust to device to avoid blur
+const { devicePixelRatio: ratio = 1 } = window;
+
 function diffPoints(p1: Point, p2: Point) {
   return { x: p1.x - p2.x, y: p1.y - p2.y };
 }
@@ -74,7 +77,6 @@ export default function Canvas(props: CanvasProps) {
     (context: CanvasRenderingContext2D) => {
       if (context && !isResetRef.current) {
         // adjust for device pixel density
-        const { devicePixelRatio: ratio = 1 } = window;
         context.canvas.width = props.canvasWidth * ratio;
         context.canvas.height = props.canvasHeight * ratio;
         context.scale(ratio, ratio);
@@ -249,11 +251,10 @@ export default function Canvas(props: CanvasProps) {
       <pre>offset: {JSON.stringify(offset)}</pre>
       <pre>viewportTopLeft: {JSON.stringify(viewportTopLeft)}</pre>
       <canvas
-        id="canvas"
         onMouseDown={startPan}
         ref={canvasRef}
-        width={props.canvasWidth * 2}
-        height={props.canvasHeight * 2}
+        width={props.canvasWidth * ratio}
+        height={props.canvasHeight * ratio}
         style={{
           border: "2px solid #000",
           width: `${props.canvasWidth}px`,
