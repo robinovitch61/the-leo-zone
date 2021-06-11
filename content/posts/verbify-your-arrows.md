@@ -1,7 +1,6 @@
 ---
 title: "verbify your arrows"
 date: 2021-06-10T22:36:07-07:00
-draft: true
 ---
 
 This is a diagram from an open source project I was evaluating at work recently, and the subsequent conversations I had:
