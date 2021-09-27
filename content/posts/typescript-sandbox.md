@@ -13,5 +13,5 @@ and was hard to version control. Gluing together some tooling to scratch my own 
 
 [Source code](https://github.com/robinovitch61/typescript-sandbox)
 
-![demo](https://robinovitch61-cdn.s3.us-west-2.amazonaws.com/typescript-sandbox.gif)
+[Demo gif](https://robinovitch61-cdn.s3.us-west-2.amazonaws.com/typescript-sandbox.gif)
 
