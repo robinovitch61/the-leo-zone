@@ -3,6 +3,8 @@ title: statistical bias
 date: 2019-10-25
 ---
 
+{{< mathjax-support >}}
+
 {{< fig width="70" src="jigsaw.png" caption="Eat my spheres!" >}}
 
 You find yourself trapped in a room with  Jigsaw, the villain from the Saw movies. There is a wood box of 100 spheres, some of them steel ball bearings and some of them gumballs. Jigsaw tells you that you can leave the room alive if you guess the number of steel ball bearings in the jar correctly. You can pull 10 random spheres out the 100 in the box as many times as you want, but each time you do, you have to eat all of them (yum!). Jigsaw will then replace the stuff you pulled out of the box with new ones - if you pulled 7 ball bearings and 3 gumballs, 7 and 3 are replaced respectively. You're like "cool, I got this, I'm just going to do this a bunch of times and average the number of ball bearings I have to eat each time, then multiply the average by 10 and go home to my family of 12". Little did you know, Jigsaw has implanted magnets in your fingertips, attracting the ball bearings. Your estimate will be biased no matter how many spheres you eat. You will be killed, and your family will mourn.

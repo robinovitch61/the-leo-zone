@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">  
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
     <link rel="icon" href="/img/favicon.png" type="image/x-icon">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{ $style := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
-
-    {{ partial "mathjax_support.html" . }}
   </head>
 
   <body>
     {{ partial "header" . }}
-    
+
     <div class="top-title">
       <div class="container">
         <h2>{{ .Title }}</h2>
@@ -32,7 +30,7 @@
       {{ block "main" . }}
       {{ end }}
     </div>
-    
+
     {{ block "footer" . }}{{ partial "footer" . }}{{ end }}
   </body>
 </html>

@@ -3,6 +3,8 @@ title: linear regression
 date: 2019-10-18
 ---
 
+{{< mathjax-support >}}
+
 *Update 2019-10-25: Added MLE derivation and OLS $ \sigma^2 $*
 
 I have learned linear regression a number of times with varying of levels of detail. I'm making this document mostly as a reference for myself and any others who may be interested in the technique.

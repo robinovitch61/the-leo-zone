@@ -3,6 +3,8 @@ title: givewell is awesome
 date: 2019-11-23
 ---
 
+{{< mathjax-support >}}
+
 *Note: this is my personal commentary and this post is not officially endorsed by Givewell in any way.*
 
 [Givewell](https://www.givewell.org/) is one of the most admirable philanthropic organizations out there. They recognize and act upon a number of important truths:
