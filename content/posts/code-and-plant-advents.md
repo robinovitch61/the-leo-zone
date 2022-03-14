@@ -30,7 +30,7 @@ It was also the time of year again for my friend's annual gift exchange, for whi
 
 I got my friend Matt's name out of a hat. Matt primarily loves bikes and plants, and I went with plants.
 
-The result is [matt.garden](https://matt.garden), an interactive, animated, svg-laden 10 day advent calendar of plants, many of which Matt has in his real garden.
+The result is [matt.garden](/matts-garden), an interactive, animated, svg-laden 10 day advent calendar of plants, many of which Matt has in his real garden.
 
 {{< fig width="100" src="matt-garden.png" >}}
 
@@ -41,4 +41,3 @@ It was super fun to build, and involved way more art than code in the end. An ar
 It was fun to learn css animation more in depth too! I may have gone a bit overboard with it - things look a bit janky on my Brave browser in desktop, but Safari on mobile seems to take it all in stride.
 
 Overall, a good month of daily activities to finish out 2020.
-
