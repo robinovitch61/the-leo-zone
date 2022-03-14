@@ -28,4 +28,4 @@ Breakdown:
 * `0 * * * *`: Run every hour (I use https://crontab.guru/ to create or parse these schedule expressions)
 * `~/projects/cron/standup.sh`: Path to my defined alert script
 * `> /dev/null`: Redirect stdout to [/dev/null](https://linuxhint.com/what_is_dev_null/), i.e. discard it
-* `2>&1`: Disable cron email. Also redirect stderr to the same place as stdout, in this case `/dev/null`
+* `2>&1`: Disable cron email by redirecting stderr to the same place as stdout, in this case `/dev/null`
