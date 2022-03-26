@@ -21,11 +21,11 @@ When run, a popup will be created in the middle of my screen that looks like:
 
 In order to run it periodically with cron, I ran `crontab -e`, then add this line to the file:
 {{< highlight shell "linenos=false" >}}
-0 * * * * ~/projects/cron/standup.sh  >/dev/null 2>&1
+0 8-17 * * * ~/projects/cron/standup.sh > /dev/null 2>&1
 {{< / highlight >}}
 
 Breakdown:
-* `0 * * * *`: Run every hour (I use https://crontab.guru/ to create or parse these schedule expressions)
+* `0 8-17 * * *`: Run every hour from 8am to 5pm, every day (I use https://crontab.guru/ to create or parse these schedule expressions)
 * `~/projects/cron/standup.sh`: Path to my defined alert script
 * `> /dev/null`: Redirect stdout to [/dev/null](https://linuxhint.com/what_is_dev_null/), i.e. discard it
 * `2>&1`: Disable cron email by redirecting stderr to the same place as stdout, in this case `/dev/null`
