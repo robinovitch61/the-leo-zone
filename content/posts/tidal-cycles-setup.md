@@ -54,19 +54,20 @@ SuperDirt: listening to Tidal on port 57120
 4. Keeping SuperCollider and SuperDirt open and running, open Atom. Confirm Tidal Cycles plugin is installed (visible on
    the bottom right).
 
-5. Create a new file called `test.tidal`.
+5. Create a new file called `test.tidal`
 
 6. Add the line `d1 $ sound "bd sd"`
 
 7. Type ctrl-Enter or cmd-Enter with your cursor on the same line. A beat should play!
 
-Now this is the stock setup working. I changed mine a little bit for convenience, but if you'd like you can stop here
-and proceed with actually using the software :).
+Now this is the stock setup working. I changed mine a bit for convenience, but if you'd like to you can stop here
+and proceed with actually using the software to make music :).
 
-After this confirmation things were installed and working, I uninstalled Atom.
+After this confirmation things were installed and working, I uninstalled Atom, as it's not an editor I use regularly.
+I'm a fan of `vim`.
 
-I then went to SuperCollider and configured it to start SuperDirt on startup. I did this by clicking File -> Open
-startup file, pasting in the following text, and saving the startup file:
+I then went to SuperCollider and configured it to start up SuperDirt whenever it is first opened. I did this by clicking
+`File -> Open startup file`, pasting in the following text, and saving the startup file:
 
 ```sh
 /*
@@ -114,7 +115,8 @@ alias sclang="/Applications/SuperCollider.app/Contents/MacOS/sclang"
 {{< / highlight >}}
 
 In order to use `vim` with Tidal Cycles, I installed [vim-tidal](https://github.com/tidalcycles/vim-tidal). Make sure
-you run the `make` command to symlink the `tidalvim` and `tidal` scripts as recommended.
+you run the `make` command to symlink the `tidalvim` and `tidal` scripts as recommended so that you can run `tidal`
+in a terminal.
 
 I then created a new [tmuxinator](https://github.com/tmuxinator/tmuxinator) project called ``music`` with the following
 configuration:
@@ -135,10 +137,10 @@ windows:
         - tidal
 ```
 
-This allows me to run `tmuxinator start music`, and 2 windows open up:
-- a window for vim
-- a split window running `sclang`, a "headless" version of SuperCollider, and `tidal`, the vim-tidal plugin script that
-starts the Haskell interpreter with the tidal package
+This allows me to run `tmuxinator start music` and 2 windows open up:
+- a main window for vim
+- a hidden split window running `sclang`, a "headless" version of SuperCollider, and `tidal`, the vim-tidal plugin
+script that starts the Haskell interpreter including the tidal package
 
 Finally, by adding the following configuration line to my `~/.vimrc`, I configure vim-tidal to send commands to the
 correct tmux socket and window + pane (the `tidal` pane):
@@ -148,5 +150,5 @@ correct tmux socket and window + pane (the `tidal` pane):
 let g:tidal_default_config = {"socket_name": "music", "target_pane": "music:2.2"}
 {{< / highlight >}}
 
-Now, I can fire up vim configured with SuperCollider and Tidal Cycles running with `tmuxinator start music`. When I'm
+Now, I can fire up `vim` configured with SuperCollider and Tidal Cycles running with `tmuxinator start music`. When I'm
 done, I save my files and run `tmuxinator stop music`, and everything shuts down.
