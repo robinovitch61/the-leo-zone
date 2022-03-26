@@ -1,7 +1,6 @@
 ---
 title: "setting up tidal cycles"
 date: 2022-03-25
-draft: true
 ---
 
 [Tidal Cycles](https://tidalcycles.org/) is software that works on top of another piece of software called
