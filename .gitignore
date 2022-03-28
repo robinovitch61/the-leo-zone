@@ -4,3 +4,4 @@
 .jekyll-cache
 Gemfile.lock
 *.swp
+node_modules

@@ -1,0 +1,16 @@
+{
+  "name": "pixels",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc index.ts",
+    "dev": "tsc -w index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.6.3",
+    "prettier": "^2.6.1"
+  }
+}
