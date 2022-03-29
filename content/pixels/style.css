@@ -26,4 +26,10 @@ body {
 #grid {
   background: white;
   height: min(70%, 95vw);
+  display: grid;
+  grid-template-columns: repeat(var(--repeatNumber, 2), auto);
+  grid-template-rows: repeat(var(--repeatNumber, 2), auto);
+}
+
+.pixel {
 }
