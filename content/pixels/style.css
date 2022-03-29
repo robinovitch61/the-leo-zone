@@ -4,16 +4,26 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#stuff {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+  height: 90%;
 }
 
 #grid {
-  background: red;
-  width: 100vw;
-  height: 100vh;
-}
-
-#board {
-  border: 1px solid black;
+  background: white;
+  height: min(70%, 95vw);
 }

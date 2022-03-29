@@ -1,13 +1,11 @@
 const stuff = document.getElementById("stuff");
-const board = document.getElementById("container");
+const grid = document.getElementById("grid");
 
-const squareCountWidth = 20;
-const squareCountHeight = squareCountWidth;
-
-let pageWidthPx = window.innerWidth;
-let pageHeightPx = window.innerHeight;
+const pixelCountWidth = 20;
+const pixelCountHeight = pixelCountWidth;
 
 window.addEventListener("resize", () => {
-  pageWidthPx = window.innerWidth;
-  pageHeightPx = window.innerHeight;
+  grid.style.width = `${grid.clientHeight}px`;
 });
+
+grid.style.width = `${grid.clientHeight}px`;

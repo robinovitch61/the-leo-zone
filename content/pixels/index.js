@@ -1,10 +1,8 @@
 var stuff = document.getElementById("stuff");
-var board = document.getElementById("container");
-var squareCountWidth = 20;
-var squareCountHeight = squareCountWidth;
-var pageWidthPx = window.innerWidth;
-var pageHeightPx = window.innerHeight;
+var grid = document.getElementById("grid");
+var pixelCountWidth = 20;
+var pixelCountHeight = pixelCountWidth;
 window.addEventListener("resize", function () {
-    pageWidthPx = window.innerWidth;
-    pageHeightPx = window.innerHeight;
+    grid.style.width = "".concat(grid.clientHeight, "px");
 });
+grid.style.width = "".concat(grid.clientHeight, "px");
