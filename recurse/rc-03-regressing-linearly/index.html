@@ -1,0 +1,374 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>RC 03 (regressing linearly)</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://theleo.zone/sass/main.min.2d43c4d15d5c6744c808f0eddbc12aed7cc95aebe01212d38e8064687a81bfed.css></head><body><header><div class=container><div class=nav-container><div class=nav-left><a class=btn-text href=/><h1>Leo</h1></a></div><div class=dropdown><input class="hamburger menu-btn" type=checkbox id=menu-btn>
+<label class="hamburger menu-icon" for=menu-btn><span class=navicon-top></span>
+<span class=navicon-mid></span>
+<span class=navicon-bottom></span></label><div class=menu><a class=menu-item href=/>Home</a>
+<a class=menu-item href=/about>About</a>
+<a class=menu-item href=https://github.com/robinovitch61 target=_blank><img class=social-media-thumbnail src=/img/github.png alt=github title=github></a></div></div></div></div></header><div class=top-title><div class=container><h2>RC 03 (regressing linearly)</h2></div></div><div class=post-date><div class=container><p>Oct 18, 2019</p></div></div><div class=container><div class=post><p>This week, I completed project 4 of Nand2Tetris, updated my resume and converted it to <a href=/resume.html>a responsive web page</a>, and learned a <a href=https://theleo.zone/posts/linear-regression/>whole lot about linear regression</a>.</p><p>Nand2Tetris project 4 breaks away from the Hardware Description Language of the first three projects and moves in to a pseudo assembly code. This assembly language is specifically written for the &ldquo;Hack&rdquo; computer that the class builds up through the first six projects. Writing in &ldquo;assembly&rdquo; is one step down from writing in something like C - there is no automatic memory management, only a couple registers to play with, lots of referencing addresses with pointers and semi-roundabout ways of doing things.</p><p>It is super cool to see how assembly actually translates directly to binary to operate at the hardware level. I&rsquo;ve included my solution to &ldquo;making a screen black if a key is pushed and white if no key is pushed&rdquo; at the bottom of this post. I&rsquo;m looking forward to finishing the Hack computer and the first half of the course (!) over the next couple weeks.</p><a class=img-link target=_blank href=/img/project4.gif><figure><img style=max-width:95% src=/img/project4.gif alt=project4.gif><figcaption class=figcaption-text>Push button, screen goes black</figcaption></figure></a><p>The resume update was necessary and a fun application of my responsive web dev Scrimba course. I&rsquo;m continuing to slowly work through that and have found it very clear and satisfying. Fall 1&rsquo;ers are ramping up their interview frequencies and proportion of time dedicated towards the job hunt. It makes me nervous and excited for the last month of my time at Recurse where I&rsquo;ll probably be doing the same.</p><p>After last week&rsquo;s frustration with the statistics textbook, I decided to slow down and zoom in on linear regression. While it&rsquo;s an &ldquo;introductory&rdquo; modeling technique in practice, I&rsquo;ve never fully understood the underpinings of it! I&rsquo;m realizing you truly can&rsquo;t understand the foundation of linear regression without understanding a TON of foundational statistics. Additionally, many models can be seen as direct or indirect extensions of linear regression, making it a good thing to start with. It has been a very good exercise to go through everything thoroughly and summarize it in a <a href=https://theleo.zone/posts/linear-regression/>big ol&rsquo; plog bost</a>, which I will continue to update as I delve deeper into the topic.</p><p>I hope to write more actual code next week and keep the learning rolling.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">137
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">138
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">139
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">140
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">141
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">142
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">143
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">144
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">145
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">146
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">147
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">148
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">149
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">150
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">151
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">152
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">153
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">154
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">155
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">156
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">157
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">158
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">159
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">160
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">161
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">162
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">163
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">164
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">165
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">166
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">167
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">168
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">169
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">170
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">171
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">172
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">173
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">174
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">175
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">176
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">177
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">178
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">179
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">180
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">181
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">182
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">183
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">184
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>// This file is part of www.nand2tetris.org
+</span></span><span style=display:flex><span>// and the book <span style=color:#ba2121>&#34;The Elements of Computing Systems&#34;</span>
+</span></span><span style=display:flex><span>// by Nisan and Schocken, MIT Press.
+</span></span><span style=display:flex><span>// File name: projects/04/Fill.asm
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// Runs an infinite loop that listens to the keyboard input.
+</span></span><span style=display:flex><span>// When a key is pressed <span style=color:#666>(</span>any key<span style=color:#666>)</span>, the program blackens the screen,
+</span></span><span style=display:flex><span>// i.e. writes <span style=color:#ba2121>&#34;black&#34;</span> in every pixel;
+</span></span><span style=display:flex><span>// the screen should remain fully black as long as the key is pressed. 
+</span></span><span style=display:flex><span>// When no key is pressed, the program clears the screen, i.e. writes
+</span></span><span style=display:flex><span>// <span style=color:#ba2121>&#34;white&#34;</span> in every pixel;
+</span></span><span style=display:flex><span>// the screen should remain fully clear as long as no key is pressed.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// Put your code here.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// *********
+</span></span><span style=display:flex><span>// VARIABLES
+</span></span><span style=display:flex><span>// *********
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@512
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@bitswidth
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D // screen width in bits
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@255
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@bitsheight
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D // screen height in bits
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@16
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@bitsperword
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D // word width in bits
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// words per screen, i.e. 512*255/16
+</span></span><span style=display:flex><span>@totalwords
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>0</span>
+</span></span><span style=display:flex><span>@heightcovered
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>0</span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>MOREROWS<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>@widthcovered
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>0</span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>MOREWORDS<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>    // increment totalwords, widthcovered
+</span></span><span style=display:flex><span>    @totalwords
+</span></span><span style=display:flex><span>    <span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>    @bitsperword
+</span></span><span style=display:flex><span>    <span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>    @widthcovered
+</span></span><span style=display:flex><span>    <span style=color:#19177c>M</span><span style=color:#666>=</span>M+D
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    // <span style=color:green;font-weight:700>if</span> not entire width covered, MORE WORDS
+</span></span><span style=display:flex><span>    @widthcovered
+</span></span><span style=display:flex><span>    <span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>    @bitswidth
+</span></span><span style=display:flex><span>    <span style=color:#19177c>D</span><span style=color:#666>=</span>M-D
+</span></span><span style=display:flex><span>    @MOREWORDS
+</span></span><span style=display:flex><span>    D;JGT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// increment heightcovered
+</span></span><span style=display:flex><span>@heightcovered
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>if</span> note entire height covered, MORE ROWS
+</span></span><span style=display:flex><span>@heightcovered
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@bitsheight
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M-D
+</span></span><span style=display:flex><span>@MOREROWS
+</span></span><span style=display:flex><span>D;JGT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// address of end of screen
+</span></span><span style=display:flex><span>@SCREEN
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@totalwords
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>D+M
+</span></span><span style=display:flex><span>@scrend
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@iswhite
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>1</span> // <span style=color:green;font-weight:700>if</span> &gt;0, screen white. <span style=color:green;font-weight:700>if</span> 0, screen black. 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// *****
+</span></span><span style=display:flex><span>// LOOPS
+</span></span><span style=display:flex><span>// *****
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>KEYUP<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>if</span> current keyboard value non-zero, jump to KEYDOWN
+</span></span><span style=display:flex><span>@KBD
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@KEYDOWN
+</span></span><span style=display:flex><span>D;JNE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>if</span> black, paint white
+</span></span><span style=display:flex><span>@iswhite
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@MAKEWHITE
+</span></span><span style=display:flex><span>D;JEQ
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// keep listening
+</span></span><span style=display:flex><span>@KEYUP
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>KEYDOWN<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>if</span> current keyboard value zero, jump to KEYUP
+</span></span><span style=display:flex><span>@KBD
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@KEYUP
+</span></span><span style=display:flex><span>D;JEQ
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>if</span> white, paint black
+</span></span><span style=display:flex><span>@iswhite
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@MAKEBLACK
+</span></span><span style=display:flex><span>D;JGT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// keep listening
+</span></span><span style=display:flex><span>@KEYDOWN
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>MAKEWHITE<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>@paintword
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>0</span>
+</span></span><span style=display:flex><span>@PAINTSCREEN
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>PAINTEDWHITE<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// flag screen as white
+</span></span><span style=display:flex><span>@iswhite
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// go back to keyup loop
+</span></span><span style=display:flex><span>@KEYUP
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>MAKEBLACK<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>@paintword
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>-1
+</span></span><span style=display:flex><span>@PAINTSCREEN
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>PAINTEDBLACK<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// flag screen as black
+</span></span><span style=display:flex><span>@iswhite
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span><span style=color:#666>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// go back to keydown loop
+</span></span><span style=display:flex><span>@KEYDOWN
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>PAINTSCREEN<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>// paint screen
+</span></span><span style=display:flex><span>@SCREEN
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@scraddr
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span><span style=color:#666>(</span>KEEPPAINTING<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>    // paint at scraddr
+</span></span><span style=display:flex><span>    @paintword
+</span></span><span style=display:flex><span>    <span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>    @scraddr
+</span></span><span style=display:flex><span>    <span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>    <span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    // increment scraddr
+</span></span><span style=display:flex><span>    @scraddr
+</span></span><span style=display:flex><span>    <span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    @scrend
+</span></span><span style=display:flex><span>    <span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>    @scraddr
+</span></span><span style=display:flex><span>    <span style=color:#19177c>D</span><span style=color:#666>=</span>D-M // positive <span style=color:green;font-weight:700>until</span> <span style=color:#19177c>scraddr</span><span style=color:#666>=</span>scrend
+</span></span><span style=display:flex><span>    @KEEPPAINTING
+</span></span><span style=display:flex><span>    D;JGT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// jump back
+</span></span><span style=display:flex><span>@paintword
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@PAINTEDWHITE
+</span></span><span style=display:flex><span>D;JEQ // <span style=color:green;font-weight:700>if</span> paintword is 0, painted white
+</span></span><span style=display:flex><span>@PAINTEDBLACK
+</span></span><span style=display:flex><span>0;JMP
+</span></span></code></pre></td></tr></table></div></div></div></div><footer><div class=container></div></footer></body></html>

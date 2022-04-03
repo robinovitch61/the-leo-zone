@@ -1,0 +1,494 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>RC 07 (fib 5 ways)</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://theleo.zone/sass/main.min.2d43c4d15d5c6744c808f0eddbc12aed7cc95aebe01212d38e8064687a81bfed.css></head><body><header><div class=container><div class=nav-container><div class=nav-left><a class=btn-text href=/><h1>Leo</h1></a></div><div class=dropdown><input class="hamburger menu-btn" type=checkbox id=menu-btn>
+<label class="hamburger menu-icon" for=menu-btn><span class=navicon-top></span>
+<span class=navicon-mid></span>
+<span class=navicon-bottom></span></label><div class=menu><a class=menu-item href=/>Home</a>
+<a class=menu-item href=/about>About</a>
+<a class=menu-item href=https://github.com/robinovitch61 target=_blank><img class=social-media-thumbnail src=/img/github.png alt=github title=github></a></div></div></div></div></header><div class=top-title><div class=container><h2>RC 07 (fib 5 ways)</h2></div></div><div class=post-date><div class=container><p>Nov 19, 2019</p></div></div><div class=container><div class=post><p>Recurse continues!</p><p>Each successive number in the Fibonacci Sequence is the sum of the two prior numbers:</p><p class=centered>0, 1, 1, 2, 3, 5, 8, 13...</p><p>While learning about algorithms and doing nand2tetris, I&rsquo;ve come across the Fibonacci Sequence a number of times. Here are a 5 ways to calculate the Nth element of the sequence:</p><h2 id=method-1-recursion>Method 1: Recursion</h2><p>Recursion is when a function calls itself. Intuitively, it&rsquo;s a top down approach to problem solving. Say Charlie is wondering what the fourth number in the Fibonacci Sequence is. She might say, well, the fourth number is the second number plus the third number. The second number is 1 as the sequence starts with 1, 1. The third number is the first number plus the second number, both of which are 1, so the third number is 1 + 1 = 2. So the fourth number is 1 + 2 = 3!</p><p>The idea is to drill down until you get to the base cases (here, the first and second numbers), and then traverse up your nested logic back to the original question. In a computer, each recursive call adds a new &ldquo;frame&rdquo; to the working stack, where a frame includes function arguments, local variables, and relevant pointers that allow restoration of the previous frame. More on this later.</p><p>In python, recursively solving for the Nth Fibonacci Number looks as follows:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#408080;font-style:italic>## Recursive Fibbing</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>def</span> <span style=color:#00f>recursive_fib</span>(n):
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>if</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>0</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>raise</span> <span style=color:#d2413a;font-weight:700>ValueError</span>(<span style=color:#ba2121>&#39;Fibonacci sequence starts at first number.&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>elif</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>2</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> n<span style=color:#666>-</span><span style=color:#666>1</span> <span style=color:#408080;font-style:italic># first = 0, second = 1</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> recursive_fib(n<span style=color:#666>-</span><span style=color:#666>2</span>) <span style=color:#666>+</span> recursive_fib(n<span style=color:#666>-</span><span style=color:#666>1</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Timing code included here for reference</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>from</span> <span style=color:#00f;font-weight:700>timeit</span> <span style=color:green;font-weight:700>import</span> timeit
+</span></span><span style=display:flex><span>runs <span style=color:#666>=</span> <span style=color:#666>10000</span>
+</span></span><span style=display:flex><span>time <span style=color:#666>=</span> timeit(
+</span></span><span style=display:flex><span><span style=color:#ba2121>&#34;recursive_fib(10)&#34;</span>,
+</span></span><span style=display:flex><span>setup<span style=color:#666>=</span><span style=color:#ba2121>&#34;from __main__ import recursive_fib&#34;</span>,
+</span></span><span style=display:flex><span>number<span style=color:#666>=</span>runs)
+</span></span><span style=display:flex><span><span style=color:green>print</span>(<span style=color:#ba2121>&#34;recursive_fib took average of </span><span style=color:#b68;font-weight:700>{:.2E}</span><span style=color:#ba2121>s across </span><span style=color:#b68;font-weight:700>{}</span><span style=color:#ba2121> runs&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#666>.</span>format(time<span style=color:#666>/</span>runs, runs))
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; recursive_fib took average of 1.82E-05s across 10000 runs</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>recursive_fib(<span style=color:#666>10</span>)
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; 34</span>
+</span></span></code></pre></td></tr></table></div></div><p>Note that this gets realllly slow as time goes on, and it isn&rsquo;t very space efficient either. Each progressive call to the function adds a frame to the call stack that uses up some memory. Additionally, repeat operations occur - note how Fib(3) shows up twice in the tree below.</p><a class=img-link target=_blank href=/img/recursive_fib.png><figure><img style=max-width:60% src=/img/recursive_fib.png alt=recursive_fib.png><figcaption class=figcaption-text>Recursive Fibonacci 'touches' about $ \phi^{n} $ Nodes</figcaption></figure></a><p>In <a href=https://en.wikipedia.org/wiki/Big_O_notation>Big-O notation</a>, this algorithm is O(~2^n) in time and O(n) in space, both not ideal.</p><h2 id=method-2-dynamic-programming---top-down>Method 2: Dynamic Programming - Top Down</h2><p>This method, sometimes also called &ldquo;Memoization&rdquo;, confusingly references &ldquo;Dynamic Programming&rdquo;. Note that Dynamic Programming has nothing to do with the concept of a Dynamic Programming Language. Dynamic Programming is a method for solving complex problems by breaking them in to smaller sub problems and solving each of these problems once, storing the answer for possible reuse. A Dynamic Programming Language like Python or Javascript can execute code at <a href=https://en.wikipedia.org/wiki/Runtime_(program_lifecycle_phase)>runtime</a> that would require compilation in a Static Programming Language.</p><p>The simple improvement upon the purely recursive solution above is to save the results of each calculation. In doing so, recalculating prior results multiple times is avoided. The dictionary implementation in Python is a hashmap with constant time insertion and retrieval, so no time complexity is added by the use of a <code>dict</code> below:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#408080;font-style:italic>## Fibbing with Memoization</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>def</span> <span style=color:#00f>memo_fib</span>(n, memo<span style=color:#666>=</span><span style=color:green;font-weight:700>None</span>):
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>if</span> memo <span style=color:#a2f;font-weight:700>is</span> <span style=color:green;font-weight:700>None</span>:
+</span></span><span style=display:flex><span>    memo <span style=color:#666>=</span> {}
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>if</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>0</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>raise</span> <span style=color:#d2413a;font-weight:700>ValueError</span>(<span style=color:#ba2121>&#39;Fibonacci sequence starts at first number.&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>elif</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>2</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> n<span style=color:#666>-</span><span style=color:#666>1</span> <span style=color:#408080;font-style:italic># first = 0, second = 1</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>    <span style=color:#408080;font-style:italic># check if already calculated result</span>
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>if</span> n <span style=color:#a2f;font-weight:700>not</span> <span style=color:#a2f;font-weight:700>in</span> memo:
+</span></span><span style=display:flex><span>        <span style=color:#408080;font-style:italic># function calls itself twice w/ same memo</span>
+</span></span><span style=display:flex><span>        memo[n] <span style=color:#666>=</span> memo_fib(n<span style=color:#666>-</span><span style=color:#666>2</span>, memo) <span style=color:#666>+</span> memo_fib(n<span style=color:#666>-</span><span style=color:#666>1</span>, memo)
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> memo[n]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Similar timing code to above produces:</span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; memo_fib(10) took average of 5.04E-06s across 10000 runs</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>memo_fib(<span style=color:#666>10</span>)
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; 34</span>
+</span></span></code></pre></td></tr></table></div></div><p>As per the timing code, memoization produces a much faster calculation - other than the hashtable lookups, no duplicate computation is being done.</p><p>The time complexity is now O(n), with space complexity still at O(n) as the call stack and memo <code>dict</code> both have O(n) space.</p><h2 id=method-3-dynamic-programming---bottom-up>Method 3: Dynamic Programming - Bottom Up</h2><p>Another equivalent and sometimes more intuitive way to look at Dynamic Programming as a solution is to build a &ldquo;table&rdquo; of all the solutions to each little problem that must be solved along the way to solving the more complicated problem. This is sometimes called &ldquo;Tabulation&rdquo; In this case, the &ldquo;table&rdquo; could be a Python list that holds its <code>index+1</code>&lsquo;th Fibonacci number, e.g. the 1st Fibonacci number is at <code>table[0]</code>, 4th at <code>table[3]</code>, etc.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#408080;font-style:italic>## Fibbing with Tabulation</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>def</span> <span style=color:#00f>table_fib</span>(n):
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>if</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>0</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>raise</span> <span style=color:#d2413a;font-weight:700>ValueError</span>(<span style=color:#ba2121>&#39;Fibonacci sequence starts at first number.&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>elif</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>2</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> n<span style=color:#666>-</span><span style=color:#666>1</span> <span style=color:#408080;font-style:italic># first = 0, second = 1</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>    table <span style=color:#666>=</span> [<span style=color:#666>0</span>, <span style=color:#666>1</span>] <span style=color:#666>+</span> [<span style=color:green;font-weight:700>None</span>]<span style=color:#666>*</span>(n<span style=color:#666>-</span><span style=color:#666>2</span>)
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>for</span> idx <span style=color:#a2f;font-weight:700>in</span> <span style=color:green>range</span>(<span style=color:#666>2</span>, <span style=color:green>len</span>(table)):
+</span></span><span style=display:flex><span>        table[idx] <span style=color:#666>=</span> table[idx<span style=color:#666>-</span><span style=color:#666>2</span>] <span style=color:#666>+</span> table[idx<span style=color:#666>-</span><span style=color:#666>1</span>]
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> table[n<span style=color:#666>-</span><span style=color:#666>1</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Similar timing code to above produces:</span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; table_fib(10) took average of 2.18E-06s across 10000 runs</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>table_fib(<span style=color:#666>10</span>)
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; 34</span>
+</span></span></code></pre></td></tr></table></div></div><p>As discussed in the excellent post <a href=https://programming.guide/dynamic-programming-vs-memoization-vs-tabulation.html>here</a>, tabulation is best when each sub problem is to be solved only once, where memoization is best when not all subproblems have to be solved to get to the answer to the overarching question. Fibonacci is a case where all subproblems must be solved only once, so Tabulation is faster by a constant factor.</p><p>Both Tabulation and Memoization are O(n) in time and O(n) in space.</p><h2 id=method-4-iteration>Method 4: Iteration</h2><p>Note that the tabulation method is actually wasting space. If you were to solve for the n&rsquo;th Fibonacci number in your head, you&rsquo;d likely only keep track of 2 or 3 numbers at a time: &ldquo;0 plus 1 is 1, now 1 plus 1 is 2, now 1 plus 2 is 3&mldr;&rdquo;. Once you&rsquo;ve gotten the n&rsquo;th Fibonacci number there&rsquo;s no need to keep anything before the n-1&rsquo;th number around in memory! This method is called iteration:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#408080;font-style:italic>## Fibbing with Iteration</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>def</span> <span style=color:#00f>iter_fib</span>(n):
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>if</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>0</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>raise</span> <span style=color:#d2413a;font-weight:700>ValueError</span>(<span style=color:#ba2121>&#39;Fibonacci sequence starts at first number.&#39;</span>)
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>elif</span> n <span style=color:#666>&lt;=</span> <span style=color:#666>2</span>:
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> n<span style=color:#666>-</span><span style=color:#666>1</span> <span style=color:#408080;font-style:italic># first = 0, second = 1</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>else</span>:
+</span></span><span style=display:flex><span>    prevprev <span style=color:#666>=</span> <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>    new <span style=color:#666>=</span> <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>for</span> _ <span style=color:#a2f;font-weight:700>in</span> <span style=color:green>range</span>(<span style=color:#666>2</span>, n):
+</span></span><span style=display:flex><span>        prev <span style=color:#666>=</span> new
+</span></span><span style=display:flex><span>        new <span style=color:#666>=</span> prevprev <span style=color:#666>+</span> prev
+</span></span><span style=display:flex><span>        prevprev <span style=color:#666>=</span> prev
+</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> new
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Similar timing code to above produces:</span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; iter_fib(10) took average of 1.13E-06s across 10000 runs</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>iter_fib(<span style=color:#666>10</span>)
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># &gt;&gt; 34</span>
+</span></span></code></pre></td></tr></table></div></div><p>This is as good as it gets: O(n) time and O(1) space.</p><h2 id=method-5-hack-computer-nand2tetris>Method 5: Hack Computer (Nand2Tetris)</h2><p>The Fibonacci sequence also came up in Nand2Tetris as a debugging program for my VM translator in Rust! While I can&rsquo;t show an easy example, it does serve to illustrate the idea for the VM Translator.</p><p>This is the &ldquo;Virtual Machine Code&rdquo; for a Fibonacci sequence. It is much like an <a href=https://theleo.zone/recurse/rc-06-intermediate-representations/>LLVM intermediate representation</a>, but in the virtual machine language created by the Nand2Tetris team.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>// Main.vm
+</span></span><span style=display:flex><span>// This file is part of www.nand2tetris.org
+</span></span><span style=display:flex><span>// and the book The Elements of Computing Systems
+</span></span><span style=display:flex><span>// by Nisan and Schocken, MIT Press.
+</span></span><span style=display:flex><span>// File name: projects/08/FunctionCalls/FibonacciElement/Main.vm
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// Computes the nth element of the Fibonacci series, recursively.
+</span></span><span style=display:flex><span>// n is given in argument<span style=color:#666>[</span>0<span style=color:#666>]</span>.  Called by the Sys.init <span style=color:green;font-weight:700>function</span> 
+</span></span><span style=display:flex><span>// <span style=color:#666>(</span>part of the Sys.vm file<span style=color:#666>)</span>, which also pushes the argument<span style=color:#666>[</span>0<span style=color:#666>]</span> 
+</span></span><span style=display:flex><span>// parameter before this code starts running.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>function</span> Main.fibonacci <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>push argument <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>push constant <span style=color:#666>2</span>
+</span></span><span style=display:flex><span>lt                     // checks <span style=color:green;font-weight:700>if</span> n&lt;<span style=color:#666>2</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>if</span>-goto IF_TRUE
+</span></span><span style=display:flex><span>goto IF_FALSE
+</span></span><span style=display:flex><span>label IF_TRUE          // <span style=color:green;font-weight:700>if</span> n&lt;2, <span style=color:green;font-weight:700>return</span> n
+</span></span><span style=display:flex><span>push argument <span style=color:#666>0</span>        
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>return</span>
+</span></span><span style=display:flex><span>label IF_FALSE         // <span style=color:green;font-weight:700>if</span> n&gt;<span style=color:#666>=</span>2, returns fib<span style=color:#666>(</span>n-2<span style=color:#666>)</span>+fib<span style=color:#666>(</span>n-1<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>push argument <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>push constant <span style=color:#666>2</span>
+</span></span><span style=display:flex><span>sub
+</span></span><span style=display:flex><span>call Main.fibonacci <span style=color:#666>1</span>  // computes fib<span style=color:#666>(</span>n-2<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>push argument <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>push constant <span style=color:#666>1</span>
+</span></span><span style=display:flex><span>sub
+</span></span><span style=display:flex><span>call Main.fibonacci <span style=color:#666>1</span>  // computes fib<span style=color:#666>(</span>n-1<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>add                    // returns fib<span style=color:#666>(</span>n-1<span style=color:#666>)</span> + fib<span style=color:#666>(</span>n-2<span style=color:#666>)</span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>return</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// Sys.vm
+</span></span><span style=display:flex><span>// This file is part of www.nand2tetris.org
+</span></span><span style=display:flex><span>// and the book The Elements of Computing Systems
+</span></span><span style=display:flex><span>// by Nisan and Schocken, MIT Press.
+</span></span><span style=display:flex><span>// File name: projects/08/FunctionCalls/FibonacciElement/Sys.vm
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// Pushes a constant, say n, onto the stack, and calls the Main.fibonacii
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>function</span>, which computes the nth element of the Fibonacci series.
+</span></span><span style=display:flex><span>// Note that by convention, the Sys.init <span style=color:green;font-weight:700>function</span> is called <span style=color:#ba2121>&#34;automatically&#34;</span> 
+</span></span><span style=display:flex><span>// by the bootstrap code.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:green;font-weight:700>function</span> Sys.init <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>push constant <span style=color:#666>4</span>
+</span></span><span style=display:flex><span>call Main.fibonacci <span style=color:#666>1</span>   // computes the 4<span>&#39;</span>th fibonacci element
+</span></span><span style=display:flex><span>label WHILE
+</span></span><span style=display:flex><span>goto WHILE              // loops infinitely
+</span></span></code></pre></td></tr></table></div></div><p>My VM translator <a href=https://github.com/robinovitch61/nand2tetris/blob/master/projects/08/p08/src/main.rs>here</a> creates a bunch of Hack Computer-specific assembly code (~500 lines) from this that look like this:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">77
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">78
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">79
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">80
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>// Bootstrap
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>@256
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>// call Sys.init <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>// push <span style=color:green;font-weight:700>return</span>-address
+</span></span><span style=display:flex><span>@return-address0
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>// push LCL
+</span></span><span style=display:flex><span>@LCL
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>// push ARG
+</span></span><span style=display:flex><span>@ARG
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>// push THIS
+</span></span><span style=display:flex><span>@THIS
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>// push THAT
+</span></span><span style=display:flex><span>@THAT
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>M+1
+</span></span><span style=display:flex><span>// <span style=color:#19177c>ARG</span> <span style=color:#666>=</span> SP - n - <span style=color:#666>5</span>
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@0
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>D-A
+</span></span><span style=display:flex><span>@5
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>D-A
+</span></span><span style=display:flex><span>@ARG
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>// <span style=color:#19177c>LCL</span> <span style=color:#666>=</span> SP
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@LCL
+</span></span><span style=display:flex><span><span style=color:#19177c>M</span><span style=color:#666>=</span>D
+</span></span><span style=display:flex><span>// goto f
+</span></span><span style=display:flex><span>@Sys.init
+</span></span><span style=display:flex><span>0;JMP
+</span></span><span style=display:flex><span>// <span style=color:green>declare</span> <span style=color:#666>(</span><span style=color:green;font-weight:700>return</span>-address<span style=color:#666>)</span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span><span style=color:green;font-weight:700>return</span>-address0<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// ../FunctionCalls/FibonacciElement/Main.vm
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>// <span style=color:green;font-weight:700>function</span> Main.fibonacci <span style=color:#666>0</span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>Main.fibonacci<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>// push argument <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>@0
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span>@ARG
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span><span style=color:#19177c>A</span><span style=color:#666>=</span>A+D
+</span></span><span style=display:flex><span><span style=color:#19177c>D</span><span style=color:#666>=</span>M
+</span></span><span style=display:flex><span>@SP
+</span></span><span style=display:flex><span>etc.
+</span></span></code></pre></td></tr></table></div></div><p>Which then assembles down to the actual machine code using the assembler I wrote <a href=https://github.com/robinovitch61/nand2tetris/blob/master/projects/06/p06/src/main.rs>here</a>:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#666>0000000100000000</span> // this is @256
+</span></span><span style=display:flex><span><span style=color:#666>1110110000010000</span> // this is <span style=color:#19177c>D</span><span style=color:#666>=</span>A
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span> // etc.
+</span></span><span style=display:flex><span><span style=color:#666>1110001100001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000110101</span>
+</span></span><span style=display:flex><span><span style=color:#666>1110110000010000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000100000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1110001100001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110111001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000001</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000010000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000100000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1110001100001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110111001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000010</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000010000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000100000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1110001100001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110111001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000011</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000010000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000100000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1110001100001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110111001000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000100</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000010000</span>
+</span></span><span style=display:flex><span><span style=color:#666>0000000000000000</span>
+</span></span><span style=display:flex><span><span style=color:#666>1111110000100000</span>
+</span></span><span style=display:flex><span>etc.
+</span></span></code></pre></td></tr></table></div></div><p>So there it is. The fifth method - write your recursive Fibonacci code in VM Code and assemble for the hack computer :)!</p></div></div><footer><div class=container></div></footer></body></html>

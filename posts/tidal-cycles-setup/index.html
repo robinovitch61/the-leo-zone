@@ -1,0 +1,126 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>setting up tidal cycles</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://theleo.zone/sass/main.min.2d43c4d15d5c6744c808f0eddbc12aed7cc95aebe01212d38e8064687a81bfed.css></head><body><header><div class=container><div class=nav-container><div class=nav-left><a class=btn-text href=/><h1>Leo</h1></a></div><div class=dropdown><input class="hamburger menu-btn" type=checkbox id=menu-btn>
+<label class="hamburger menu-icon" for=menu-btn><span class=navicon-top></span>
+<span class=navicon-mid></span>
+<span class=navicon-bottom></span></label><div class=menu><a class=menu-item href=/>Home</a>
+<a class=menu-item href=/about>About</a>
+<a class=menu-item href=https://github.com/robinovitch61 target=_blank><img class=social-media-thumbnail src=/img/github.png alt=github title=github></a></div></div></div></div></header><div class=top-title><div class=container><h2>setting up tidal cycles</h2></div></div><div class=post-date><div class=container><p>Mar 25, 2022</p></div></div><div class=container><div class=post><p><a href=https://tidalcycles.org/>Tidal Cycles</a> is software that works on top of another piece of software called
+<a href=https://supercollider.github.io/>SuperCollider</a>.</p><p>Together, you can use them to produce music using code.</p><p>Today I set up these tools and made my first sound with them. Setup was a bit tricky, and this post is as much for
+myself to document what I did as it is for others pursuing their own setup in the future.</p><p>The first step is to install SuperCollider, following the install links for your platform
+at <a href=https://supercollider.github.io/>supercollider.github.io</a>.</p><p>SuperCollider is a super cool tool in and of itself, featuring a fully formed object-oriented language with which to
+generate, template, pattern and mix sounds.</p><p>Tidal Cycles features a completely different language, though: a domain-specific language in Haskell. In order to set up
+Tidal Cycles, you don&rsquo;t need to learn any of the native SuperCollider language or do any of the tutorials offered on
+startup.</p><p>Once SuperCollider is installed, Tidal Cycles requires installation of some other dependencies. They offer good setup
+instructions for each platform <a href=https://tidalcycles.org/docs/getting-started/macos_install>here</a>
+(link leads to MacOS instructions, but other platforms are in the sidebar).</p><p>These dependencies include:</p><ul><li>SuperCollider: already installed above</li><li>SuperDirt: a SuperCollider sampler designed for Tidal Cycles</li><li>Atom Editor with Tidal Cycles plugin: optional (I uninstall it and don&rsquo;t use it in the final setup, but good for
+testing)</li><li>Haskell</li><li>The <code>tidal</code> Haskell package</li></ul><p>A good explanation for how these components
+interact (<a href=https://tidalcycles.org/docs/getting-started/tidal_start>source</a>):</p><a class=img-link target=_blank href=/img/tidal.jpg><figure><img style=max-width:90% src=/img/tidal.jpg alt=tidal.jpg></figure></a><p>To test things are working:</p><ol><li><p>Open SuperCollider.</p></li><li><p>Paste in the left editor box <code>SuperDirt.start;</code>.</p></li><li><p>Run it by hitting Shift-Enter with your cursor on the same line. You should see output in the bottom right like:</p></li></ol><div class=highlight><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>SuperDirt: listening to Tidal on port <span style=color:#666>57120</span></span></span></code></pre></div><ol start=4><li><p>Keeping SuperCollider and SuperDirt open and running, open Atom. Confirm Tidal Cycles plugin is installed (visible on
+the bottom right).</p></li><li><p>Create a new file called <code>test.tidal</code></p></li><li><p>Add the line <code>d1 $ sound "bd sd"</code></p></li><li><p>Type ctrl-Enter or cmd-Enter with your cursor on the same line. A beat should play!</p></li></ol><p>Now this is the stock setup working. I changed mine a bit for convenience, but if you&rsquo;d like to you can stop here
+and proceed with actually using the software to make music :).</p><p>After this confirmation things were installed and working, I uninstalled Atom, as it&rsquo;s not an editor I use regularly.
+I&rsquo;m a fan of <code>vim</code>.</p><p>I then went to SuperCollider and configured it to start up SuperDirt whenever it is first opened. I did this by clicking
+<code>File -> Open startup file</code>, pasting in the following text, and saving the startup file:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>/*
+</span></span><span style=display:flex><span>This is an example startup file. You can load it from your startup file
+</span></span><span style=display:flex><span><span style=color:#666>(</span>to be found in Platform.userAppSupportDir +/+ <span style=color:#ba2121>&#34;startup.scd&#34;</span><span style=color:#666>)</span>
+</span></span><span style=display:flex><span>*/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#666>(</span>
+</span></span><span style=display:flex><span>s.reboot <span style=color:#666>{</span> // server options are only updated on reboot
+</span></span><span style=display:flex><span>    // configure the sound server: here you could add hardware specific options
+</span></span><span style=display:flex><span>    // see http://doc.sccode.org/Classes/ServerOptions.html
+</span></span><span style=display:flex><span>    s.options.numBuffers <span style=color:#666>=</span> <span style=color:#666>1024</span> * 256; // increase this <span style=color:green;font-weight:700>if</span> you need to load more samples
+</span></span><span style=display:flex><span>    s.options.memSize <span style=color:#666>=</span> <span style=color:#666>8192</span> * 32; // increase this <span style=color:green;font-weight:700>if</span> you get <span style=color:#ba2121>&#34;alloc failed&#34;</span> messages
+</span></span><span style=display:flex><span>    s.options.numWireBufs <span style=color:#666>=</span> 64; // increase this <span style=color:green;font-weight:700>if</span> you get <span style=color:#ba2121>&#34;exceeded number of interconnect buffers&#34;</span> messages 
+</span></span><span style=display:flex><span>    s.options.maxNodes <span style=color:#666>=</span> <span style=color:#666>1024</span> * 32; // increase this <span style=color:green;font-weight:700>if</span> you are getting drop outs and the message <span style=color:#ba2121>&#34;too many nodes&#34;</span>
+</span></span><span style=display:flex><span>    s.options.numOutputBusChannels <span style=color:#666>=</span> 2; // <span style=color:green>set</span> this to your hardware output channel size, <span style=color:green;font-weight:700>if</span> necessary
+</span></span><span style=display:flex><span>    s.options.numInputBusChannels <span style=color:#666>=</span> 2; // <span style=color:green>set</span> this to your hardware output channel size, <span style=color:green;font-weight:700>if</span> necessary
+</span></span><span style=display:flex><span>    // boot the server and start SuperDirt
+</span></span><span style=display:flex><span>    s.waitForBoot <span style=color:#666>{</span>
+</span></span><span style=display:flex><span>        ~dirt <span style=color:#666>=</span> SuperDirt<span style=color:#666>(</span>2, s<span style=color:#666>)</span>; // two output channels, increase <span style=color:green;font-weight:700>if</span> you want to pan across more channels
+</span></span><span style=display:flex><span>        ~dirt.loadSoundFiles;   // load samples <span style=color:#666>(</span>path containing a wildcard can be passed in<span style=color:#666>)</span>
+</span></span><span style=display:flex><span>        // <span style=color:green;font-weight:700>for</span> example: ~dirt.loadSoundFiles<span style=color:#666>(</span><span style=color:#ba2121>&#34;/Users/myUserName/Dirt/samples/*&#34;</span><span style=color:#666>)</span>;
+</span></span><span style=display:flex><span>        // s.sync; // optionally: <span style=color:green>wait</span> <span style=color:green;font-weight:700>for</span> samples to be <span style=color:green>read</span>
+</span></span><span style=display:flex><span>        ~dirt.start<span style=color:#666>(</span>57120, <span style=color:#666>0</span> ! 12<span style=color:#666>)</span>;   // start listening on port 57120, create two busses each sending audio to channel <span style=color:#666>0</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        // optional, needed <span style=color:green;font-weight:700>for</span> convenient access from sclang:
+</span></span><span style=display:flex><span>        <span style=color:#666>(</span>
+</span></span><span style=display:flex><span>            ~d1 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>0<span style=color:#666>]</span>; ~d2 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>1<span style=color:#666>]</span>; ~d3 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>2<span style=color:#666>]</span>;
+</span></span><span style=display:flex><span>            ~d4 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>3<span style=color:#666>]</span>; ~d5 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>4<span style=color:#666>]</span>; ~d6 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>5<span style=color:#666>]</span>;
+</span></span><span style=display:flex><span>            ~d7 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>6<span style=color:#666>]</span>; ~d8 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>7<span style=color:#666>]</span>; ~d9 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>8<span style=color:#666>]</span>;
+</span></span><span style=display:flex><span>            ~d10 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>9<span style=color:#666>]</span>; ~d11 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>10<span style=color:#666>]</span>; ~d12 <span style=color:#666>=</span> ~dirt.orbits<span style=color:#666>[</span>11<span style=color:#666>]</span>;
+</span></span><span style=display:flex><span>        <span style=color:#666>)</span>;
+</span></span><span style=display:flex><span>    <span style=color:#666>}</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    s.latency <span style=color:#666>=</span> 0.3; // increase this <span style=color:green;font-weight:700>if</span> you get <span style=color:#ba2121>&#34;late&#34;</span> messages
+</span></span><span style=display:flex><span><span style=color:#666>}</span>;
+</span></span><span style=display:flex><span><span style=color:#666>)</span>;
+</span></span></code></pre></td></tr></table></div></div><p>I then aliased <code>sclang</code> to the installed script in my shell startup file (<code>~/.zshrc</code>). This may or may not be required
+depending on your platform.</p><div class=highlight><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:green>alias</span> <span style=color:#19177c>sclang</span><span style=color:#666>=</span><span style=color:#ba2121>&#34;/Applications/SuperCollider.app/Contents/MacOS/sclang&#34;</span></span></span></code></pre></div><p>In order to use <code>vim</code> with Tidal Cycles, I installed <a href=https://github.com/tidalcycles/vim-tidal>vim-tidal</a>. Make sure
+you run the <code>make</code> command to symlink the <code>tidalvim</code> and <code>tidal</code> scripts as recommended so that you can run <code>tidal</code>
+in a terminal.</p><p>I then created a new <a href=https://github.com/tmuxinator/tmuxinator>tmuxinator</a> project called <code>music</code> with the following
+configuration:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#408080;font-style:italic># /Users/leo/.config/tmuxinator/music.yml</span><span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb></span><span style=color:green;font-weight:700>name</span>:<span style=color:#bbb> </span>music<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb></span><span style=color:green;font-weight:700>socket_name</span>:<span style=color:#bbb> </span>music<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb></span><span style=color:green;font-weight:700>root</span>:<span style=color:#bbb> </span>~/projects/music<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb></span><span style=color:green;font-weight:700>windows</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>  </span>- <span style=color:green;font-weight:700>editor</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>      </span><span style=color:green;font-weight:700>panes</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>        </span>- vim<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>  </span>- <span style=color:green;font-weight:700>server</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>      </span><span style=color:green;font-weight:700>panes</span>:<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>        </span>- sclang<span style=color:#bbb>
+</span></span></span><span style=display:flex><span><span style=color:#bbb>        </span>- tidal<span style=color:#bbb>
+</span></span></span></code></pre></td></tr></table></div></div><p>This allows me to run <code>tmuxinator start music</code> and 2 windows open up:</p><ul><li>a main window for vim</li><li>a hidden split window running <code>sclang</code>, a &ldquo;headless&rdquo; version of SuperCollider, and <code>tidal</code>, the vim-tidal plugin
+script that starts the Haskell interpreter including the tidal package</li></ul><p>Finally, by adding the following configuration line to my <code>~/.vimrc</code>, I configure vim-tidal to send commands to the
+correct tmux socket and window + pane (the <code>tidal</code> pane):</p><div class=highlight><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-vim data-lang=vim><span style=display:flex><span><span style=color:#408080;font-style:italic>&#34; vim-tidal combined with tmuxinator music</span><span>
+</span></span></span><span style=display:flex><span><span></span><span style=color:green;font-weight:700>let</span> g:tidal_default_config = {<span style=color:#ba2121>&#34;socket_name&#34;</span>: <span style=color:#ba2121>&#34;music&#34;</span>, <span style=color:#ba2121>&#34;target_pane&#34;</span>: <span style=color:#ba2121>&#34;music:2.2&#34;</span>}</span></span></code></pre></div><p>Now, I can fire up <code>vim</code> configured with SuperCollider and Tidal Cycles running with <code>tmuxinator start music</code>. When I&rsquo;m
+done, I save my files and run <code>tmuxinator stop music</code>, and everything shuts down.</p></div></div><footer><div class=container></div></footer></body></html>
