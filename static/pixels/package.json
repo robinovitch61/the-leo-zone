@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc index.ts",
-    "dev": "tsc -w index.ts"
+    "dev": "esbuild index.ts --outfile=index.js --bundle --sourcemap --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^4.6.3",
-    "prettier": "^2.6.1"
+    "prettier": "^2.6.1",
+    "esbuild": "^0.14.30"
   }
 }
