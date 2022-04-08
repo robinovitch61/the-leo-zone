@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc index.ts",
-    "dev": "esbuild index.ts --outfile=index.js --bundle --sourcemap --watch"
+    "dev": "esbuild index.ts --outfile=index.js --bundle --watch"
   },
   "author": "",
   "license": "ISC",

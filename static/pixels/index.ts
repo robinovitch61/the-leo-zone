@@ -40,4 +40,6 @@ for (let down = 0; down < gridSidePixelCount; down++) {
   pixels.push(row);
 }
 
+// pixels[0][5].style.backgroundColor = "red"
+
 grid.style.setProperty("--repeatNumber", `${gridSidePixelCount}`);
