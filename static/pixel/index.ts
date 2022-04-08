@@ -1,7 +1,7 @@
 const stuff = document.getElementById("stuff");
 const grid = document.getElementById("grid");
 
-const gridSidePixelCount = 20;
+const gridSidePixelCount = 60;
 const pixelBorderStyle = "0.5px solid black";
 
 const gridHeightPx = Math.round(grid.clientHeight);
@@ -40,6 +40,20 @@ for (let down = 0; down < gridSidePixelCount; down++) {
   pixels.push(row);
 }
 
-// pixels[0][5].style.backgroundColor = "red"
+function draw(e) {
+  const xGridPx = e.pageX - grid.offsetLeft;
+  const yGridPx = e.pageY - grid.offsetTop;
+  const xPixel = Math.floor(xGridPx / pixelSidePx);
+  const yPixel = Math.floor(yGridPx / pixelSidePx);
+  console.log(`${xPixel}, ${yPixel}`);
+  pixels[yPixel][xPixel].style.backgroundColor = "orange";
+}
+
+grid.addEventListener("mousedown", (e) => {
+  grid.addEventListener("mousemove", draw);
+});
+grid.addEventListener("mouseup", (e) => {
+  grid.removeEventListener("mousemove", draw);
+});
 
 grid.style.setProperty("--repeatNumber", `${gridSidePixelCount}`);
