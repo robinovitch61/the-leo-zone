@@ -36,4 +36,3 @@
   }
   grid.style.setProperty("--repeatNumber", `${gridSidePixelCount}`);
 })();
-//# sourceMappingURL=index.js.map
