@@ -2,7 +2,7 @@
   // index.ts
   var stuff = document.getElementById("stuff");
   var grid = document.getElementById("grid");
-  var gridSidePixelCount = 20;
+  var gridSidePixelCount = 60;
   var pixelBorderStyle = "0.5px solid black";
   var gridHeightPx = Math.round(grid.clientHeight);
   grid.style.height = `${gridHeightPx}px`;
@@ -34,5 +34,19 @@
     }
     pixels.push(row);
   }
+  function draw(e) {
+    const xGridPx = e.pageX - grid.offsetLeft;
+    const yGridPx = e.pageY - grid.offsetTop;
+    const xPixel = Math.floor(xGridPx / pixelSidePx);
+    const yPixel = Math.floor(yGridPx / pixelSidePx);
+    console.log(`${xPixel}, ${yPixel}`);
+    pixels[yPixel][xPixel].style.backgroundColor = "orange";
+  }
+  grid.addEventListener("mousedown", (e) => {
+    grid.addEventListener("mousemove", draw);
+  });
+  grid.addEventListener("mouseup", (e) => {
+    grid.removeEventListener("mousemove", draw);
+  });
   grid.style.setProperty("--repeatNumber", `${gridSidePixelCount}`);
 })();
