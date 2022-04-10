@@ -34,13 +34,16 @@
     }
     pixels.push(row);
   }
+  function randomColor() {
+    const random = Math.floor(Math.random() * 16777215).toString(16);
+    return "#" + random;
+  }
   function draw(e) {
     const xGridPx = e.pageX - grid.offsetLeft;
     const yGridPx = e.pageY - grid.offsetTop;
     const xPixel = Math.floor(xGridPx / pixelSidePx);
     const yPixel = Math.floor(yGridPx / pixelSidePx);
-    console.log(`${xPixel}, ${yPixel}`);
-    pixels[yPixel][xPixel].style.backgroundColor = "orange";
+    pixels[yPixel][xPixel].style.backgroundColor = randomColor();
   }
   grid.addEventListener("mousedown", (e) => {
     grid.addEventListener("mousemove", draw);
