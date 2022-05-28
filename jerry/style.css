@@ -2,6 +2,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 }
 
 html, body {
@@ -12,6 +13,10 @@ img {
   max-width: 100%;
 }
 
+h1, h2, h3 {
+  margin: 0.2em;
+}
+
 body {
   padding: 0 0 2em;
   display: flex;
@@ -20,9 +25,11 @@ body {
 }
 
 .heading {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-bottom: 1px solid black;
 }
 
 .stories {
@@ -62,7 +69,15 @@ body {
   align-self: flex-end;
 }
 
+.footer {
+  margin-top: 3em;
+}
+
 @media screen and (max-width: 800px) {
+  .heading {
+    align-items: flex-start;
+  }
+
   .stories {
     width: 90%;
   }
