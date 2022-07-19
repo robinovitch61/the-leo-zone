@@ -15,7 +15,7 @@ html, body {
 }
 
 html {
-  background: green;
+  background: red;
 }
 
 body {
@@ -24,6 +24,6 @@ body {
 
 
 div {
-  background: green;
+  background: red;
   text-align: center;
 }
