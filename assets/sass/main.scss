@@ -1,14 +1,12 @@
 // constants
 $FOOTER_HEIGHT: 50px;
 $HIGHLIGHT_COLOR: rgb(122, 255, 166);
-$BODY_COLOR: 'black';
 
 body {
   margin: 0;
   padding: 0;
   font-family: Geneva, Tahoma, Verdana, sans-serif;
   font-size: 18px;
-  color: $BODY_COLOR;
   min-height: 100vh;
   position: relative;
 
