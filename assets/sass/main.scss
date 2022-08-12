@@ -9,6 +9,7 @@ body {
   font-size: 18px;
   min-height: 100vh;
   position: relative;
+  background: #d2d2d2;
 
   &::after {
     content: '';
@@ -51,27 +52,6 @@ div.top-title h2 {
   margin-top: 10px;
   margin-bottom: 25px;
 }
-
-// @media (prefers-color-scheme: dark) {
-//     h1,
-//     h2,
-//     h3,
-//     body {
-//         color: #e4e4e4;
-//     }
-//     div.top-title h2 {
-//         color: rgb(26, 26, 26);
-//     }
-//     body {
-//         background-color: #444;
-//     }
-//     a {
-//         color: #e39777;
-//     }
-//     img {
-//         filter: grayscale(30%);
-//     }
-// }
 
 blockquote {
   border-left: 0.25em solid lightgray;
