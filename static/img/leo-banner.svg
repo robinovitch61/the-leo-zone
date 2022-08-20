@@ -24,7 +24,7 @@
    inkscape:deskcolor="#d1d1d1"
    showgrid="false"
    inkscape:zoom="0.98722556"
-   inkscape:cx="496.84694"
+   inkscape:cx="464.43287"
    inkscape:cy="84.580468"
    inkscape:window-width="1792"
    inkscape:window-height="1067"
@@ -33,8 +33,10 @@
    inkscape:window-maximized="0"
    inkscape:current-layer="svg219" />
     <a
-   id="a623"
-   xlink:href="/"><g
+   id="title-link"
+   xlink:href="/"
+   inkscape:label="title"
+   xlink:title="title"><g
      id="straight"
      transform="matrix(1,0,0,0.538071,0,-256.351)"
      style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5">

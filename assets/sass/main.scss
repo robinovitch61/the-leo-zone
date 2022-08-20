@@ -247,7 +247,7 @@ footer {
 }
 
 a {
-  &:not(.img-link) {
+  &:not(.img-link):not(#title-link) {
     text-decoration: none;
     color: blue;
     overflow-wrap: break-word; // chrome
