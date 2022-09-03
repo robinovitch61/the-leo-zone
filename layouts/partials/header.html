@@ -1,25 +1,22 @@
 <header>
-  <div class="container">
-    <div class="nav-container">
-      <div class="nav-left">
-        <a class="btn-text" href="/"><h1>Leo</h1></a>
+  <div class="header-content">
+    <a href="/">
+      <div class="logo">THE LEO ZONE</div>
+    </a>
+    <div class="stripes">
+      <div class="stripe top"></div>
+      <div class="stripe middle"></div>
+      <div class="stripe bottom"></div>
+    </div>
+    <a href="/">
+      <div class="sun">
+        <div class="stripes"></div>
       </div>
-
-      <div class="dropdown">
-        <input class="hamburger menu-btn" type="checkbox" id="menu-btn" />
-        <label class="hamburger menu-icon" for="menu-btn">
-          <span class="navicon-top"></span>
-          <span class="navicon-mid"></span>
-          <span class="navicon-bottom"></span>
-        </label>
-        <div class="menu">
-          <a class="menu-item" href="/">Home</a>
-          <a class="menu-item" href="/about">About</a>
-          <a class="menu-item" href="https://github.com/robinovitch61" target="_blank">
-            <img class="social-media-thumbnail" src="/img/github.png" alt="github" title="github" />
-          </a>
-        </div>
-      </div>
+    </a>
+    <div class="nav">
+      {{ partial "nav-folder" (dict "context" . "text" "github" "href" "https://github.com/robinovitch61" "target" "_blank") }}
+      {{ partial "nav-folder" (dict "context" . "text" "about" "href" "/about" "target" "_self") }}
+      {{ partial "nav-folder" (dict "context" . "text" "help" "href" "https://www.bing.com/" "target" "_blank") }}
     </div>
   </div>
 </header>
