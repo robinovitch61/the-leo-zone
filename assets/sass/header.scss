@@ -1,0 +1,36 @@
+
+@font-face {
+  font-family: 'neon-pixel';
+  src: url('../fonts/neon_pixel-7.ttf') format('ttf');
+}
+
+header {
+  .background {
+    background: #303030;
+    height: 200px;
+  }
+
+  .stripes {
+    width: 200vw;
+    transform-origin: left;
+    transform: rotateZ(-5deg) translate(-20px, 100px);
+
+    .stripe {
+      height: 30px;
+
+      &.top, &.bottom {
+        background: red;
+      }
+      &.middle {
+        background: blue;
+
+        &:after {
+          font-family: "neon-pixel", serif;
+          content: "I like Programming, Surfing, and Friendship";
+          display: inline-block;
+          transform: translate(30px, 2px);
+        }
+      }
+    }
+  }
+}
