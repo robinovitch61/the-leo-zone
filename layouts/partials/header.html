@@ -1,13 +1,22 @@
 <header>
   <div class="header-content">
-    <div class="logo">THE LEO ZONE</div>
+    <a href="/">
+      <div class="logo">THE LEO ZONE</div>
+    </a>
     <div class="stripes">
       <div class="stripe top"></div>
       <div class="stripe middle"></div>
       <div class="stripe bottom"></div>
     </div>
-    <div class="sun">
-      <div class="stripes"></div>
+    <a href="/">
+      <div class="sun">
+        <div class="stripes"></div>
+      </div>
+    </a>
+    <div class="nav">
+      {{ partial "nav-folder" (dict "context" . "text" "github" "href" "https://github.com/robinovitch61" "target" "_blank") }}
+      {{ partial "nav-folder" (dict "context" . "text" "about" "href" "/about" "target" "_self") }}
+      {{ partial "nav-folder" (dict "context" . "text" "help" "href" "https://www.bing.com/" "target" "_blank") }}
     </div>
   </div>
 </header>
