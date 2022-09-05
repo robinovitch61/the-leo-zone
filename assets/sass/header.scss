@@ -8,11 +8,17 @@
   src: url("/fonts/Nunito.ttf") format("truetype");
 }
 
+$mobile-width: 800px;
+
 header {
   height: 220px;
   background: #303030;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: $mobile-width) {
+    height: 180px;
+  }
 
   .header-content {
     width: 1100px;
@@ -43,6 +49,11 @@ header {
       0 0 8px #DB77FF, 0 0 8px #DB77FF, 0 0 8px #DB77FF, // light pink shadow
       0 0 20px #CE48FE, 0 0 20px #CE48FE, // medium pink shadow
       0 0 25px #C528FC; // dark pink shadow
+
+      @media screen and (max-width: $mobile-width) {
+        font-size: 35px;
+        transform: rotateZ(-5deg) translate(15px, 25px) skew(-5deg);
+      }
     }
 
     .stripes {
@@ -51,8 +62,16 @@ header {
       transform-origin: left;
       transform: rotateZ(-5deg) translate(-20px, 120px);
 
+      @media screen and (max-width: $mobile-width) {
+        transform: rotateZ(-5deg) translate(-20px, 75px);
+      }
+
       .stripe {
         height: 30px;
+
+        @media screen and (max-width: $mobile-width) {
+          height: 20px;
+        }
 
         &.top, &.bottom {
           background: #00FFE6;
@@ -68,6 +87,11 @@ header {
             display: inline-block;
             transform: translate(30px);
             line-height: 35px; // adjust for baseline so font is vertically centered in all browsers
+
+            @media screen and (max-width: $mobile-width) {
+              font-size: 16px;
+              transform: translate(25px, -6px);
+            }
           }
         }
       }
@@ -120,6 +144,10 @@ header {
                         rgba(255, 255, 255, 0) $start + $between*5 + $width*5
         );
       }
+
+      @media screen and (max-width: $mobile-width) {
+        display: none;
+      }
     }
 
     .nav {
@@ -127,9 +155,21 @@ header {
       right: 30px;
       bottom: 10px;
       display: flex;
+      flex-wrap: nowrap;
+
+      @media screen and (max-width: $mobile-width) {
+        right: unset;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 5px;
+      }
 
       .folder {
         padding: 0 4px;
+
+        @media screen and (max-width: $mobile-width) {
+          padding: 0 6px;
+        }
 
         a {
           .svg-container {
@@ -141,10 +181,19 @@ header {
               color: #C2C2C2;
               left: 50%;
               transform: translateX(-50%);
+
+              @media screen and (max-width: $mobile-width) {
+                top: 12px;
+                font-size: 14px;
+              }
             }
 
             svg {
               width: 80px;
+
+              @media screen and (max-width: $mobile-width) {
+                width: 60px;
+              }
             }
           }
         }
