@@ -1,10 +1,43 @@
-{{ define "title" }}{{ .Title }} &ndash; {{ .Site.Title }}{{ end }}
 {{ define "main" }}
-<h1>DEFAULT LIST</h1>
-{{ range .Pages }}
-  <article>
-    <h2>{{ .Title }}</h2>
-    {{ .Content }}
-  </article>
-{{ end }}
+  <h3>projects</h3>
+  <ul>
+    <li class="listing">
+      <a href="https://github.com/robinovitch61/wander">
+        wander, a hashicorp nomad TUI
+      </a>
+    </li>
+    <li class="listing">
+      <a href="https://uselesscar.bike/">uselesscar.bike</a>
+    </li>
+    <li class="listing">
+      <a href="https://thermalmodel.com">thermalmodel.com</a>
+    </li>
+    <li class="listing">
+      <a href="https://colorcontroversy.com">colorcontroversy.com</a>
+    </li>
+    <li class="listing"><a href="/matts-garden">matt's garden</a></li>
+    <li class="listing">
+      <a href="https://github.com/robinovitch61/nand2tetris">nand2tetris</a>
+    </li>
+  </ul>
+
+  <h3>writing</h3>
+  <ul>
+    {{ range where .Site.RegularPages ".Type" "posts" }}
+      <li class="listing">
+        <i>{{ .Date.Format "Jan 02, 2006" }}</i>
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+
+  <h3>recurse center log</h3>
+  <ul>
+    {{ range where .Site.RegularPages ".Type" "recurse" }}
+      <li class="listing">
+        <i>{{ .Date.Format "Jan 02, 2006" }}</i> -
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
 {{ end }}

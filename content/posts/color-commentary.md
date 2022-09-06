@@ -14,6 +14,7 @@ A much-simplified version of Randal Monroe of XKCD's [color survey](https://blog
 This the first thing I've put out there that I wanted lots of random people to use and enjoy. I learned a lot from building it, some of which is discussed below.
 
 ## don't design in html/css
+
 Unless you're [Lynn Fisher](https://lynnandtonic.com/), it can be pretty difficult to translate designs from your head immediately into code. This is obvious to any designer or artistic person, but these things I am not.
 
 {{< fig width="70" src="figma-cc-mobile.png" caption="Note the original skull logo" >}}
@@ -21,6 +22,7 @@ Unless you're [Lynn Fisher](https://lynnandtonic.com/), it can be pretty difficu
 Turns out clicking and dragging is a lot easier than CSS when in ideation. The mocks were mostly done before I wrote a line of code. I was able to get feedback from friends on a real-looking site without any serious up-front investment.
 
 ## sign up isn't just for data collection
+
 The things that take my breath away on the internet almost always load and immerse quickly. A [fluid simulation](https://paveldogreat.github.io/WebGL-Fluid-Simulation/) or a [peaceful meditation](https://www.pixelthoughts.co/) - no sign up flow, no pop ups or ads, no cookie consent required, nothing between you and the experience.
 
 Notably, the examples above deliver the entire content to the users' browser up front, then no further interaction with the internet is required.
@@ -34,6 +36,7 @@ When it comes down to it, deterrence for malicious action is limited without use
 Sign up and login were a deal breaker for me user-experience wise, so what I settled for was implementing server-side [periodic backups of the database](https://github.com/robinovitch61/color-controversy/blob/master/backups/backup.sh) with the knowledge that I could at least restore the data to a valid state if someone did decide to mess with it. Luckily, this hasn't been necessary so far.
 
 ## done is better than perfect
+
 Could I have worked harder to figure out how to get the play-swagger plugin to parse my Enum color values so I wouldn't have to replicate them manually on the frontend? Yes.
 
 Is the color label text sometimes a little cut off on color labels on the results chart when the color is medium-controversial? Yes.
@@ -43,6 +46,7 @@ Are two different docker-compose files, one for dev and one for prod, the best w
 But it's done! It works! People use it, and no one has submitted angry github issues denigrating my intelligence. In fact, I got my [first 3 github stars](https://github.com/robinovitch61/color-controversy) on the project! I love it as is and am ready to move on.
 
 ## design data collection early
+
 I did something really smart and/or really dumb in designing the data model for Color Controversy.
 
 I decided that the database would never grow past its [original number of rows](https://github.com/robinovitch61/color-controversy/blob/master/postgres/init.sql) - color submissions simply trigger a SQL query that mutates one of the values in the row of that color:
@@ -62,6 +66,7 @@ Fortunately, completely by accident, I can pretty much parse all this out of the
 Unfortunately, now I'm sort of treating logs like a read-only database, and I maybe could have just designed this in to my Postgres schema in the first place without taking much of a performance hit. You win some, you lose some.
 
 ## put your stuff out there
+
 The internet is cool and building dumb stuff is fun. Making for the web is also kind of terrifying, because it's probably going to be around for a long time. Once you unleash it, it's out there, ready for judgement and criticism. Write my name on it and people's negative reaction to it could be thinly veiled negative reactions to {{< word-break >}}MeAndMyStupidDumbBrainWhyWouldIEvenTryToMakeAThingAnywayGahhhhhhh{{< /word-break >}}.
 
 I remember eagerly refreshing my first reddit submission for the site and it being downvoted to 0.
@@ -79,4 +84,5 @@ Then John Austin, whose [color theory talk](https://www.youtube.com/watch?v=AS1O
 Wild ride, I'll tell ya!
 
 ## in colorclusion
+
 It was fun and worth it and I'll do it all again with something new! I may make a follow-up post at some point in the future once I parse through all the logs and make something pretty with them.

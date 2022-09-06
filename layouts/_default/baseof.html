@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
-    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.png" type="image/x-icon" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {{ $mainStyle := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
     {{ $headerStyle := resources.Get "sass/header.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
-    <link rel="stylesheet" href="{{ $mainStyle.RelPermalink }}">
-    <link rel="stylesheet" href="{{ $headerStyle.RelPermalink }}">
+    <link rel="stylesheet" href="{{ $mainStyle.RelPermalink }}" />
+    <link rel="stylesheet" href="{{ $headerStyle.RelPermalink }}" />
   </head>
 
   <body>
     {{ partial "header" . }}
 
-    <div class="container">
-      <h2>{{ .Title }}</h2>
-    </div>
-
-    <div class="post-date">
-      <div class="container">
-        <p>{{ block "subtitle" . }}{{ end }}</p>
-      </div>
-    </div>
 
     <div class="container">
       {{ block "main" . }}
