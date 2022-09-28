@@ -1,21 +1,47 @@
-// constants
-$FOOTER_HEIGHT: 50px;
-$HIGHLIGHT_COLOR: rgb(122, 255, 166);
-$BODY_COLOR: "black";
+@import "constants";
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: Geneva, Tahoma, Verdana, sans-serif;
   font-size: 18px;
-  color: $BODY_COLOR;
+  color: black;
+  background: $BODY_BACKGROUND;
   min-height: 100vh;
   position: relative;
+  background: $BODY_BACKGROUND;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  &::after {
-    content: "";
-    display: block;
-    height: $FOOTER_HEIGHT;
+  @media screen and (max-width: $MOBILE_WIDTH) {
+    display: unset;
+  }
+
+  .content {
+    width: $CONTENT_WIDTH;
+    background: $CONTENT_BACKGROUND;
+    min-height: calc(100vh - #{$HEADER_HEIGHT});
+
+    @media screen and (max-width: $MOBILE_WIDTH) {
+      width: unset;
+    }
+
+    section {
+      padding: 0.5em 0;
+
+      &:first-child {
+        padding-top: 1em;
+      }
+
+      &:last-child {
+        padding-bottom: 1em;
+      }
+
+      @media screen and (max-width: $MOBILE_WIDTH) {
+        padding: 0.2em 0;
+      }
+    }
   }
 }
 
@@ -23,7 +49,9 @@ body {
 h1,
 h2,
 h3 {
-  color: darkslategray;
+  color: black;
+  padding: 0;
+  margin: 0;
 }
 
 h1 {
@@ -31,7 +59,7 @@ h1 {
 }
 
 h2 {
-  padding: 1em 0px 0px;
+  padding: 1em 0 0;
   margin: 0;
 }
 
@@ -39,12 +67,16 @@ div.top-title h2 {
   padding: 0.5em 0;
 }
 
-.post h2 {
-  margin: 50px 0px 0px;
-  padding: 0;
-  border-color: black;
-  border-style: groove none none;
-  border-width: 1px;
+.post {
+  padding-bottom: 1em;
+
+  h2 {
+    margin: 50px 0px 0px;
+    padding: 0;
+    border-color: black;
+    border-style: groove none none;
+    border-width: 1px;
+  }
 }
 
 .post-date {
@@ -81,9 +113,13 @@ blockquote {
   font-style: italic;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $MOBILE_WIDTH) {
   h2 {
     font-size: 1.4em;
+  }
+
+  h3 {
+    font-size: 1em;
   }
 
   .listing {
@@ -251,7 +287,7 @@ figure {
   font-style: italic;
   font-size: 15px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $MOBILE_WIDTH) {
     img {
       max-width: 100% !important;
     }
@@ -266,27 +302,22 @@ figure {
 }
 
 ul {
-  list-style: none;
-  margin-left: 1em;
-  margin-bottom: 2em;
-  padding-left: 0;
-}
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0.3em 0;
 
-ul li {
-  margin: 1em 1em 1em 0;
-  padding-left: 1em;
-  text-indent: -1em;
-}
-
-ul li:before {
-  content: "-";
-  padding-right: 5px;
+  li {
+    padding: 0.3em 0;
+  }
 }
 
 .container {
-  max-width: 700px;
-  padding: 0 1em;
+  padding: 0 2em;
   margin: 0 auto;
+
+  @media screen and (max-width: $MOBILE_WIDTH) {
+    padding: 0 1em;
+  }
 }
 
 .nav {
@@ -358,7 +389,7 @@ span.bold {
 .highlight {
   overflow-y: auto;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $MOBILE_WIDTH) {
     font-size: 0.7em;
 
     // hide line numbers on mobile

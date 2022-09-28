@@ -3,7 +3,7 @@ title: "color commentary"
 date: 2020-11-09T09:42:53-08:00
 ---
 
-{{< fig width="120" src="cc_collage.png" caption="Twitter bird - blue or purple?" >}}
+{{< fig width="100" src="cc_collage.png" caption="Twitter bird - blue or purple?" >}}
 
 About 6 weeks ago, I launched [colorcontroversy.com](https://colorcontroversy.com). Since then, the site has collected over 800,000 color judgements and been shared around the web more than I expected.
 

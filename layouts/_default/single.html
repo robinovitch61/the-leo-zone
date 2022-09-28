@@ -7,6 +7,12 @@
 {{ end }}
 
 {{ define "main" }}
+<h2>{{ .Title }}</h2>
+
+<div class="post-date">
+  <p>{{ block "subtitle" . }}{{ end }}</p>
+</div>
+
 <div class="post">
   {{ .Content }}
 </div>

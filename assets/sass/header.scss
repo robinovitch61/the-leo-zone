@@ -1,3 +1,5 @@
+@import "constants";
+
 @font-face {
   font-family: "neon-pixel";
   src: url("/fonts/neon_pixel-7.ttf") format("truetype");
@@ -8,20 +10,19 @@
   src: url("/fonts/Nunito.ttf") format("truetype");
 }
 
-$mobile-width: 800px;
-
 header {
-  height: 220px;
-  background: #303030;
+  height: $HEADER_HEIGHT;
   display: flex;
   justify-content: center;
 
-  @media screen and (max-width: $mobile-width) {
-    height: 180px;
+  @media screen and (max-width: $MOBILE_WIDTH) {
+    height: 155px;
   }
 
   .header-content {
-    width: 1100px;
+    background: $HEADER_BACKGROUND;
+    width: $CONTENT_WIDTH;
+    max-width: 100vw;
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 5px 5px #c528fc;
@@ -40,22 +41,22 @@ header {
 
     .logo {
       font-family: "nunito", serif;
-      font-size: 65px;
+      font-size: 55px;
       color: #ffffff;
       position: absolute;
       transform-origin: left;
       transform: rotateZ(-5deg) translate(15px, 38px) skew(-5deg);
       text-shadow: 2px 2px 0 #000000,
         // black shadow
-        0 0 8px #db77ff,
-        0 0 8px #db77ff, 0 0 8px #db77ff,
+      0 0 8px #db77ff,
+      0 0 8px #db77ff, 0 0 8px #db77ff,
         // light pink shadow
-        0 0 20px #ce48fe,
-        0 0 20px #ce48fe,
+      0 0 20px #ce48fe,
+      0 0 20px #ce48fe,
         // medium pink shadow
-        0 0 25px #c528fc; // dark pink shadow
+      0 0 25px #c528fc; // dark pink shadow
 
-      @media screen and (max-width: $mobile-width) {
+      @media screen and (max-width: $MOBILE_WIDTH) {
         font-size: 35px;
         transform: rotateZ(-5deg) translate(15px, 25px) skew(-5deg);
       }
@@ -63,18 +64,18 @@ header {
 
     .stripes {
       position: absolute;
-      width: 200vw;
+      width: 200vw; // ensure full width
       transform-origin: left;
       transform: rotateZ(-5deg) translate(-20px, 120px);
 
-      @media screen and (max-width: $mobile-width) {
+      @media screen and (max-width: $MOBILE_WIDTH) {
         transform: rotateZ(-5deg) translate(-20px, 75px);
       }
 
       .stripe {
         height: 30px;
 
-        @media screen and (max-width: $mobile-width) {
+        @media screen and (max-width: $MOBILE_WIDTH) {
           height: 20px;
         }
 
@@ -88,13 +89,13 @@ header {
 
           &:after {
             font-family: "neon-pixel", serif;
-            font-size: 30px;
+            font-size: 25px;
             content: "I like Programming, Surfing, and Friendship";
             display: inline-block;
             transform: translate(30px);
             line-height: 35px; // adjust for baseline so font is vertically centered in all browsers
 
-            @media screen and (max-width: $mobile-width) {
+            @media screen and (max-width: $MOBILE_WIDTH) {
               font-size: 16px;
               transform: translate(25px, -6px);
             }
@@ -104,10 +105,10 @@ header {
     }
 
     .sun {
-      $side: 200px;
+      $side: 180px;
       position: absolute;
       top: -80px;
-      right: 50px;
+      right: 20px;
       width: $side;
       height: $side;
       background: linear-gradient(90deg, #69088a, #c736ff);
@@ -122,86 +123,54 @@ header {
         $width: 5px;
         $between: 20px;
         background: linear-gradient(
-          rgba(255, 255, 255, 0) $start + $between * 0 + $width * 0,
-          // first
-          rgba(255, 255, 255, 0.9) $start + $between * 0 + $width * 0,
-          rgba(255, 255, 255, 0.9) $start + $between * 0 + $width * 1,
-          rgba(255, 255, 255, 0) $start + $between * 0 + $width * 1,
-          rgba(255, 255, 255, 0) $start + $between * 1 + $width * 1,
-          // second
-          rgba(255, 255, 255, 0.8) $start + $between * 1 + $width * 1,
-          rgba(255, 255, 255, 0.8) $start + $between * 1 + $width * 2,
-          rgba(255, 255, 255, 0) $start + $between * 1 + $width * 2,
-          rgba(255, 255, 255, 0) $start + $between * 2 + $width * 2,
-          // third
-          rgba(255, 255, 255, 0.7) $start + $between * 2 + $width * 2,
-          rgba(255, 255, 255, 0.7) $start + $between * 2 + $width * 3,
-          rgba(255, 255, 255, 0) $start + $between * 2 + $width * 3,
-          rgba(255, 255, 255, 0) $start + $between * 3 + $width * 3,
-          // fourth
-          rgba(255, 255, 255, 0.6) $start + $between * 3 + $width * 3,
-          rgba(255, 255, 255, 0.6) $start + $between * 3 + $width * 4,
-          rgba(255, 255, 255, 0) $start + $between * 3 + $width * 4,
-          rgba(255, 255, 255, 0) $start + $between * 4 + $width * 4,
-          // fifth
-          rgba(255, 255, 255, 0.5) $start + $between * 4 + $width * 4,
-          rgba(255, 255, 255, 0.5) $start + $between * 4 + $width * 5,
-          rgba(255, 255, 255, 0) $start + $between * 4 + $width * 5,
-          rgba(255, 255, 255, 0) $start + $between * 5 + $width * 5
+                        rgba(255, 255, 255, 0) $start + $between * 0 + $width * 0,
+                  // first
+                        rgba(255, 255, 255, 0.9) $start + $between * 0 + $width * 0,
+                        rgba(255, 255, 255, 0.9) $start + $between * 0 + $width * 1,
+                        rgba(255, 255, 255, 0) $start + $between * 0 + $width * 1,
+                        rgba(255, 255, 255, 0) $start + $between * 1 + $width * 1,
+                  // second
+                        rgba(255, 255, 255, 0.8) $start + $between * 1 + $width * 1,
+                        rgba(255, 255, 255, 0.8) $start + $between * 1 + $width * 2,
+                        rgba(255, 255, 255, 0) $start + $between * 1 + $width * 2,
+                        rgba(255, 255, 255, 0) $start + $between * 2 + $width * 2,
+                  // third
+                        rgba(255, 255, 255, 0.7) $start + $between * 2 + $width * 2,
+                        rgba(255, 255, 255, 0.7) $start + $between * 2 + $width * 3,
+                        rgba(255, 255, 255, 0) $start + $between * 2 + $width * 3,
+                        rgba(255, 255, 255, 0) $start + $between * 3 + $width * 3,
+                  // fourth
+                        rgba(255, 255, 255, 0.6) $start + $between * 3 + $width * 3,
+                        rgba(255, 255, 255, 0.6) $start + $between * 3 + $width * 4,
+                        rgba(255, 255, 255, 0) $start + $between * 3 + $width * 4,
+                        rgba(255, 255, 255, 0) $start + $between * 4 + $width * 4,
         );
       }
 
-      @media screen and (max-width: $mobile-width) {
+      @media screen and (max-width: $SUN_WIDTH) {
         display: none;
       }
     }
 
     .nav {
       position: absolute;
-      right: 30px;
+      right: 20px;
       bottom: 10px;
       display: flex;
       flex-wrap: nowrap;
 
-      @media screen and (max-width: $mobile-width) {
-        right: unset;
-        left: 50%;
-        transform: translateX(-50%);
+      @media screen and (max-width: $MOBILE_WIDTH) {
         bottom: 5px;
+        right: 5px;
       }
 
-      .folder {
-        padding: 0 4px;
+      a {
+        width: 70px;
+        text-align: center;
+        color: #c2c2c2;
 
-        @media screen and (max-width: $mobile-width) {
-          padding: 0 6px;
-        }
-
-        a {
-          .svg-container {
-            position: relative;
-
-            .text {
-              position: absolute;
-              top: 16px;
-              color: #c2c2c2;
-              left: 50%;
-              transform: translateX(-50%);
-
-              @media screen and (max-width: $mobile-width) {
-                top: 12px;
-                font-size: 14px;
-              }
-            }
-
-            svg {
-              width: 80px;
-
-              @media screen and (max-width: $mobile-width) {
-                width: 60px;
-              }
-            }
-          }
+        @media screen and (max-width: $MOBILE_WIDTH) {
+          font-size: 0.8em;
         }
       }
     }
