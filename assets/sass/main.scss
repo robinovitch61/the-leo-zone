@@ -47,6 +47,10 @@ html, body {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-gap: 20px;
 
+        @media screen and (max-width: $MOBILE_WIDTH) {
+          grid-gap: 10px;
+        }
+
         .project {
           display: flex;
           flex-direction: column;
@@ -64,7 +68,12 @@ html, body {
             }
 
             > p {
+              word-break: break-word;
               margin: 0;
+
+              @media screen and (max-width: $MOBILE_WIDTH) {
+                font-size: 10px;
+              }
             }
           }
         }
