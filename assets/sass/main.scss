@@ -49,6 +49,7 @@ html, body {
 
         @media screen and (max-width: $MOBILE_WIDTH) {
           grid-gap: 10px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .project {
@@ -72,7 +73,7 @@ html, body {
               margin: 0;
 
               @media screen and (max-width: $MOBILE_WIDTH) {
-                font-size: 10px;
+                font-size: 12px;
               }
             }
           }
