@@ -1,0 +1,34 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>iterable[str] in python</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=/sass/main.min.50b22beda7412750cf00ff47426fcc68dc3f15bf032a72505c81630238b26605.css><link rel=stylesheet href=/sass/header.min.23471737eea59f56c2f30ffd2707839ff2d646b100fa258aed3546f712e04883.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=https://github.com/robinovitch61 target=_blank>github</a>
+<a href=/about target=_self>about</a>
+<a href=https://www.bing.com target=_blank>help</a></div></div></header><div class=content><div class=container><h2>iterable[str] in python</h2><div class=post-date><p>Oct 03, 2022</p></div><div class=post><p>Here&rsquo;s a fun thing with Python&rsquo;s type annotations.</p><p>Sometimes one might use <code>Iterable</code> as a type annotation to try to indicate something might be a set, a list, or a
+tuple.</p><p>But <code>Iterable</code> really just means <a href=https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable>something that implements
+<code>__iter__()</code></a>.</p><p>And <code>str</code> implements <code>__iter__()</code>, e.g.:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:green;font-weight:700>for</span> char <span style=color:#a2f;font-weight:700>in</span> <span style=color:#ba2121>&#34;abc&#34;</span>:
+</span></span><span style=display:flex><span>    <span style=color:green>print</span>(char)
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># a</span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># b</span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># c</span>
+</span></span></code></pre></td></tr></table></div></div><p>And &ldquo;a&rdquo; is a <code>str</code>, just like &ldquo;abc&rdquo; is a <code>str</code>.</p><p>So this type checks: <code>my_var: Iterable[str] = "abc"</code> (!!!).</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">9
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:green;font-weight:700>from</span> <span style=color:#00f;font-weight:700>typing</span> <span style=color:green;font-weight:700>import</span> Iterable, List
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># these all pass type check</span>
+</span></span><span style=display:flex><span>a: <span style=color:green>str</span> <span style=color:#666>=</span> <span style=color:#ba2121>&#34;a&#34;</span>
+</span></span><span style=display:flex><span>b: Iterable[<span style=color:green>str</span>] <span style=color:#666>=</span> <span style=color:#ba2121>&#34;abc&#34;</span>  <span style=color:#408080;font-style:italic># woops?</span>
+</span></span><span style=display:flex><span>c: Iterable[<span style=color:green>str</span>] <span style=color:#666>=</span> [<span style=color:#ba2121>&#34;abc&#34;</span>, <span style=color:#ba2121>&#34;def&#34;</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># this fails type check</span>
+</span></span><span style=display:flex><span>d: List[<span style=color:green>str</span>] <span style=color:#666>=</span> <span style=color:#ba2121>&#34;abc&#34;</span>  
+</span></span></code></pre></td></tr></table></div></div><p>A fun footgun to be aware of :). Get more specific with types to avoid unexpectedly
+correct-but-not-what-was-meant annotations.</p></div></div></div></body></html>
