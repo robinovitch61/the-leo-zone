@@ -1,6 +1,9 @@
 baseURL = "https://theleo.zone/"
 languageCode = "en-us"
-title = "The Leo Zone"
+title = "Leo Robinovitch @ The Leo Zone"
+
+[params]
+  description = "The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."
 
 [markup]
   [markup.highlight]

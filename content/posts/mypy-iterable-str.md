@@ -1,6 +1,7 @@
 ---
 title: "iterable[str] in python"
 date: 2022-10-03
+description: "A Python typing pitfall when using Iterable[str]."
 ---
 
 Here's a fun thing with Python's type annotations.
