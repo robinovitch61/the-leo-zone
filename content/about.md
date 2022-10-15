@@ -2,8 +2,8 @@
 title: 'about me'
 ---
 
-*I first met Leo in southern South Sudan while I was on safari. Our vehicle
-neared one of the last Northern White Rhino's in the world.*
+*I first met Leo in Kenya while I was on safari. Our vehicle neared one of
+the last Northern White Rhino's in the world.*
 
 *A human figure squatted near the massive rhino, stroking its head to comfort
 it with one hand and holding a huge viper in the other. Sending the rhino on
