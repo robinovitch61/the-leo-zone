@@ -1,10 +1,14 @@
 @import "constants";
 
+@font-face {
+  font-family: "noto-sans-mono";
+  src: url("/fonts/notosansmono.ttf") format("truetype");
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Geneva, Tahoma, Verdana, sans-serif;
-  font-size: 18px;
+  font-family: noto-sans-mono, sans-serif;
   color: black;
   background: $BODY_BACKGROUND;
   min-height: 100vh;
@@ -161,7 +165,7 @@ blockquote {
   }
 
   .listing {
-    font-size: 0.7em;
+    font-size: 0.8em;
   }
 
   .nav-container {
