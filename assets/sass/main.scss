@@ -109,6 +109,34 @@ div.top-title h2 {
   padding: 0.5em 0;
 }
 
+.listings {
+  margin-top: 0.5em;
+
+  .listing {
+    margin: 0.7em 0;
+
+    > a {
+      display: flex;
+      align-items: flex-start;
+      vertical-align: center;
+
+      .listing-date {
+        padding-left: 2em;
+        color: black;
+        white-space: nowrap;
+      }
+
+      .listing-title {
+        padding-left: 3em;
+      }
+    }
+
+    @media screen and (max-width: $MOBILE_WIDTH) {
+      font-size: 0.8em;
+    }
+  }
+}
+
 .post {
   padding-bottom: 1em;
 
@@ -128,27 +156,6 @@ div.top-title h2 {
   margin-bottom: 25px;
 }
 
-// @media (prefers-color-scheme: dark) {
-//     h1,
-//     h2,
-//     h3,
-//     body {
-//         color: #e4e4e4;
-//     }
-//     div.top-title h2 {
-//         color: rgb(26, 26, 26);
-//     }
-//     body {
-//         background-color: #444;
-//     }
-//     a {
-//         color: #e39777;
-//     }
-//     img {
-//         filter: grayscale(30%);
-//     }
-// }
-
 blockquote {
   border-left: 0.25em solid lightgray;
   padding-left: 1em;
@@ -162,10 +169,6 @@ blockquote {
 
   h3 {
     font-size: 1em;
-  }
-
-  .listing {
-    font-size: 0.8em;
   }
 
   .nav-container {

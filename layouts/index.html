@@ -43,11 +43,16 @@
 
 <section>
   <h3>writing</h3>
-  <ul>
+  <div class="listings">
     {{ range where .Site.RegularPages ".Type" "posts" }}
-    <li class="listing"><i>{{ .Date.Format "Jan 02, 2006" }}</i> - <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <div class="listing">
+      <a href="{{ .Permalink }}">
+        <span class="listing-date">{{ .Date.Format "Jan 02, 2006" }}</span>
+        <span class="listing-title">{{ .Title }}</span>
+      </a>
+    </div>
     {{ end }}
-  </ul>
+  </div>
 </section>
 
 <section>
@@ -65,14 +70,20 @@
         <p>Hansel & Gretel</p>
       </a>
     </div>
+  </div>
 </section>
 
 <section>
   <h3>recurse center log</h3>
-  <ul>
+  <div class="listings">
     {{ range where .Site.RegularPages ".Type" "recurse" }}
-    <li class="listing"><i>{{ .Date.Format "Jan 02, 2006" }}</i> - <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <div class="listing">
+      <a href="{{ .Permalink }}">
+        <div class="listing-date">{{ .Date.Format "Jan 02, 2006" }}</div>
+        <div class="listing-title">{{ .Title }}</div>
+      </a>
+    </div>
     {{ end }}
-  </ul>
+  </div>
 </section>
 {{ end }}
