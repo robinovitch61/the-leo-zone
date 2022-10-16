@@ -124,10 +124,18 @@ div.top-title h2 {
         padding-left: 2em;
         color: black;
         white-space: nowrap;
+
+        @media screen and (max-width: $MOBILE_WIDTH) {
+          padding-left: 1em;
+        }
       }
 
       .listing-title {
         padding-left: 3em;
+
+        @media screen and (max-width: $MOBILE_WIDTH) {
+          padding-left: 1.5em;
+        }
       }
     }
 
