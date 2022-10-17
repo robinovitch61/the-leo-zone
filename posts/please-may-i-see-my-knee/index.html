@@ -28,56 +28,34 @@ a <a href="https://www.amazon.com/dp/B07MJW5BXZ?ref=ppx_yo2ov_dt_b_product_detai
 appeared, but decided to unmount every time I tried to view or copy any files.</p><p>After unplugging everything else from my dock to try to provide the drive a steady power source and turning it on and
 off again, I was able to <code>sudo cp -r PATIENT_DATA/* ~/leo-knee</code>.</p><p>I immediately version controlled this folder with <code>git</code> and a remote in the cloud, HIPAA be damned (can you break HIPAA
 for your own medical data? Someone probably knows).</p><p>Expecting to find some PDFs of my knee with big red arrows to the important bits, I was surprised to find no obvious
-image files in the contents of the CD:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>dr-xr-xr-x  <span style=color:#666>199</span> leo  staff      <span style=color:#666>6368</span> Oct <span style=color:#666>16</span> 21:06 DICOM
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff     <span style=color:#666>52960</span> Oct <span style=color:#666>16</span> 21:22 DICOMDIR
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff  <span style=color:#666>32620048</span> Oct <span style=color:#666>16</span> 21:22 GEARView.exe
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff    <span style=color:#666>146653</span> Oct <span style=color:#666>16</span> 21:22 Gear_View_Basic_Release_Notes.pdf
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff    <span style=color:#666>119806</span> Oct <span style=color:#666>16</span> 21:22 Gear_View_Basic_Technical_Specifications.pdf
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>6</span> leo  staff       <span style=color:#666>192</span> Oct <span style=color:#666>16</span> 21:06 Images  &lt;- this contained images <span style=color:green;font-weight:700>for</span> OsiriX, not of my knee :<span style=color:#666>(</span>
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff    <span style=color:#666>240510</span> Oct <span style=color:#666>16</span> 21:22 Lexmark EULA.rtf
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>3</span> leo  staff        <span style=color:#666>96</span> Oct <span style=color:#666>16</span> 21:06 OsiriX Launcher.app
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff        <span style=color:#666>28</span> Oct <span style=color:#666>16</span> 21:22 autorun.inf
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff     <span style=color:#666>17556</span> Oct <span style=color:#666>16</span> 21:22 background.jpg
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff       <span style=color:#666>362</span> Oct <span style=color:#666>16</span> 21:22 check.bat
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>7</span> leo  staff       <span style=color:#666>224</span> Oct <span style=color:#666>16</span> 21:06 config
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 de
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff  <span style=color:#666>52070032</span> Oct <span style=color:#666>16</span> 21:23 dotNetFx45_Full_x86_x64.exe
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 en
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 es
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 fr
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff        <span style=color:#666>34</span> Oct <span style=color:#666>16</span> 21:23 hash.bin
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff       <span style=color:#666>367</span> Oct <span style=color:#666>16</span> 21:23 launch.bat
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 neutral
-</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 pt
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff       <span style=color:#666>495</span> Oct <span style=color:#666>16</span> 21:23 readme_mac.rtf
-</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff      <span style=color:#666>1744</span> Oct <span style=color:#666>16</span> 21:23 start.hta
-</span></span></code></pre></td></tr></table></div></div><p>It looks like the CD came with a directory of files in <a href=https://en.wikipedia.org/wiki/DICOM>DICOM</a> format, which I&rsquo;ve
+image files in the contents of the CD:</p><pre tabindex=0><code>dr-xr-xr-x  199 leo  staff      6368 Oct 16 21:06 DICOM
+-r-xr-xr-x    1 leo  staff     52960 Oct 16 21:22 DICOMDIR
+-r-xr-xr-x    1 leo  staff  32620048 Oct 16 21:22 GEARView.exe
+-r-xr-xr-x    1 leo  staff    146653 Oct 16 21:22 Gear_View_Basic_Release_Notes.pdf
+-r-xr-xr-x    1 leo  staff    119806 Oct 16 21:22 Gear_View_Basic_Technical_Specifications.pdf
+dr-xr-xr-x    6 leo  staff       192 Oct 16 21:06 Images
+-r-xr-xr-x    1 leo  staff    240510 Oct 16 21:22 Lexmark EULA.rtf
+dr-xr-xr-x    3 leo  staff        96 Oct 16 21:06 OsiriX Launcher.app
+-r-xr-xr-x    1 leo  staff        28 Oct 16 21:22 autorun.inf
+-r-xr-xr-x    1 leo  staff     17556 Oct 16 21:22 background.jpg
+-r-xr-xr-x    1 leo  staff       362 Oct 16 21:22 check.bat
+dr-xr-xr-x    7 leo  staff       224 Oct 16 21:06 config
+dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 de
+-r-xr-xr-x    1 leo  staff  52070032 Oct 16 21:23 dotNetFx45_Full_x86_x64.exe
+dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 en
+dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 es
+dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 fr
+-r-xr-xr-x    1 leo  staff        34 Oct 16 21:23 hash.bin
+-r-xr-xr-x    1 leo  staff       367 Oct 16 21:23 launch.bat
+dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 neutral
+dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 pt
+-r-xr-xr-x    1 leo  staff       495 Oct 16 21:23 readme_mac.rtf
+-r-xr-xr-x    1 leo  staff      1744 Oct 16 21:23 start.hta
+</code></pre><p>It looks like the CD came with a directory of files in <a href=https://en.wikipedia.org/wiki/DICOM>DICOM</a> format, which I&rsquo;ve
 learned today is a standard for medical imaging data. When you see the Radiologist scroll through your body slices like
 you&rsquo;re in a <a href=https://bodyworlds.com/>Body Worlds exhibit</a>, I guess they&rsquo;re often using a DICOM viewer.</p><p>It also came with a copy of DICOM viewer <a href=https://pixmeo.onfastspring.com/osirix-md-monthly-subscription>OsiriX</a>, an
-application that &ldquo;needs to be updated to run on my Mac&rdquo; and costs 90€/month.</p><p>Luckily, the internet is beautiful and amazing and there is a fork of the open-source bits of OsiriX
+application that &ldquo;needs to be updated to run on my Mac&rdquo; and costs 90€/month. The <code>Images</code> directory just contained a few
+icons used in this app.</p><p>Luckily, the internet is beautiful and amazing and there is a fork of the open-source bits of OsiriX
 called <a href=https://github.com/bettar/miele-lxiv>miele-lxiv</a>, available
 for <a href="https://apps.apple.com/us/app/miele-lxiv/id988332475?mt=12">free on the Mac App Store</a>.</p><p>This was written by one person, Alex Bettarini, making <a href=https://www.patreon.com/miele_lxiv>$8/month</a> on Patreon
 currently. Alex, we love you and I will be giving you some money.</p><p>Importing all the DICON files into Miele-LXIV was fast and simple and it was pretty cool and scary to scroll around my
