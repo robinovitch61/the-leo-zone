@@ -439,7 +439,7 @@ span.bold {
 }
 
 // Code
-.highlight {
+pre, .highlight {
   overflow-y: auto;
 
   @media screen and (max-width: $MOBILE_WIDTH) {

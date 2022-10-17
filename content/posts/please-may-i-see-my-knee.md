@@ -94,13 +94,13 @@ for your own medical data? Someone probably knows).
 Expecting to find some PDFs of my knee with big red arrows to the important bits, I was surprised to find no obvious
 image files in the contents of the CD:
 
-```sh
+```
 dr-xr-xr-x  199 leo  staff      6368 Oct 16 21:06 DICOM
 -r-xr-xr-x    1 leo  staff     52960 Oct 16 21:22 DICOMDIR
 -r-xr-xr-x    1 leo  staff  32620048 Oct 16 21:22 GEARView.exe
 -r-xr-xr-x    1 leo  staff    146653 Oct 16 21:22 Gear_View_Basic_Release_Notes.pdf
 -r-xr-xr-x    1 leo  staff    119806 Oct 16 21:22 Gear_View_Basic_Technical_Specifications.pdf
-dr-xr-xr-x    6 leo  staff       192 Oct 16 21:06 Images  <- this contained images for OsiriX, not of my knee :(
+dr-xr-xr-x    6 leo  staff       192 Oct 16 21:06 Images
 -r-xr-xr-x    1 leo  staff    240510 Oct 16 21:22 Lexmark EULA.rtf
 dr-xr-xr-x    3 leo  staff        96 Oct 16 21:06 OsiriX Launcher.app
 -r-xr-xr-x    1 leo  staff        28 Oct 16 21:22 autorun.inf
@@ -125,7 +125,8 @@ learned today is a standard for medical imaging data. When you see the Radiologi
 you're in a [Body Worlds exhibit](https://bodyworlds.com/), I guess they're often using a DICOM viewer.
 
 It also came with a copy of DICOM viewer [OsiriX](https://pixmeo.onfastspring.com/osirix-md-monthly-subscription), an
-application that "needs to be updated to run on my Mac" and costs 90€/month.
+application that "needs to be updated to run on my Mac" and costs 90€/month. The `Images` directory just contained a few
+icons used in this app.
 
 Luckily, the internet is beautiful and amazing and there is a fork of the open-source bits of OsiriX
 called [miele-lxiv](https://github.com/bettar/miele-lxiv), available
