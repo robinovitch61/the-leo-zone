@@ -68,7 +68,6 @@ html, body {
             text-align: center;
 
             > img {
-              max-width: 100%;
               border: 1px solid black;
             }
 
@@ -85,6 +84,10 @@ html, body {
       }
     }
   }
+}
+
+img {
+  max-width: 100%;
 }
 
 // Typography
@@ -341,10 +344,6 @@ figure {
   font-size: 15px;
 
   @media screen and (max-width: $MOBILE_WIDTH) {
-    img {
-      max-width: 100% !important;
-    }
-
     figcaption {
       a {
         overflow-wrap: anywhere; // chrome
