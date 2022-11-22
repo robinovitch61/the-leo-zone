@@ -10,7 +10,7 @@ disturb my slumber. She's a bit overweight and does a funny little booty wiggle 
 
 Here are some nice pictures from her time in foster care in my apartment:
 
-{{< img src="/img/phoenix.png" >}}
+{{< img src="img/phoenix.png" >}}
 
 {{< img src="img/model.png" >}}
 

@@ -31,7 +31,7 @@ couch.
 
 Here are some nice pictures from their time in foster care in my apartment:
 
-{{< img src="/img/hanselgretel.jpg" >}}
+{{< img src="img/hanselgretel.jpg" >}}
 
 {{< img src="img/gretaleyes.jpg" >}}
 
