@@ -1,27 +1,9 @@
-{{ define "title" }}
-{{ .Title }}
-{{ end }}
-
-{{ define "subtitle" }}
-{{ with .Date }}{{ .Format "Jan 02, 2006" }}{{ end }}
-{{ end }}
-
 {{ define "main" }}
 <h2>{{ .Title }}</h2>
-
 <div class="post-date">
-  <p>{{ block "subtitle" . }}{{ end }}</p>
+  <p>{{ with .Date }}{{ .Format "Jan 02, 2006" }}{{ end }}</p>
 </div>
-
 <div class="post">
   {{ .Content }}
 </div>
-{{ end }}
-
-{{ define "footer" }}
-{{ if eq .Title "about me" }}
-{{ partial "about-footer" . }}
-{{ else }}
-{{ partial "footer" . }}
-{{ end}}
 {{ end }}
