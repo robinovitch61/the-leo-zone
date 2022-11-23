@@ -1,95 +1,99 @@
 {{ define "main" }}
-<section>
-  <h3>projects</h3>
-  <div class="projects">
-    <div class="project">
-      <a href="https://github.com/robinovitch61/wander" target="_blank">
-        <img src="/img/wander.png" alt="wander tui">
-        <p>HashiCorp Nomad TUI</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="https://thermalmodel.com" target="_blank">
-        <img src="/img/thermalmodel.png" alt="thermal model">
-        <p>thermalmodel.com</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="https://colorcontroversy.com" target="_blank">
-        <img src="/img/colorcontroversy.png" alt="color controversy">
-        <p>color controversy</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="https://uselesscar.bike/" target="_blank">
-        <img src="/img/carbike.png" alt="car bike wireframe">
-        <p>uselesscar.bike</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="/matts-garden" target="_blank">
-        <img src="/img/mattsgarden.png" alt="matt's garden">
-        <p>a digital garden</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="https://github.com/robinovitch61/nand2tetris" target="_blank">
-        <img src="/img/nand2tetris.png" alt="nand2tetris">
-        <p>nand2tetris</p>
-      </a>
-    </div>
-  </div>
-</section>
+<div class="content">
+  <div class="container">
+    <section>
+      <h3>projects</h3>
+      <div class="projects">
+        <div class="project">
+          <a href="https://github.com/robinovitch61/wander" target="_blank">
+            <img src="/img/wander.png" alt="wander tui">
+            <p>HashiCorp Nomad TUI</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="https://thermalmodel.com" target="_blank">
+            <img src="/img/thermalmodel.png" alt="thermal model">
+            <p>thermalmodel.com</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="https://colorcontroversy.com" target="_blank">
+            <img src="/img/colorcontroversy.png" alt="color controversy">
+            <p>color controversy</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="https://uselesscar.bike/" target="_blank">
+            <img src="/img/carbike.png" alt="car bike wireframe">
+            <p>uselesscar.bike</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="/matts-garden" target="_blank">
+            <img src="/img/mattsgarden.png" alt="matt's garden">
+            <p>a digital garden</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="https://github.com/robinovitch61/nand2tetris" target="_blank">
+            <img src="/img/nand2tetris.png" alt="nand2tetris">
+            <p>nand2tetris</p>
+          </a>
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h3>writing</h3>
-  <div class="listings">
-    {{ range where .Site.RegularPages ".Type" "posts" }}
-    <div class="listing">
-      <a href="{{ .Permalink }}">
-        <span class="listing-date">{{ .Date.Format "Jan 02, 2006" }}</span>
-        <span class="listing-title">{{ .Title }}</span>
-      </a>
-    </div>
-    {{ end }}
-  </div>
-</section>
+    <section>
+      <h3>writing</h3>
+      <div class="listings">
+        {{ range where .Site.RegularPages ".Type" "posts" }}
+        <div class="listing">
+          <a href="{{ .Permalink }}">
+            <span class="listing-date">{{ .Date.Format "Jan 02, 2006" }}</span>
+            <span class="listing-title">{{ .Title }}</span>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+    </section>
 
-<section>
-  <h3>cats</h3>
-  <div class="projects">
-    <div class="project">
-      <a href="/jerry" target="_self">
-        <img src="/img/jerry.png" alt="jerry">
-        <p>Jerry</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="/hansel-and-gretel" target="_self">
-        <img src="/img/hanselgretel.png" alt="hansel & gretel">
-        <p>Hansel & Gretel</p>
-      </a>
-    </div>
-    <div class="project">
-      <a href="/phoenix" target="_self">
-        <img src="/img/phoenix.png" alt="phoenix">
-        <p>Phoenix</p>
-      </a>
-    </div>
-  </div>
-</section>
+    <section>
+      <h3>cats</h3>
+      <div class="projects">
+        <div class="project">
+          <a href="/jerry" target="_self">
+            <img src="/img/jerry.png" alt="jerry">
+            <p>Jerry</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="/hansel-and-gretel" target="_self">
+            <img src="/img/hanselgretel.png" alt="hansel & gretel">
+            <p>Hansel & Gretel</p>
+          </a>
+        </div>
+        <div class="project">
+          <a href="/phoenix" target="_self">
+            <img src="/img/phoenix.png" alt="phoenix">
+            <p>Phoenix</p>
+          </a>
+        </div>
+      </div>
+    </section>
 
-<section>
-  <h3>recurse center log</h3>
-  <div class="listings">
-    {{ range where .Site.RegularPages ".Type" "recurse" }}
-    <div class="listing">
-      <a href="{{ .Permalink }}">
-        <div class="listing-date">{{ .Date.Format "Jan 02, 2006" }}</div>
-        <div class="listing-title">{{ .Title }}</div>
-      </a>
-    </div>
-    {{ end }}
+    <section>
+      <h3>recurse center log</h3>
+      <div class="listings">
+        {{ range where .Site.RegularPages ".Type" "recurse" }}
+        <div class="listing">
+          <a href="{{ .Permalink }}">
+            <div class="listing-date">{{ .Date.Format "Jan 02, 2006" }}</div>
+            <div class="listing-title">{{ .Title }}</div>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+    </section>
   </div>
-</section>
+</div>
 {{ end }}
