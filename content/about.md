@@ -49,5 +49,6 @@ ___
 
 * [mastodon](https://recurse.social/@robinovitch61)
 * [twitter](https://twitter.com/robinovitch61)
+* [linkedin](https://www.linkedin.com/in/robinovitch61/)
 
 [wander]: https://www.youtube.com/watch?v=ARhbm0npCCs
