@@ -3,6 +3,13 @@ title: "Phoenix's Tumblr Page"
 description: "Phoenix, the World's Cutest Foster Cat"
 ---
 
+---
+🎉 UPDATE 🎉
+
+Phoenix has been adopted into a loving home!!!
+
+---
+
 Phoenix is an old girl who has come here to cuddle you and eat food. And she's all out of food.
 
 She is incredibly sweet, with a deep love for head bumps and neck scritches. She sleeps on my bed at my feet and doesn't
