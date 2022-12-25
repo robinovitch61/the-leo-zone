@@ -419,6 +419,7 @@ span.bold {
 // Code
 pre, .highlight {
   overflow-y: auto;
+  font-size: 1.05em;
 
   @media screen and (max-width: $MOBILE_WIDTH) {
     font-size: 0.7em;

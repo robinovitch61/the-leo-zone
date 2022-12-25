@@ -47,9 +47,9 @@ To test things are working:
 
 3. Run it by hitting Shift-Enter with your cursor on the same line. You should see output in the bottom right like:
 
-{{< highlight shell "linenos=false" >}}
+```shell {linenos=false}
 SuperDirt: listening to Tidal on port 57120
-{{< / highlight >}}
+```
 
 4. Keeping SuperCollider and SuperDirt open and running, open Atom. Confirm Tidal Cycles plugin is installed (visible on
    the bottom right).
@@ -110,9 +110,9 @@ s.reboot { // server options are only updated on reboot
 I then aliased `sclang` to the installed script in my shell startup file (`~/.zshrc`). This may or may not be required
 depending on your platform.
 
-{{< highlight shell "linenos=false" >}}
+```shell {linenos=false}
 alias sclang="/Applications/SuperCollider.app/Contents/MacOS/sclang"
-{{< / highlight >}}
+```
 
 In order to use `vim` with Tidal Cycles, I installed [vim-tidal](https://github.com/tidalcycles/vim-tidal). Make sure
 you run the `make` command to symlink the `tidalvim` and `tidal` scripts as recommended so that you can run `tidal`
@@ -145,10 +145,10 @@ script that starts the Haskell interpreter including the tidal package
 Finally, by adding the following configuration line to my `~/.vimrc`, I configure vim-tidal to send commands to the
 correct tmux socket and window + pane (the `tidal` pane):
 
-{{< highlight vim "linenos=false" >}}
+```vim {linenos=false}
 " vim-tidal combined with tmuxinator music
 let g:tidal_default_config = {"socket_name": "music", "target_pane": "music:2.2"}
-{{< / highlight >}}
+```
 
 Now, I can fire up `vim` configured with SuperCollider and Tidal Cycles running with `tmuxinator start music`. When I'm
 done, I save my files and run `tmuxinator stop music`, and everything shuts down.

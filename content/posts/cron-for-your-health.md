@@ -20,9 +20,9 @@ When run, a popup will be created in the middle of my screen that looks like:
 {{< fig src="standup.jpg" width=200 unit=px >}}
 
 In order to run it periodically with cron, I ran `crontab -e`, then add this line to the file:
-{{< highlight shell "linenos=false" >}}
+```shell {linenos=false}
 0 8-17 * * * ~/projects/cron/standup.sh > /dev/null 2>&1
-{{< / highlight >}}
+```
 
 Breakdown:
 * `0 8-17 * * *`: Run every hour from 8am to 5pm, every day (I use https://crontab.guru/ to create or parse these schedule expressions)

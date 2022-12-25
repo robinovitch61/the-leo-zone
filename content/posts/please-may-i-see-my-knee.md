@@ -94,7 +94,7 @@ for your own medical data? Someone probably knows).
 Expecting to find some PDFs of my knee with big red arrows to the important bits, I was surprised to find no obvious
 image files in the contents of the CD:
 
-```
+```shell {linenos=false}
 dr-xr-xr-x  199 leo  staff      6368 Oct 16 21:06 DICOM
 -r-xr-xr-x    1 leo  staff     52960 Oct 16 21:22 DICOMDIR
 -r-xr-xr-x    1 leo  staff  32620048 Oct 16 21:22 GEARView.exe
