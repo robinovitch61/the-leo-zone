@@ -1,4 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="One man's search to find, view, and share medical images of his knee."><link rel=stylesheet href=/sass/main.min.ded9379e442793d80ab1842e15e8365a72679f2aa62fadaeb36ab07ccedbda17.css><link rel=stylesheet href=/sass/header.min.b46e6b299714edde117a0d62d9c5e1b9cce79b1928fe641a6a1efda74182202d.css><link rel=stylesheet href=/sass/footer.min.b710a156aec222bba88e7de18131715e01a40a3d2c04fbe80c79875a3f00af79.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
+<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="One man's search to find, view, and share medical images of his knee."><link rel=stylesheet href=/sass/main.min.2f6776e81a1a832934b4d193d296a98d565f612d8680722def5ac84db1a29b9f.css><link rel=stylesheet href=/sass/header.min.b46e6b299714edde117a0d62d9c5e1b9cce79b1928fe641a6a1efda74182202d.css><link rel=stylesheet href=/sass/footer.min.b710a156aec222bba88e7de18131715e01a40a3d2c04fbe80c79875a3f00af79.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
 <a href=https://github.com/robinovitch61 target=_blank>github</a>
 <a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h2>please, may i see my knee?</h2><div class=post-date><p>Oct 16, 2022</p></div><div class=post><p>TL;DR it can be hard to obtain, view, and share medical images of your own body. Scroll down for a cool video of the
 inside of my knee derived from a CD with DICON images on it uploaded to a cool open source viewer.</p><p>I have had persistent and increasing knee pain in my left knee for about five years. It&rsquo;s a real bummer. I&rsquo;ve tried to
@@ -27,30 +27,30 @@ a <a href="https://www.amazon.com/dp/B07MJW5BXZ?ref=ppx_yo2ov_dt_b_product_detai
 appeared, but decided to unmount every time I tried to view or copy any files.</p><p>After unplugging everything else from my dock to try to provide the drive a steady power source and turning it on and
 off again, I was able to <code>sudo cp -r PATIENT_DATA/* ~/leo-knee</code>.</p><p>I immediately version controlled this folder with <code>git</code> and a remote in the cloud, HIPAA be damned (can you break HIPAA
 for your own medical data? Someone probably knows).</p><p>Expecting to find some PDFs of my knee with big red arrows to the important bits, I was surprised to find no obvious
-image files in the contents of the CD:</p><pre tabindex=0><code>dr-xr-xr-x  199 leo  staff      6368 Oct 16 21:06 DICOM
--r-xr-xr-x    1 leo  staff     52960 Oct 16 21:22 DICOMDIR
--r-xr-xr-x    1 leo  staff  32620048 Oct 16 21:22 GEARView.exe
--r-xr-xr-x    1 leo  staff    146653 Oct 16 21:22 Gear_View_Basic_Release_Notes.pdf
--r-xr-xr-x    1 leo  staff    119806 Oct 16 21:22 Gear_View_Basic_Technical_Specifications.pdf
-dr-xr-xr-x    6 leo  staff       192 Oct 16 21:06 Images
--r-xr-xr-x    1 leo  staff    240510 Oct 16 21:22 Lexmark EULA.rtf
-dr-xr-xr-x    3 leo  staff        96 Oct 16 21:06 OsiriX Launcher.app
--r-xr-xr-x    1 leo  staff        28 Oct 16 21:22 autorun.inf
--r-xr-xr-x    1 leo  staff     17556 Oct 16 21:22 background.jpg
--r-xr-xr-x    1 leo  staff       362 Oct 16 21:22 check.bat
-dr-xr-xr-x    7 leo  staff       224 Oct 16 21:06 config
-dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 de
--r-xr-xr-x    1 leo  staff  52070032 Oct 16 21:23 dotNetFx45_Full_x86_x64.exe
-dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 en
-dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 es
-dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 fr
--r-xr-xr-x    1 leo  staff        34 Oct 16 21:23 hash.bin
--r-xr-xr-x    1 leo  staff       367 Oct 16 21:23 launch.bat
-dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 neutral
-dr-xr-xr-x    4 leo  staff       128 Oct 16 21:06 pt
--r-xr-xr-x    1 leo  staff       495 Oct 16 21:23 readme_mac.rtf
--r-xr-xr-x    1 leo  staff      1744 Oct 16 21:23 start.hta
-</code></pre><p>It looks like the CD came with a directory of files in <a href=https://en.wikipedia.org/wiki/DICOM>DICOM</a> format, which I&rsquo;ve
+image files in the contents of the CD:</p><div class=highlight><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>dr-xr-xr-x  <span style=color:#666>199</span> leo  staff      <span style=color:#666>6368</span> Oct <span style=color:#666>16</span> 21:06 DICOM
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff     <span style=color:#666>52960</span> Oct <span style=color:#666>16</span> 21:22 DICOMDIR
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff  <span style=color:#666>32620048</span> Oct <span style=color:#666>16</span> 21:22 GEARView.exe
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff    <span style=color:#666>146653</span> Oct <span style=color:#666>16</span> 21:22 Gear_View_Basic_Release_Notes.pdf
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff    <span style=color:#666>119806</span> Oct <span style=color:#666>16</span> 21:22 Gear_View_Basic_Technical_Specifications.pdf
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>6</span> leo  staff       <span style=color:#666>192</span> Oct <span style=color:#666>16</span> 21:06 Images
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff    <span style=color:#666>240510</span> Oct <span style=color:#666>16</span> 21:22 Lexmark EULA.rtf
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>3</span> leo  staff        <span style=color:#666>96</span> Oct <span style=color:#666>16</span> 21:06 OsiriX Launcher.app
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff        <span style=color:#666>28</span> Oct <span style=color:#666>16</span> 21:22 autorun.inf
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff     <span style=color:#666>17556</span> Oct <span style=color:#666>16</span> 21:22 background.jpg
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff       <span style=color:#666>362</span> Oct <span style=color:#666>16</span> 21:22 check.bat
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>7</span> leo  staff       <span style=color:#666>224</span> Oct <span style=color:#666>16</span> 21:06 config
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 de
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff  <span style=color:#666>52070032</span> Oct <span style=color:#666>16</span> 21:23 dotNetFx45_Full_x86_x64.exe
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 en
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 es
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 fr
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff        <span style=color:#666>34</span> Oct <span style=color:#666>16</span> 21:23 hash.bin
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff       <span style=color:#666>367</span> Oct <span style=color:#666>16</span> 21:23 launch.bat
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 neutral
+</span></span><span style=display:flex><span>dr-xr-xr-x    <span style=color:#666>4</span> leo  staff       <span style=color:#666>128</span> Oct <span style=color:#666>16</span> 21:06 pt
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff       <span style=color:#666>495</span> Oct <span style=color:#666>16</span> 21:23 readme_mac.rtf
+</span></span><span style=display:flex><span>-r-xr-xr-x    <span style=color:#666>1</span> leo  staff      <span style=color:#666>1744</span> Oct <span style=color:#666>16</span> 21:23 start.hta
+</span></span></code></pre></div><p>It looks like the CD came with a directory of files in <a href=https://en.wikipedia.org/wiki/DICOM>DICOM</a> format, which I&rsquo;ve
 learned today is a standard for medical imaging data. When you see the Radiologist scroll through your body slices like
 you&rsquo;re in a <a href=https://bodyworlds.com/>Body Worlds exhibit</a>, I guess they&rsquo;re often using a DICOM viewer.</p><p>It also came with a copy of DICOM viewer <a href=https://pixmeo.onfastspring.com/osirix-md-monthly-subscription>OsiriX</a>, an
 application that &ldquo;needs to be updated to run on my Mac&rdquo; and costs 90€/month. The <code>Images</code> directory just contained a few
