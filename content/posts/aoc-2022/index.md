@@ -13,8 +13,8 @@ program of your own creation.
 My overall experience with AoC 2022 was better than it was last year. I had less needless stress and gained more
 practice, insight, and knowledge from each puzzle.
 
-I'm still in the process of obtaining the last 8 stars (3 full puzzles and the second part of 2 others), and this post
-will be updated as I finish them up.
+I'm still in the process of obtaining the last ~~8~~ 6 stars (~~3~~ 2 full puzzles and the second part of 2 others), and
+this post will be updated as I finish them up.
 
 ### Stats and Summary of Techniques Used
 
@@ -45,7 +45,7 @@ Day 16: *[]    graph traversal, optimization, ??
 Day 17: **     2D grid manipulation, state machines, cycles
 Day 18: **     3D grid navigation
 Day 19: [][]   optimization, ??
-Day 20: [][]   array/index manipulation, ??
+Day 20: [*][*] array/index manipulation, modular arithmetic
 Day 21: **     iteration, binary search, newton's method
 Day 22: *[]    2D & 3D grid navigation
 Day 23: **     cellular automaton
@@ -126,7 +126,7 @@ finishing the book this year.
 In the end, I'm actually really glad I did AoC in Python, a language I use daily at work and have used for years now. I
 experimented with functions and classes in the `collections`, `functools`, and `ast` modules that I'd wanted to mess
 around with, had some fun code golfing some of the earlier days, reinforced my understanding of scopes and mutability in
-Python, and generally came out of the experience a notably stronger Python programmer.
+Python, and came out of the experience a notably stronger Python programmer.
 
 ### Engaging with the Community
 
@@ -149,8 +149,8 @@ three different people from all over the world, and was able to share my solutio
 benefit from.
 
 I learned a ton reading other folks solutions, particularly when my own was fresh in my mind. One of the coolest moments
-for me was seeing someone solve Day 15 using [Z3](https://github.com/Z3Prover/z3), a theorem prover, with minimal code
-and getting a result to a challenging and CPU-intensive problem in <1s.
+for me was seeing [Sam](https://www.samvangool.net) solve Day 15 using [Z3](https://github.com/Z3Prover/z3), a theorem
+prover, with minimal code and getting a result to a challenging and CPU-intensive problem in <1s.
 
 ### Other Strengths this Year
 
