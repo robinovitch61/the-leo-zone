@@ -47,10 +47,17 @@ Day 18: **     3D grid navigation
 Day 19: [][]   optimization, ??
 Day 20: [*][*] array/index manipulation, modular arithmetic
 Day 21: **     iteration, binary search, newton's method
-Day 22: *[]    2D & 3D grid navigation
+Day 22: *[*]   2D & 3D grid navigation
 Day 23: **     cellular automaton
 Day 24: **     path finding
 Day 25: [][]   number bases, ??
+
+Notes on problems solved after Day 25:
+
+  20: initial approach was way too complicated, was able to solve
+      it relatively quickly on revisiting with a fresh view
+
+  22: paper cubes, a pencil, and a lot of folding really helped
 ```
 
 ### Less Hints and Peeking
