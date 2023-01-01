@@ -13,9 +13,6 @@ program of your own creation.
 My overall experience with AoC 2022 was better than it was last year. I had less needless stress and gained more
 practice, insight, and knowledge from each puzzle.
 
-I'm still in the process of obtaining the last ~~8~~ 6 stars (~~3~~ 2 full puzzles and the second part of 2 others), and
-this post will be updated as I finish them up.
-
 ### Stats and Summary of Techniques Used
 
 Here is a brief overview of stars obtained and the techniques I used to solve (or attempt to solve) the puzzles this
@@ -50,7 +47,7 @@ Day 21: **     iteration, binary search, newton's method
 Day 22: *[*]   2D & 3D grid navigation
 Day 23: **     cellular automaton
 Day 24: **     path finding
-Day 25: [][]   number bases, ??
+Day 25: [*][*] balanced quinary numerical system
 
 Notes on problems solved after Day 25:
 
@@ -70,6 +67,9 @@ Notes on problems solved after Day 25:
       how to trim down states. Read a few other 
       people's solutions before being able to grok and
       solve myself.
+
+  25: i very unnecessarily solved this with a trimmed
+      BFS, the same technique as 16 and 19 :)
 ```
 
 ### Less Hints and Peeking
@@ -88,7 +88,7 @@ Importantly, I also knew when enough was enough, at least for the moment. Much o
 friends who I see rarely, so I didn't endlessly iterate on the tougher problems in real time. I was more comfortable
 this year leaving the puzzle unsolved with the knowledge that I would revisit it later.
 
-My approach to the remaining problems is going to be as follows:
+My approach to the remaining problems ~~is going to be~~ was as follows:
 
 * look at the code I already wrote for it
 * spend ~10mins coming up with a variation or alternate approach that might plausibly work
