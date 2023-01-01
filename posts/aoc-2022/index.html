@@ -3,8 +3,7 @@
 <a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h2>reflecting on advent of code 2022</h2><div class=post-date><p>Dec 25, 2022</p></div><div class=post><p>WARNING: as per title, here be spoilers for Advent of Code 2022.</p><p><a href=https://adventofcode.com>Advent of Code</a> (AoC) is a set of puzzles released daily from Dec 1st through Dec 25th each
 year. Each puzzle has two parts, with the prize of a &ldquo;star&rdquo; for each part completed. Puzzles are solved with a computer
 program of your own creation.</p><p>My overall experience with AoC 2022 was better than it was last year. I had less needless stress and gained more
-practice, insight, and knowledge from each puzzle.</p><p>I&rsquo;m still in the process of obtaining the last <del>8</del> 6 stars (<del>3</del> 2 full puzzles and the second part of 2 others), and
-this post will be updated as I finish them up.</p><h3 id=stats-and-summary-of-techniques-used>Stats and Summary of Techniques Used</h3><p>Here is a brief overview of stars obtained and the techniques I used to solve (or attempt to solve) the puzzles this
+practice, insight, and knowledge from each puzzle.</p><h3 id=stats-and-summary-of-techniques-used>Stats and Summary of Techniques Used</h3><p>Here is a brief overview of stars obtained and the techniques I used to solve (or attempt to solve) the puzzles this
 year.</p><pre tabindex=0><code>  * = star obtained before Dec 25
  [] = star not yet obtained
 [*] = star obtained after Dec 25
@@ -33,7 +32,7 @@ Day 21: **     iteration, binary search, newton&#39;s method
 Day 22: *[*]   2D &amp; 3D grid navigation
 Day 23: **     cellular automaton
 Day 24: **     path finding
-Day 25: [][]   number bases, ??
+Day 25: [*][*] balanced quinary numerical system
 
 Notes on problems solved after Day 25:
 
@@ -53,13 +52,16 @@ Notes on problems solved after Day 25:
       how to trim down states. Read a few other 
       people&#39;s solutions before being able to grok and
       solve myself.
+
+  25: i very unnecessarily solved this with a trimmed
+      BFS, the same technique as 16 and 19 :)
 </code></pre><h3 id=less-hints-and-peeking>Less Hints and Peeking</h3><p>This year, I tried harder to think up and implement my own approaches to the problem before looking at anyone else&rsquo;s
 hints or code. I did this even if I wasn&rsquo;t confident the approach I was implementing would work.</p><img loading=lazy style="display:block;margin:0 auto 1em" src=aoc2022.drawio.png><p>The iteration loop above is so much a part of programming. Short-circuiting it by seeking inspiration for &ndash; or
 pre-checking &ndash; my next hypothesis against someone&rsquo;s validated solution results in less feelings of frustration, but
 also less personal development. Sticking with the iteration cycle also increases my persistence and comfort with
 ambiguity and exploration.</p><p>Importantly, I also knew when enough was enough, at least for the moment. Much of my AoC month was spent with family and
 friends who I see rarely, so I didn&rsquo;t endlessly iterate on the tougher problems in real time. I was more comfortable
-this year leaving the puzzle unsolved with the knowledge that I would revisit it later.</p><p>My approach to the remaining problems is going to be as follows:</p><ul><li>look at the code I already wrote for it</li><li>spend ~10mins coming up with a variation or alternate approach that might plausibly work</li><li>if I come up with something, implement it</li><li>otherwise, look at some of the keywords from the
+this year leaving the puzzle unsolved with the knowledge that I would revisit it later.</p><p>My approach to the remaining problems <del>is going to be</del> was as follows:</p><ul><li>look at the code I already wrote for it</li><li>spend ~10mins coming up with a variation or alternate approach that might plausibly work</li><li>if I come up with something, implement it</li><li>otherwise, look at some of the keywords from the
 day&rsquo;s <a href=https://www.reddit.com/r/adventofcode/wiki/archives/solution_megathreads/2022/>reddit</a>
 and <a href=https://www.recurse.com/>Recurse</a> <a href=https://zulip.com/>Zulip</a> thread</li><li>implement an approach suggested by the hints there</li><li>if I still can&rsquo;t get a solution, look at other people&rsquo;s code for more hints</li></ul><h3 id=decoupling-solving-and-self-worth>Decoupling Solving and Self-Worth</h3><p>Last year, I let whether or not I could solve a puzzle affect my mood and self perception too much. If I could solve it,
 I felt like a genius, or at least, a valid human. If I couldn&rsquo;t, a cloud of negative self judgement followed me for a
