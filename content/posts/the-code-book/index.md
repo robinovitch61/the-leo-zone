@@ -18,3 +18,18 @@ description: "The Code Book by Simon Singh, reviewed by Leo Robinovitch"
     * book cipher (second beale cipher)
     * viginere cipher, broken by babbage and kasiski
     * the one-time pad, unbreakable, but inconvenient
+* TODO: check out implementations of enigma online
+* the weaknesses of the enigma were human
+    * repeating message keys
+    * cillies (e.g. the initials of your loved one)
+    * restrictions on plugboard settings or scrambler arrangements
+    * structured messages resulting in cribs - needed a crib for Turing's bombes to work
+* depictions of Turing may have been very inaccurate in the imitation game
+    * not an asshole (?)
+    * worked there from the start, didn't just swoop in with an idea for the bombe
+    * first bombe didn't work fast enough, but a redesign was completed very quickly and most of the time was waiting on
+      manufacturing
+    * didn't marry a woman for cover at Bletchley (?)
+* Japanese Purple cipher - TODO: look in to this
+* American SIGABA cipher and british Typex cipher - TODO: look in to these
+* Using Navaho or another rare language as the cipher text
