@@ -202,3 +202,23 @@ I use Vim keybindings in most places I edit text already, but there were some ne
 * `vi` is required by the [Single Unix Specification and POSIX](https://en.wikipedia.org/wiki/Single_UNIX_Specification)
 * `vi` uses `hjkl` for motion because of the [ADM-3A terminal keyboard](https://en.wikipedia.org/wiki/ADM-3A)
 * `neovim` has it's own `:Tutor` command, whereas `vimtutor` is also always available for vanilla `vim` introduction
+
+A Recurser friend noted that another way to check the `vi` version/binary that is installed is using `readlink`
+and `which`:
+
+```shell
+readlink -f $(which vi)
+```
+
+## Day 7: The server and its services
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/07.md)
+
+Install and run Apache2 web server, similar to my nginx experiments on Day 1.
+
+* since I allow all http traffic to my server on port 80, [http://18.236.102.243/](http://18.236.102.243/) is available
+  to the public (might not work anymore if you are reading this in the future)
+* a virtual host is a contained site or system on a web server
+* I can edit the default page with `sudo vim /var/www/html/index.html`
+* `systemctl` manages `systemd` services
+* `systemctl list-units [--all --state --type]` shows units, i.e. resources that systemd knows how to manage
