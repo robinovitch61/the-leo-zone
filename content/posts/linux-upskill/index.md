@@ -91,6 +91,10 @@ Another thing I learned:
 
 > Ports numbers less than 1024 are privileged ports and can be used only by root
 
+A Recurser pointed out that a list of all packages installed in a given distribution may be shared in a
+public `.manifest` file,
+e.g. [Ubuntu 22.04 Desktop](http://releases.ubuntu.com/jammy/ubuntu-22.04.1-desktop-amd64.manifest).
+
 ## Day 2: Basic navigation
 
 [Link](https://github.com/livialima/linuxupskillchallenge/blob/master/02.md)
@@ -222,3 +226,31 @@ Install and run Apache2 web server, similar to my nginx experiments on Day 1.
 * I can edit the default page with `sudo vim /var/www/html/index.html`
 * `systemctl` manages `systemd` services
 * `systemctl list-units [--all --state --type]` shows units, i.e. resources that systemd knows how to manage
+
+Notably, [Apache may change its name soon](https://blog.nativesintech.org/apache-appropriation/).
+
+Since the web server is public, I got this fun entry in the `/var/log/apache2/access.log` the following day:
+
+```
+198.235.24.13 - - [10/Jan/2023:21:12:16 +0000]
+"GET / HTTP/1.0" 200 11155 "-" "Expanse, a Palo Alto Networks company,
+searches across the global IPv4 space multiple times per day to identify
+customers&#39; presences on the Internet.
+```
+
+## Day 8: The infamous "grep" and other text processors
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/08.md)
+
+A good day full of useful tools. Some new things I learned:
+
+* ssh runs it's own service, `sshd` (Secure Shell Daemon) `sudo systemctl status sshd`
+* `/var/log/auth.log` contains login and sudo usage information
+* `tail -f` to follow
+
+> Use the `cut` command to select out most interesting portions of each line by specifying "-d" for delimiter and "-f"
+> for field - like: `grep "authenticating" /var/log/auth.log | grep "root" | cut -f 10- -d" "`
+> (field 10 onwards, where the delimiter between field is the " " character).
+
+* use `grep -v XXX` to invert the output ("all lines that do not contain XXX")
+* it would be nice to get better at `awk` and `sed` one day
