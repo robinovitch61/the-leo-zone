@@ -254,3 +254,132 @@ A good day full of useful tools. Some new things I learned:
 
 * use `grep -v XXX` to invert the output ("all lines that do not contain XXX")
 * it would be nice to get better at `awk` and `sed` one day
+
+## Day 9: Diving into networking
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/09.md)
+
+Ok, I learned a LOT of stuff today!
+
+### ports and network devices
+
+> a port is a number assigned to uniquely identify a connection endpoint and to direct data to a specific service
+
+* `ss`, "socket status", is one tool to examine open ports, replacing `netstat`
+* `nmap` is another, non-default tool for port examination
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ sudo ss -ltpn
+State      Recv-Q     Send-Q         Local Address:Port           Peer Address:Port     Process
+LISTEN     0          4096           127.0.0.53%lo:53                  0.0.0.0:*         users:(("systemd-resolve",pid=417,fd=13))
+LISTEN     0          128                  0.0.0.0:22                  0.0.0.0:*         users:(("sshd",pid=653,fd=3))
+LISTEN     0          511                        *:80                        *:*         users:(("apache2",pid=29833,fd=4),("apache2",pid=29832,fd=4),("apache2",pid=26021,fd=4))
+LISTEN     0          128                     [::]:22                     [::]:*         users:(("sshd",pid=653,fd=4))
+```
+
+After `sudo apt install nmap`:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ nmap localhost
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-01-12 19:40 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00011s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+* `nmap localhost` may show services that are *only* bound to `localhost` (the loopback network device), so can first
+  get actual network card IP address:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ ip address
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9001 qdisc fq_codel state UP group default qlen 1000
+    link/ether 02:32:a6:75:13:17 brd ff:ff:ff:ff:ff:ff
+    inet 172.31.24.204/20 brd 172.31.31.255 scope global dynamic eth0
+       valid_lft 3099sec preferred_lft 3099sec
+    inet6 fe80::32:a6ff:fe75:1317/64 scope link
+       valid_lft forever preferred_lft forever
+
+ubuntu@ip-172-31-24-204:~$ nmap 172.31.24.204
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-01-12 19:49 UTC
+Nmap scan report for ip-172-31-24-204.us-west-2.compute.internal (172.31.24.204)
+Host is up (0.00011s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+```
+
+* so in this case, the *exposed* services are the same ones bound to localhost, but this may not always be true
+
+### host firewall
+
+* a firewall is a network security system that monitors and controls incoming and outgoing network traffic based on
+  predetermined security rules
+* the linux kernel has built-in firewall functionality called netfilter
+* `iptables` and `nftables` are utilities for configuring netfilter
+* `ufw` (uncomplicated firewall) is a less complicated tool
+* checking what rules are in place:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+```
+
+* this^ is equivalent to "no firewall"
+* after `sudo apt install ufw`, can deny `http` traffic:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ sudo ufw allow ssh
+Rules updated
+Rules updated (v6)
+
+ubuntu@ip-172-31-24-204:~$ sudo ufw deny http
+Rules updated
+Rules updated (v6)
+
+ubuntu@ip-172-31-24-204:~$ sudo ufw enable
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+```
+
+* `sudo iptables -L` now has MANY rules, including
+
+```shell{linenos=false}
+Chain ufw-user-input (1 references)
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:ssh
+DROP       tcp  --  anywhere             anywhere             tcp dpt:http
+```
+
+* Now, [http://18.236.102.243/](http://18.236.102.243/) fails to connect until I undo it with
+
+```shell{linenos=false}
+sudo ufw allow http
+sudo ufw enable
+```
+
+* in general, not running unnecessary services is a good enough practice for protection depending on the server
+* changing the standard port, e.g. the `ssh` standard port 22 by editing `/etc/ssh/sshd_config`, is a fine "security by
+  obscurity" ([or not](https://danielmiessler.com/blog/no-moving-your-ssh-port-isnt-security-by-obscurity/), because
+  you're not actually hiding the mechanism) thing to do
+
