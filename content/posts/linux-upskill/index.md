@@ -383,3 +383,51 @@ sudo ufw enable
   obscurity" ([or not](https://danielmiessler.com/blog/no-moving-your-ssh-port-isnt-security-by-obscurity/), because
   you're not actually hiding the mechanism) thing to do
 
+## Day 10: Getting the computer to do your work for you
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/10.md)
+
+* `crontab -l` shows user crontab entry, add `sudo` for `root` user
+* system crontab at `/etc/crontab`
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name command to be executed
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+```
+
+* there are hourly, daily, weekly, and monthly scripts run in `/etc/cron.hourly`, `/etc/cron.daily`, etc.
+* `run-parts` runs scripts or programs in a directory in alphabetical order
+* `logrotate` rotates, compresses, and mails system logs
+* `systemd` can be used to run specific tasks at times using timers:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ systemctl list-timers
+NEXT                        LEFT          LAST                        PASSED       UNIT                         ACTIVATES
+Sat 2023-01-14 00:00:00 UTC 3h 7min left  Fri 2023-01-13 00:01:30 UTC 20h ago      logrotate.timer              logrotate.service
+Sat 2023-01-14 00:00:00 UTC 3h 7min left  Fri 2023-01-13 00:01:30 UTC 20h ago      man-db.timer                 man-db.service
+Sat 2023-01-14 01:00:13 UTC 4h 7min left  Fri 2023-01-13 10:59:30 UTC 9h ago       fwupd-refresh.timer          fwupd-refresh.service
+...
+```
+
+* `anacron`, or "anachronistic cron", is good for e.g. laptops that are off some of the time
