@@ -431,3 +431,21 @@ Sat 2023-01-14 01:00:13 UTC 4h 7min left  Fri 2023-01-13 10:59:30 UTC 9h ago    
 ```
 
 * `anacron`, or "anachronistic cron", is good for e.g. laptops that are off some of the time
+
+## Day 11: Finding things...
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/11.md)
+
+How to find files and text in files efficiently.
+
+* `locate` (`sudo apt install mlocate`) is a very nifty version of `find / -name <somefilename> 2>/dev/null`
+* may want to run `sudo updatedb` to update the index `locate` searches (usually runs daily through cron)
+* `find /home -mtime -3` finds all the files modified in the last 3 days
+* recursively search text with `grep -R -i "PermitRootLogin" /etc/* 2>/dev/null`
+* `zless` and `zgrep` for viewing/searching compressed (e.g. gzip'd) files
+* `find` flags and options:
+  * `-iname` to ignore case for name
+  * `-o` for "or"
+  * `-size` for size filtering, e.g. `-size +100M`
+  * `-atime` for access time, e.g. `-atime 30` accessed in last 30 days
+  * `-ok` like `-exec`, but ask for confirmation, e.g. `find . -type f -ok cat {} \;`
