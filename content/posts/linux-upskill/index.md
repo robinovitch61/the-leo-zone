@@ -444,8 +444,24 @@ How to find files and text in files efficiently.
 * recursively search text with `grep -R -i "PermitRootLogin" /etc/* 2>/dev/null`
 * `zless` and `zgrep` for viewing/searching compressed (e.g. gzip'd) files
 * `find` flags and options:
-  * `-iname` to ignore case for name
-  * `-o` for "or"
-  * `-size` for size filtering, e.g. `-size +100M`
-  * `-atime` for access time, e.g. `-atime 30` accessed in last 30 days
-  * `-ok` like `-exec`, but ask for confirmation, e.g. `find . -type f -ok cat {} \;`
+    * `-iname` to ignore case for name
+    * `-o` for "or"
+    * `-size` for size filtering, e.g. `-size +100M`
+    * `-atime` for access time, e.g. `-atime 30` accessed in last 30 days
+    * `-ok` like `-exec`, but ask for confirmation, e.g. `find . -type f -ok cat {} \;`
+
+## Day 12: Transferring files
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/12.md)
+
+File sharing protocols other than `ftp` and `scp`:
+
+* SMB for Windows
+* AFP for local network of MacOS
+* WebDAV for http
+* `rsync`
+* SFTP over SSH - best for our purposes as we're already ssh'ing
+  * There is an `sftp` utility pre-installed on MacOS
+
+[Cyberduck](https://cyberduck.io/) is a nice cloud storage browser with SFTP support, providing a GUI for
+uploading/downloading files to/from remote servers. The logo and app icon alone make it well worth it.
