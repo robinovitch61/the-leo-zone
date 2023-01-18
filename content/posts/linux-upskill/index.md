@@ -461,7 +461,10 @@ File sharing protocols other than `ftp` and `scp`:
 * WebDAV for http
 * `rsync`
 * SFTP over SSH - best for our purposes as we're already ssh'ing
-  * There is an `sftp` utility pre-installed on MacOS
+    * There is an `sftp` utility pre-installed on MacOS
 
 [Cyberduck](https://cyberduck.io/) is a nice cloud storage browser with SFTP support, providing a GUI for
 uploading/downloading files to/from remote servers. The logo and app icon alone make it well worth it.
+
+A Recurser pointed out [magic-wormhole](https://magic-wormhole.readthedocs.io/en/latest/welcome.html), which is another
+very cool program for transferring data securely.
