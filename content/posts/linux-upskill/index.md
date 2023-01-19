@@ -468,3 +468,54 @@ uploading/downloading files to/from remote servers. The logo and app icon alone 
 
 A Recurser pointed out [magic-wormhole](https://magic-wormhole.readthedocs.io/en/latest/welcome.html), which is another
 very cool program for transferring data securely.
+
+## Day 13: Who has permission?
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/13.md)
+
+I've seen most of these before, but nice to do an actual overview of the tools where I grok what's going on a bit
+better.
+
+* all files are tagged with the user and group that owns them
+* `-rwxr-xr-x` are 3 groups of `rwx` (read/write/execute) for user, group, others respectively
+    * first char is a file type indicator (`-` for regular file)
+* `chmod` to change perms
+    * `chmod u-w tuesday.txt` to remove write perms from the user
+    * `chmod g+w tuesday.txt` to add write perms to the group
+    * `chmod o-r tuesday.txt` to remove read perms from others
+    * `chmod u+rwx,go-rwx hello` to do multiple at once
+* most linux systems create a group for each user
+* `groups` to see groups you are a member of
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ groups
+ubuntu adm dialout cdrom floppy sudo audio dip video plugdev netdev lxd
+```
+
+* `sudo usermod -a -G group user` to add user to group
+* `sudo adduser fred` to create a user fred
+* `sudo su fred` to "become" fred
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ sudo su fred
+fred@ip-172-31-24-204:/home/ubuntu$ groups
+fred
+```
+
+* `sudo usermod -a -G sudo fred` to add fred to sudo group
+* `umask` determines the permissions new files are given
+    * directories get `777` - umask, files get `666` - umask
+    * example: umask = `0002`, dirs get `775`, files get `664`
+* octal mode of file permissions:
+    * r = 2^2 = 4
+    * w = 2^1 = 2
+    * x = 2^0 = 1
+    * so 1 = `--x`, 7 = `rwx`, 5 = `r-x` etc.
+    * `chmod 664 myfile` is `rw-` for user and group, `r--` for others
+* `id` command to view user/group/etc ids:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ id
+uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),118(netdev),119(lxd)
+```
+
