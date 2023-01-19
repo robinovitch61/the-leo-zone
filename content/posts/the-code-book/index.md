@@ -33,3 +33,11 @@ description: "The Code Book by Simon Singh, reviewed by Leo Robinovitch"
 * Japanese Purple cipher - TODO: look in to this
 * American SIGABA cipher and british Typex cipher - TODO: look in to these
 * Using Navaho or another rare language as the cipher text
+* public key cryptography
+    * diffie helman key exchange
+    * RSA as first "one way function" with practical usage
+        * surprising that prime factorization is such a difficult problem!
+        * number theory and modular arithmetic so important
+    * so many jews discovering cool things!
+    * GCHQ, James Ellis, etc. not getting credit for RSA and Diffie-helman key exchange independently 3-5yrs before the
+      academics
