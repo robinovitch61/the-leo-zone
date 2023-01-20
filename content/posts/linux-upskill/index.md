@@ -519,3 +519,40 @@ ubuntu@ip-172-31-24-204:~$ id
 uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),118(netdev),119(lxd)
 ```
 
+# Day 14: Users and Groups
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/14.md)
+
+* `sudo adduser helen` to make new user
+* `sudo EDITOR=vim visudo` to edit `/etc/sudoers` file, added:
+
+```shell{linenos=false}
+# Allow user "helen" to run "sudo reboot"
+# ...and don't prompt for a password
+#
+helen ALL = NOPASSWD:/sbin/reboot
+```
+
+* note that we could have run `sudo usermod -a -G sudo helen` to give helen ability to do ANYTHING with sudo, not just
+  reboot
+* remove with `sudo gpasswd -d helen sudo`
+* `/etc/passwd` and `/etc/group` have user and group info respectively
+* [created new key pair in AWS using EC2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair)
+* downloaded the private key
+* `mv ~/Downloads/helen-linux-upskill.cer ~/.ssh/helen-linux-upskill`
+* `chmod 400 ~/.ssh/helen-linux-upskill` to correct perms
+* `ssh-keygen -y -f ~/.ssh/helen-linux-upskill` to get public key
+* Then, ssh as `ubuntu` and ran `sudo su helen` to become helen
+* `mkdir ~/.ssh`
+* `vim ~/.ssh/authorized_keys` and added public key there
+* `chmod 600 ~/.ssh/authorized_keys`
+* then added the following to my local `~/.ssh/config`
+
+```shell{linenos=false}
+* Host helen-linux-upskill
+  Hostname 18.236.102.243
+  User helen
+  IdentityFile ~/.ssh/helen-linux-upskill
+```
+
+* then can `ssh helen-linux-upskill` and be helen :)
