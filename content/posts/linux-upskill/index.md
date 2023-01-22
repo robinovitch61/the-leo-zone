@@ -556,3 +556,29 @@ helen ALL = NOPASSWD:/sbin/reboot
 ```
 
 * then can `ssh helen-linux-upskill` and be helen :)
+
+# Day 15: Deeper into repositories...
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/15.md)
+
+* linux versions come from release year (e.g. 18.04 = 2018)
+* `/etc/apt/sources.list` shows urls to repositories that `apt` references to install things from
+* count installable packages with `apt-cache dump | grep "Package:" | wc -l`
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ apt-cache dump | grep "Package:" | wc -l
+106898
+```
+
+* to add multiverse repository, uncommented it in `sources.list` and ran `sudo apt update`
+* then could install packages from it, e.g. `netperf`
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~$ sudo apt install netperf
+...
+Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu focal/multiverse amd64 netperf amd64 2.6.0-2.1 [550 kB]
+...
+```
+
+* can also add via cli e.g. `sudo add-apt-repository ppa:dawidd0811/neofetch && sudo apt update` (this is no longer
+  valid)
