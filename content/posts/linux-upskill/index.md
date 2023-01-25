@@ -582,3 +582,37 @@ Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu focal/multiverse amd64 netp
 
 * can also add via cli e.g. `sudo add-apt-repository ppa:dawidd0811/neofetch && sudo apt update` (this is no longer
   valid)
+
+# Day 16: Archiving and compressing
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/16.md)
+
+* create uncompressed tarball in current dir `tar -cvf myinits.tar /etc/init.d/`
+* tar was short for "tape archive"
+* compress using GnuZip `gzip myinits.tar` to create `myinits.tar.gz`
+* all in one step with `tar -cvzf myinits.tgz /etc/init.d/`
+  * `-c`: create archive
+  * `-v`: verbose
+  * `-z`: compress
+  * `-f`: output file
+* untar with `tar -xvf myinits.tgz`
+* [bzip2](https://en.wikipedia.org/wiki/Bzip2) is another compression algo similar to gzip
+
+# Day 17: Build from the source
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/17.md)
+
+* `sudo apt install build-essential` to install package of compiler tools
+* `wget -v https://nmap.org/dist/nmap-7.93.tar.bz2` to get latest source of `nmap`
+* `tar -jxvf nmap-7.93.tar.bz2` to uncompress (`-j` for bzip2)
+* `cat nmap-7.93/INSTALL` shows installation instructions
+* after following install directions:
+
+```shell{linenos=false}
+ubuntu@ip-172-31-24-204:~/nmap-7.93$ sudo updatedb
+ubuntu@ip-172-31-24-204:~/nmap-7.93$ locate bin/nmap
+/usr/bin/nmap
+/usr/local/bin/nmap
+```
+
+* this looks very cool: https://www.linuxfromscratch.org/lfs/
