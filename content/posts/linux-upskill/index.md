@@ -641,7 +641,7 @@ Nothing really new here for me as I have good familiarity with bash scripting al
 
 # Reflection
 
-This was a good course, but more hands and simplified than I was hoping for. I would still recommend it, particularly
+This was a good course, but more hands on and simplified than I was hoping for. I would still recommend it, particularly
 early in your career. Interestingly, the bulk of the most interesting content came in the first 15 days or so.
 
 I still have some knowledge gaps, including questions like:
