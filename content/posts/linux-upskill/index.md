@@ -616,3 +616,34 @@ ubuntu@ip-172-31-24-204:~/nmap-7.93$ locate bin/nmap
 ```
 
 * this looks very cool: https://www.linuxfromscratch.org/lfs/
+
+# Day 18: Log rotation
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/18.md)
+
+* `logrotate` app for specifying log rotation behavior
+* `ls /var/log` already shows rotated logs e.g. `syslog.2.gz`
+* this is due to `/etc/cron.daily/logrotate`
+* config file for `logrotate` at `/etc/logrotate.conf` and subfiles under `/etc/logrotate.d`
+
+# Day 19: Inodes, symlinks and other shortcuts
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/19.md)
+
+* the Linux Virtual Filesystem (VFS) sits above other filesystems like `ext3`, `ext4`, etc.
+* layer between filename and data on disk = inode
+* `ls -i` to show inodes
+* can also use `stat` command to show inode info
+* filenames point to inodes which point to data on disk
+* permissions, ownership, and dates of a file are at the inode, not filename level
+* several filenames can point to the same inode - a "hard link"
+  * `ln` creates a hard link
+  * `rm`'ing one of the filenames will not remove the underlying inode, data, or other filename
+* more common than hard links are soft links, or symlinks
+  * `ln -s` creates a symlink. First arg is existing file or directory, second (optional) arg is symlink location
+  * symlinks:
+    * can link to directories (hard links can't)
+    * can reference a file/directory on a different hard disk or volume (hard links can't)
+    * remain if the original is deleted (hard links don't)
+    * will not reference the file anymore if it is moved (hard links will)
+    * have their own inodes/physical disk location (hard links reference the same inode)
