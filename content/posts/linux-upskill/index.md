@@ -1,30 +1,15 @@
 ---
 title: "the linux upskill challenge"
-date: "2023-01-02"
+date: "2023-01-27"
 description: "The Linux Upskill Challenge (https://github.com/livialima/linuxupskillchallenge) as done by Leo
 Robinovitch"
-draft: true
 ---
 
 The [Linux Upskill Challenge](https://github.com/livialima/linuxupskillchallenge) is something I've been following on
-Reddit for a while and have been wanting to do. At this point, I'm pretty OK with computers. But I've never been a Linux
-power user.
+Reddit for a while and have been wanting to do. At this point, I'm pretty OK with computers, but I'd like to (re)learn
+some fundamentals of Linux and Unix systems.
 
-I have many fundamental knowledge gaps and questions:
-
-* What does "everything is a file" mean?
-* When would I actually want to reach for a tool like `lsof` or `tcpdump`?
-* What is a kernel, actually?
-* What is userspace vs kernelspace?
-* What does `sudo su` do, other than seemingly put me in a perpetually sudo-ey universe?
-* What is the "GNU" part of Linux?
-
-I could google these questions individually, and I have semi-informed guesses about the answers to some of them, but the
-fact that I can think of so many off the top of my head indicates to me that there are probably
-many [unkown unkowns](https://en.wikipedia.org/wiki/There_are_unknown_unknowns) here, and a semi-structured process like
-the Upskill Challenge may help to identify them and fill in some answers.
-
-This post will be a running list of my notes as I undergo the process.
+This post contains my notes as I underwent the process.
 
 ## Day 0: Setup
 
@@ -591,10 +576,10 @@ Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu focal/multiverse amd64 netp
 * tar was short for "tape archive"
 * compress using GnuZip `gzip myinits.tar` to create `myinits.tar.gz`
 * all in one step with `tar -cvzf myinits.tgz /etc/init.d/`
-  * `-c`: create archive
-  * `-v`: verbose
-  * `-z`: compress
-  * `-f`: output file
+    * `-c`: create archive
+    * `-v`: verbose
+    * `-z`: compress
+    * `-f`: output file
 * untar with `tar -xvf myinits.tgz`
 * [bzip2](https://en.wikipedia.org/wiki/Bzip2) is another compression algo similar to gzip
 
@@ -637,13 +622,33 @@ ubuntu@ip-172-31-24-204:~/nmap-7.93$ locate bin/nmap
 * filenames point to inodes which point to data on disk
 * permissions, ownership, and dates of a file are at the inode, not filename level
 * several filenames can point to the same inode - a "hard link"
-  * `ln` creates a hard link
-  * `rm`'ing one of the filenames will not remove the underlying inode, data, or other filename
+    * `ln` creates a hard link
+    * `rm`'ing one of the filenames will not remove the underlying inode, data, or other filename
 * more common than hard links are soft links, or symlinks
-  * `ln -s` creates a symlink. First arg is existing file or directory, second (optional) arg is symlink location
-  * symlinks:
-    * can link to directories (hard links can't)
-    * can reference a file/directory on a different hard disk or volume (hard links can't)
-    * remain if the original is deleted (hard links don't)
-    * will not reference the file anymore if it is moved (hard links will)
-    * have their own inodes/physical disk location (hard links reference the same inode)
+    * `ln -s` creates a symlink. First arg is existing file or directory, second (optional) arg is symlink location
+    * symlinks:
+        * can link to directories (hard links can't)
+        * can reference a file/directory on a different hard disk or volume (hard links can't)
+        * remain if the original is deleted (hard links don't)
+        * will not reference the file anymore if it is moved (hard links will)
+        * have their own inodes/physical disk location (hard links reference the same inode)
+
+# Day 20: Scripting
+
+[Link](https://github.com/livialima/linuxupskillchallenge/blob/master/20.md)
+
+Nothing really new here for me as I have good familiarity with bash scripting already.
+
+# Reflection
+
+This was a good course, but more hands and simplified than I was hoping for. I would still recommend it, particularly
+early in your career. Interestingly, the bulk of the most interesting content came in the first 15 days or so.
+
+I still have some knowledge gaps, including questions like:
+
+* What does "everything is a file" mean?
+* What is a kernel, actually?
+* What is userspace vs kernelspace?
+* What is the "GNU" part of Linux?
+
+Time to read and google onwards :).
