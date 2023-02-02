@@ -95,16 +95,12 @@ h1,
 h2,
 h3 {
   color: black;
-  //padding: 0;
-  //margin: 0;
 }
 
 h1 {
   font-size: 28px;
-}
-
-div.top-title h2 {
-  padding: 0.5em 0;
+  padding: 0.8em 0 0.3em;
+  margin: 0;
 }
 
 .listings {
@@ -147,11 +143,10 @@ div.top-title h2 {
   padding-bottom: 1em;
 }
 
-.post-date {
+.post-date p {
   font-style: italic;
   font-size: 15px;
-  margin-top: 10px;
-  margin-bottom: 25px;
+  margin: 0.5em 0;
 }
 
 blockquote {
