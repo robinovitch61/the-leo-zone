@@ -399,13 +399,16 @@ span.bold {
 }
 
 // Code
+pre {
+  background: lightgrey;
+  padding: 0.2em;
+}
+
 pre, .highlight {
   overflow-y: auto;
   font-size: 1.05em;
 
   @media screen and (max-width: $MOBILE_WIDTH) {
-    font-size: 0.7em;
-
     // hide line numbers on mobile
     tbody {
       tr {
