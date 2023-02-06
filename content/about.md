@@ -45,7 +45,7 @@ ___
 ---
 ---
 
-### socials
+## socials
 
 * <a rel="me" href="https://recurse.social/@robinovitch61">mastodon</a>
 * [twitter](https://twitter.com/robinovitch61)

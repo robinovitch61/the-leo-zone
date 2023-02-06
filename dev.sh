@@ -9,4 +9,4 @@
 
 thisdir=${0:a:h}
 
-ls $thisdir/**/*{.md,.html,.css,.scss} | grep -v "testing" | entr -c hugo --baseURL "${1:-http://localhost:9000}" --destination $thisdir/testing
+ls $thisdir/**/*{.md,.html,.css,.scss} | grep -v "testing" | entr -c hugo -D --baseURL "${1:-http://localhost:9000}" --destination $thisdir/testing
