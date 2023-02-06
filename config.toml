@@ -5,19 +5,5 @@ title = "Leo Robinovitch @ The Leo Zone"
 [params]
   description = "The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."
 
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ""
-    lineAnchors = ""
-    lineNoStart = 1
-    lineNos = true
-    lineNumbersInTable = true
-    noClasses = true
-    style = "pygments"
-    tabWidth = 4
-
 [markup.goldmark.renderer]
   unsafe = true

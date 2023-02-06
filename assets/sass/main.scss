@@ -398,27 +398,26 @@ span.bold {
   text-align: center;
 }
 
-// Code
+// code blocks
 pre {
-  background: lightgrey;
-  padding: 0.2em;
-}
-
-pre, .highlight {
+  background: #e0e0e0;
   overflow-y: auto;
-  font-size: 1.05em;
+  padding: 1em 0.5em;
+  font-family: unset;
 
-  @media screen and (max-width: $MOBILE_WIDTH) {
-    // hide line numbers on mobile
-    tbody {
-      tr {
-        td:first-child {
-          display: none;
-        }
-      }
-    }
+  // undo the inline code style below
+  code {
+    font-family: unset;
+    font-weight: normal;
   }
 }
+
+// inline code
+code {
+  font-family: unset;
+  font-weight: bold;
+}
+
 
 // MathJax
 .MathJax {
