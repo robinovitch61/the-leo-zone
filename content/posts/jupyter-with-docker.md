@@ -35,14 +35,14 @@ You'll need git for this step, which you can [install here](https://git-scm.com/
 
 What you'll clone is [Project Jupyter's docker-stacks](https://github.com/jupyter/docker-stacks). You can also [fork this](https://help.github.com/en/articles/fork-a-repo) repo and clone your fork. We'll go through adding a couple files to this repo that will make deployment and customizing things easy. You can use [my fork](https://github.com/robinovitch61/docker-stacks) or this tutorial as a reference. To clone the `docker-stacks` repo, run the following command in terminal/command prompt:
 
-```bash
+```
 # run in the desired directory, e.g. ~/projects 
 git clone https://github.com/jupyter/docker-stacks.git
 ```
 
 The `docker-stacks` directory we just cloned contains a lot of stuff. Open the folder in your favorite editor or just look at the repo [here](https://github.com/jupyter/docker-stacks). We're going to look at just a few bits of a few important files. First, the `Dockerfile` in the `/base-notebook` directory:
 
-```bash
+```
 ############################################
 ## docker-stacks/base-notebook/Dockerfile ##
 ############################################
@@ -66,7 +66,7 @@ ARG NB_GID="100"
 
 If you examine the `Dockerfile`s for other directories, you'll see there's a chain of derivations that end in the base-notebook:
 
-```bash
+```
 # minimal-notebook/Dockerfile, top section:
 ARG BASE_CONTAINER=jupyter/base-notebook
 
@@ -87,7 +87,7 @@ The docker-stacks team has structured the project so you can specify how complic
 The first file we add to the `docker-stacks` base repo is `docker-compose.yml`. The `docker-compose` tool is often used for orchestrating many containers (e.g. "bring up an nginx container and a jupyter container together so nginx can act as a reverse proxy and make the jupyter URL more user-friendly"), but here we only have one container (`jupyter`). I like to use `docker-compose.yml` as a way of version controlling a `docker run` command, which is typically used to bring single containers up. All `docker-run` commands can be translated into `docker-compose` files and vice versa.
 
 You'll create a `docker-stacks/docker-compose.yml` file that looks something like this (totally up to you to customize!):
-```bash
+```
 ############################################
 ## docker-stacks/docker-compose.yml ##
 ############################################
@@ -134,7 +134,7 @@ You may have noticed that the second volume specified in the `docker-compose.yml
 * Run other useful commands in the container upon startup (e.g. configure git, install `vim` or `svn`, etc.)
 
 You'll create a `docker-stacks/setup_envs.sh` file that looks something like this (totally up to you to customize!):
-```bash
+```
 ############################################
 ## example docker-stacks/setup_envs.sh ##
 ############################################
@@ -209,27 +209,27 @@ Note that you could totally exclude the `setup_envs.sh` script and volume and yo
 
 If you've gotten this far, you're basically done! The one thing we're missing is to set a password/token. In terminal, run this command with your custom password. If you don't do this, `docker-compose` will warn you at the next step.
 
-```bash
+```
 export JUPYTER_PASSWORD=$MY_CUSTOM_PASSWORD
 ```
 
 You can now navigate to the `docker-stacks` directory in a terminal and run:
 
-```bash
+```
 docker-compose up -d
 ```
 The `-d` flag stands for "detached", and ensures the `jupyter` container will stay running even if you exit the terminal.
 
 You can now run:
 
-```bash
+```
 docker logs -f jupyter
 ```
 
 The `-f` flag standing for "follow". Watch the progress in your terminal as your jupyter container is instantiated and your `setup_envs.sh` script is run (if you made one).
 
 Once you see something like the following:
-```bash
+```
 [I 16:19:04.574 LabApp] The Jupyter Notebook is running at:
 [I 16:19:04.574 LabApp] http://3204808557f5:9999/?token=...
 [I 16:19:04.575 LabApp]  or http://127.0.0.1:9999/?token=...

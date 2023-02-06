@@ -56,7 +56,7 @@ Nothing too wild here, but some fun tidbit learnings:
 The further reading goes in to SSH port forwarding a bit. I've seen some pretty cool remote dev setups in the past that
 used port forwarding, and was able to get local port forwarding working using nginx:
 
-```shell{linenos=false}
+```
 ssh linux-upskill
 sudo apt-get install nginx -y
 sudo systemctl start nginx.service
@@ -123,7 +123,7 @@ From `man su`:
 
 Interestingly, the prompt is different for `sudo -i` and `sudo su`:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ sudo -i
 root@ip-172-31-24-204:~# logout
 
@@ -154,7 +154,7 @@ Learned a good amount about the linux directory structure - `man hier` is gold!
 Notably, these directory meanings shouldn't be treated as gospel. It looks like `sbin` and `bin` are symlinks to
 their `/usr` equivalents, e.g.
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ ls -la /sbin
 lrwxrwxrwx 1 root root 8 Dec  1 21:32 /sbin -> usr/sbin
 ```
@@ -195,7 +195,7 @@ I use Vim keybindings in most places I edit text already, but there were some ne
 A Recurser friend noted that another way to check the `vi` version/binary that is installed is using `readlink`
 and `which`:
 
-```shell
+```
 readlink -f $(which vi)
 ```
 
@@ -253,7 +253,7 @@ Ok, I learned a LOT of stuff today!
 * `ss`, "socket status", is one tool to examine open ports, replacing `netstat`
 * `nmap` is another, non-default tool for port examination
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ sudo ss -ltpn
 State      Recv-Q     Send-Q         Local Address:Port           Peer Address:Port     Process
 LISTEN     0          4096           127.0.0.53%lo:53                  0.0.0.0:*         users:(("systemd-resolve",pid=417,fd=13))
@@ -264,7 +264,7 @@ LISTEN     0          128                     [::]:22                     [::]:*
 
 After `sudo apt install nmap`:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ nmap localhost
 Starting Nmap 7.80 ( https://nmap.org ) at 2023-01-12 19:40 UTC
 Nmap scan report for localhost (127.0.0.1)
@@ -280,7 +280,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 * `nmap localhost` may show services that are *only* bound to `localhost` (the loopback network device), so can first
   get actual network card IP address:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ ip address
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -318,7 +318,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 * `ufw` (uncomplicated firewall) is a less complicated tool
 * checking what rules are in place:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ sudo iptables -L
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination
@@ -333,7 +333,7 @@ target     prot opt source               destination
 * this^ is equivalent to "no firewall"
 * after `sudo apt install ufw`, can deny `http` traffic:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ sudo ufw allow ssh
 Rules updated
 Rules updated (v6)
@@ -349,7 +349,7 @@ Firewall is active and enabled on system startup
 
 * `sudo iptables -L` now has MANY rules, including
 
-```shell{linenos=false}
+```
 Chain ufw-user-input (1 references)
 target     prot opt source               destination
 ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:ssh
@@ -358,7 +358,7 @@ DROP       tcp  --  anywhere             anywhere             tcp dpt:http
 
 * Now, [http://18.236.102.243/](http://18.236.102.243/) fails to connect until I undo it with
 
-```shell{linenos=false}
+```
 sudo ufw allow http
 sudo ufw enable
 ```
@@ -375,7 +375,7 @@ sudo ufw enable
 * `crontab -l` shows user crontab entry, add `sudo` for `root` user
 * system crontab at `/etc/crontab`
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ cat /etc/crontab
 # /etc/crontab: system-wide crontab
 # Unlike any other crontab you don't have to run the `crontab'
@@ -406,7 +406,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 * `logrotate` rotates, compresses, and mails system logs
 * `systemd` can be used to run specific tasks at times using timers:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ systemctl list-timers
 NEXT                        LEFT          LAST                        PASSED       UNIT                         ACTIVATES
 Sat 2023-01-14 00:00:00 UTC 3h 7min left  Fri 2023-01-13 00:01:30 UTC 20h ago      logrotate.timer              logrotate.service
@@ -472,7 +472,7 @@ better.
 * most linux systems create a group for each user
 * `groups` to see groups you are a member of
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ groups
 ubuntu adm dialout cdrom floppy sudo audio dip video plugdev netdev lxd
 ```
@@ -481,7 +481,7 @@ ubuntu adm dialout cdrom floppy sudo audio dip video plugdev netdev lxd
 * `sudo adduser fred` to create a user fred
 * `sudo su fred` to "become" fred
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ sudo su fred
 fred@ip-172-31-24-204:/home/ubuntu$ groups
 fred
@@ -499,7 +499,7 @@ fred
     * `chmod 664 myfile` is `rw-` for user and group, `r--` for others
 * `id` command to view user/group/etc ids:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ id
 uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),118(netdev),119(lxd)
 ```
@@ -511,7 +511,7 @@ uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),4(adm),20(dialout),24(cdro
 * `sudo adduser helen` to make new user
 * `sudo EDITOR=vim visudo` to edit `/etc/sudoers` file, added:
 
-```shell{linenos=false}
+```
 # Allow user "helen" to run "sudo reboot"
 # ...and don't prompt for a password
 #
@@ -533,7 +533,7 @@ helen ALL = NOPASSWD:/sbin/reboot
 * `chmod 600 ~/.ssh/authorized_keys`
 * then added the following to my local `~/.ssh/config`
 
-```shell{linenos=false}
+```
 * Host helen-linux-upskill
   Hostname 18.236.102.243
   User helen
@@ -550,7 +550,7 @@ helen ALL = NOPASSWD:/sbin/reboot
 * `/etc/apt/sources.list` shows urls to repositories that `apt` references to install things from
 * count installable packages with `apt-cache dump | grep "Package:" | wc -l`
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ apt-cache dump | grep "Package:" | wc -l
 106898
 ```
@@ -558,7 +558,7 @@ ubuntu@ip-172-31-24-204:~$ apt-cache dump | grep "Package:" | wc -l
 * to add multiverse repository, uncommented it in `sources.list` and ran `sudo apt update`
 * then could install packages from it, e.g. `netperf`
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~$ sudo apt install netperf
 ...
 Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu focal/multiverse amd64 netperf amd64 2.6.0-2.1 [550 kB]
@@ -593,7 +593,7 @@ Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu focal/multiverse amd64 netp
 * `cat nmap-7.93/INSTALL` shows installation instructions
 * after following install directions:
 
-```shell{linenos=false}
+```
 ubuntu@ip-172-31-24-204:~/nmap-7.93$ sudo updatedb
 ubuntu@ip-172-31-24-204:~/nmap-7.93$ locate bin/nmap
 /usr/bin/nmap
