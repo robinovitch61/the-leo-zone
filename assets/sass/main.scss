@@ -159,6 +159,7 @@ h1 {
 blockquote {
   border-left: 0.25em solid lightgray;
   padding-left: 1em;
+  margin-left: 1em;
 }
 
 @media screen and (max-width: $MOBILE_WIDTH) {
@@ -406,7 +407,7 @@ span.bold {
 
 // code blocks
 pre {
-  background: #e0e0e0;
+  background: $CODE_BACKGROUND;
   overflow-y: auto;
   padding: 1em 0.5em;
   box-shadow: 1px 1px 3px black;
@@ -414,6 +415,7 @@ pre {
   // undo the inline code style below
   code {
     padding: 0;
+    background: none;
   }
 }
 
@@ -421,7 +423,7 @@ pre {
 code {
   padding: 0 0.2em;
   font-size: 1.1em;
-  background: #e0e0e0;
+  background: $CODE_BACKGROUND;
 }
 
 // Try to always show scrollbars (doesn't work on mobile)
