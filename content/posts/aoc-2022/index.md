@@ -18,7 +18,7 @@ practice, insight, and knowledge from each puzzle.
 Here is a brief overview of stars obtained and the techniques I used to solve (or attempt to solve) the puzzles this
 year.
 
-```{linenos=false}
+```
   * = star obtained before Dec 25
  [] = star not yet obtained
 [*] = star obtained after Dec 25

@@ -10,7 +10,7 @@ I wrote a simple [cron](https://en.wikipedia.org/wiki/Cron) job to remind me to 
 Note that this is mac-specific, but a Linux or Windows analog should be fairly easy to implement.
 
 `~/projects/cron/standup.sh`
-```shell
+```
 #!/usr/bin/env sh
 
 osascript -e 'display alert "Stand up and stretch!"'
@@ -20,7 +20,7 @@ When run, a popup will be created in the middle of my screen that looks like:
 {{< fig src="standup.jpg" width=200 unit=px >}}
 
 In order to run it periodically with cron, I ran `crontab -e`, then add this line to the file:
-```shell {linenos=false}
+```
 0 8-17 * * * ~/projects/cron/standup.sh > /dev/null 2>&1
 ```
 

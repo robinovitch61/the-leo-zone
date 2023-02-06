@@ -47,7 +47,7 @@ To test things are working:
 
 3. Run it by hitting Shift-Enter with your cursor on the same line. You should see output in the bottom right like:
 
-```shell {linenos=false}
+```
 SuperDirt: listening to Tidal on port 57120
 ```
 
@@ -69,7 +69,7 @@ I'm a fan of `vim`.
 I then went to SuperCollider and configured it to start up SuperDirt whenever it is first opened. I did this by clicking
 `File -> Open startup file`, pasting in the following text, and saving the startup file:
 
-```sh
+```
 /*
 This is an example startup file. You can load it from your startup file
 (to be found in Platform.userAppSupportDir +/+ "startup.scd")
@@ -110,7 +110,7 @@ s.reboot { // server options are only updated on reboot
 I then aliased `sclang` to the installed script in my shell startup file (`~/.zshrc`). This may or may not be required
 depending on your platform.
 
-```shell {linenos=false}
+```
 alias sclang="/Applications/SuperCollider.app/Contents/MacOS/sclang"
 ```
 
@@ -120,7 +120,7 @@ in a terminal.
 
 I then created a new [tmuxinator](https://github.com/tmuxinator/tmuxinator) project called ``music`` with the following
 configuration:
-```yaml
+```
 # /Users/leo/.config/tmuxinator/music.yml
 
 name: music
@@ -145,7 +145,7 @@ script that starts the Haskell interpreter including the tidal package
 Finally, by adding the following configuration line to my `~/.vimrc`, I configure vim-tidal to send commands to the
 correct tmux socket and window + pane (the `tidal` pane):
 
-```vim {linenos=false}
+```
 " vim-tidal combined with tmuxinator music
 let g:tidal_default_config = {"socket_name": "music", "target_pane": "music:2.2"}
 ```

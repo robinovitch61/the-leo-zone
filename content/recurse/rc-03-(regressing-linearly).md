@@ -17,7 +17,7 @@ After last week's frustration with the statistics textbook, I decided to slow do
 
 I hope to write more actual code next week and keep the learning rolling.
 
-```bash
+```
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.

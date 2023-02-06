@@ -19,7 +19,7 @@ The idea is to drill down until you get to the base cases (here, the first and s
 
 In python, recursively solving for the Nth Fibonacci Number looks as follows:
 
-```python
+```
 ## Recursive Fibbing
 def recursive_fib(n):
 if n <= 0:
@@ -56,7 +56,7 @@ This method, sometimes also called "Memoization", confusingly references "Dynami
 
 The simple improvement upon the purely recursive solution above is to save the results of each calculation. In doing so, recalculating prior results multiple times is avoided. The dictionary implementation in Python is a hashmap with constant time insertion and retrieval, so no time complexity is added by the use of a `dict` below:
 
-```python
+```
 ## Fibbing with Memoization
 def memo_fib(n, memo=None):
 if memo is None:
@@ -87,7 +87,7 @@ The time complexity is now O(n), with space complexity still at O(n) as the call
 
 Another equivalent and sometimes more intuitive way to look at Dynamic Programming as a solution is to build a "table" of all the solutions to each little problem that must be solved along the way to solving the more complicated problem. This is sometimes called "Tabulation" In this case, the "table" could be a Python list that holds its `index+1`'th Fibonacci number, e.g. the 1st Fibonacci number is at `table[0]`, 4th at `table[3]`, etc.
 
-```python
+```
 ## Fibbing with Tabulation
 def table_fib(n):
 if n <= 0:
@@ -115,7 +115,7 @@ Both Tabulation and Memoization are O(n) in time and O(n) in space.
 
 Note that the tabulation method is actually wasting space. If you were to solve for the n'th Fibonacci number in your head, you'd likely only keep track of 2 or 3 numbers at a time: "0 plus 1 is 1, now 1 plus 1 is 2, now 1 plus 2 is 3...". Once you've gotten the n'th Fibonacci number there's no need to keep anything before the n-1'th number around in memory! This method is called iteration:
 
-```python
+```
 ## Fibbing with Iteration
 def iter_fib(n):
 if n <= 0:
@@ -146,7 +146,7 @@ The Fibonacci sequence also came up in Nand2Tetris as a debugging program for my
 
 This is the "Virtual Machine Code" for a Fibonacci sequence. It is much like an [LLVM intermediate representation]({{< ref `rc-06-(intermediate-representations)` >}}), but in the virtual machine language created by the Nand2Tetris team.
 
-```bash
+```
 // Main.vm
 // This file is part of www.nand2tetris.org
 // and the book The Elements of Computing Systems
@@ -199,7 +199,7 @@ goto WHILE              // loops infinitely
 
 My VM translator [here](https://github.com/robinovitch61/nand2tetris/blob/master/projects/08/p08/src/main.rs) creates a bunch of Hack Computer-specific assembly code (~500 lines) from this that look like this:
 
-```bash
+```
 // Bootstrap
 
 @256
@@ -284,7 +284,7 @@ etc.
 
 Which then assembles down to the actual machine code using the assembler I wrote [here](https://github.com/robinovitch61/nand2tetris/blob/master/projects/06/p06/src/main.rs):
 
-```bash
+```
 0000000100000000 // this is @256
 1110110000010000 // this is D=A
 0000000000000000 // etc.

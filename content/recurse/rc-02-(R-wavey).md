@@ -13,13 +13,13 @@ R is a tool for statistical computing and visualization. It is often used in res
 
 I was hesitant on learning R because so much of the language has a python analog and I'm already proficient in python. After some conversation and reflection though, it does seem like a good thing to learn. The language of R is geared explicitly towards statistics. As a basic example, here is how to get 100 samples from a normal distribution with zero mean and unity variance in each language:
 
-```python
+```
 # python
 import numpy as np # could also use a scipy function
 np.random.normal(loc=0, scale=1, size=100)
 ```
 
-```R
+```
 # R
 rnorm(n=100, mean=0, sd=1)
 ```

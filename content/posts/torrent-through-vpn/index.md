@@ -21,7 +21,7 @@ First, find the network interface used by your VPN as follows:
 3. Run `ifconfig` (or `ipconfig` for Windows).
 4. The short names on the left of the output are your network interfaces. For example, `lo0` below.
 
-```shell{linenos=false}
+```
 ❯ ifconfig
 lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
 ```

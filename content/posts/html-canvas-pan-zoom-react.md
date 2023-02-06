@@ -17,7 +17,7 @@ https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-```typescript
+```
 import {
   useEffect,
   useCallback,

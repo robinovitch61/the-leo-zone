@@ -47,7 +47,7 @@ I did something really smart and/or really dumb in designing the data model for 
 
 I decided that the database would never grow past its [original number of rows](https://github.com/robinovitch61/color-controversy/blob/master/postgres/init.sql) - color submissions simply trigger a SQL query that mutates one of the values in the row of that color:
 
-```sql
+```
 UPDATE color
 SET    n_first = CASE WHEN (color.hex = '${hexColor}' AND color.first_option = '${choice}') THEN n_first + 1 ELSE n_first END
      , n_second = CASE WHEN (color.hex = '${hexColor}' AND color.second_option = '${choice}') THEN n_second + 1 ELSE n_second END

@@ -21,7 +21,7 @@ I've absolutely loved the format of the challenges - clear and seemingly "simple
 * Cracking repeating-key XOR is relatively probabilistic. The longer the ciphertext in relation to the key, the better shot at decoding you've got! It was easy for me to spend too much time optimizing for instantly cracking all future possible key/text combos - I had to say enough was enough and move on at some point.
 
 Here is some code I cracked:
-```bash
+```
 0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f
 ```
 
@@ -31,7 +31,7 @@ is hex-encoded ciphertext for repeating key XOR of:
 cymbal
 
 encoded with
-```bash
+```
 ICE
 ```
 
