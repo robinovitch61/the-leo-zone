@@ -1,253 +1,128 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."><link rel=stylesheet href=/sass/main.min.8eb19d45d5b9f3e72f14e37dc7c1a8a470ac3ae390cd2d2caed1bd7467d0832d.css><link rel=stylesheet href=/sass/header.min.b46e6b299714edde117a0d62d9c5e1b9cce79b1928fe641a6a1efda74182202d.css><link rel=stylesheet href=/sass/footer.min.b710a156aec222bba88e7de18131715e01a40a3d2c04fbe80c79875a3f00af79.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
+<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."><link rel=stylesheet href=/sass/main.min.497f2a044fb50316af45ea0425f90c2a4953a62f52a72e82e6a5a3f7c654feb4.css><link rel=stylesheet href=/sass/header.min.3fc10c142e7649a0a84d6da73eb3d784878cb765190699401f4f7fe90640adc6.css><link rel=stylesheet href=/sass/footer.min.eaac730dad5c96ec74b1b6ad615c2653058b703041364f7f2f29ffe0deb6b650.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
 <a href=https://github.com/robinovitch61 target=_blank>github</a>
-<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>jupyter with docker</h1><div class=post-date><p>Sep 27, 2019</p></div><div class=post><p>I love <a href=https://www.docker.com>docker</a>. It makes environments:</p><ul><li>portable across any machine</li><li>subject to version control (retraceable and recoverable history)</li><li>easily deployed and discarded with simple commands</li></ul><p>Jupyter is a great tool that allows for the creation of nice looking documents consisting of ordered code chunks with inline output. It is a fantastic way to get started with programming, clearly step through your workflow, and/or create stories and presentations out of your work. It runs in the browser after you install it on your machine (i.e. you access it with a URL in your web browser).</p><a class=img-link target=_blank href=/img/jupyterlab_ex.png><figure><img style=max-width:95% src=/img/jupyterlab_ex.png alt=jupyterlab_ex.png><figcaption class=figcaption-text>Source: <a href=https://jupyterlab.readthedocs.io/en/stable/>https://jupyterlab.readthedocs.io/en/stable/</a></figcaption></figure></a><p>This walkthrough will get you set up with a jupyter lab (or jupyter notebooks classic) environment that is fully customizable, isolated, version controllable and portable using docker.</p><p>If you don&rsquo;t want to use docker, you can always <a href=https://jupyter.org/install>install jupyter the classic way</a>. I like docker for the reasons outlined above (isolation, portability, version controllable, easily deployed/discarded).</p><h2 id=1-install-docker>1: Install Docker</h2><p>To install Docker, you&rsquo;ll have to follow the instructions below:</p><ul><li><a href=https://docs.docker.com/docker-for-mac/install/>Install docker for Mac</a></li><li><a href=https://docs.docker.com/install/linux/docker-ce/ubuntu/>Install docker for Ubuntu</a></li><li><a href=https://docs.docker.com/docker-for-windows/install/>Install docker for Windows 10</a></li></ul><p>Once installed, you&rsquo;ll want to open a terminal (or cmd.exe for windows) and enter <code>docker</code>. You should see a long list of options and commands and not something like <code>command 'docker' not found</code>. If you see the long list, you&rsquo;re ready to proceed!</p><p>Docker uses the language of images (<em>recipes for containers</em>) and containers (<em>instances of images</em>). In this specific case, things like <code>jupyter/minimal-notebook</code> and <code>jupyter/pyspark-notebook</code> are <strong>images</strong> while our <strong>container</strong> will just be called <code>juptyer</code>.</p><p>I like to think of a container as an isolated environment that my app/service (in this case, jupyter) will run in, almost entirely isolated from the rest of my host machine.</p><a class=img-link target=_blank href=/img/docker-infrastructure.png><figure><img style=max-width:95% src=/img/docker-infrastructure.png alt=docker-infrastructure.png><figcaption class=figcaption-text>Source: <a href=https://www.docker.com/resources/what-container>https://www.docker.com/resources/what-container</a></figcaption></figure></a><h2 id=2-clone-the-docker-stacks-repo>2: Clone the <code>docker-stacks</code> Repo</h2><p>You&rsquo;ll need git for this step, which you can <a href=https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>install here</a> if you don&rsquo;t already have it. You can check by typing <code>git</code> in to the terminal and seeing if the command is found.</p><p>What you&rsquo;ll clone is <a href=https://github.com/jupyter/docker-stacks>Project Jupyter&rsquo;s docker-stacks</a>. You can also <a href=https://help.github.com/en/articles/fork-a-repo>fork this</a> repo and clone your fork. We&rsquo;ll go through adding a couple files to this repo that will make deployment and customizing things easy. You can use <a href=https://github.com/robinovitch61/docker-stacks>my fork</a> or this tutorial as a reference. To clone the <code>docker-stacks</code> repo, run the following command in terminal/command prompt:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#408080;font-style:italic># run in the desired directory, e.g. ~/projects </span>
-</span></span><span style=display:flex><span>git clone https://github.com/jupyter/docker-stacks.git
-</span></span></code></pre></td></tr></table></div></div><p>The <code>docker-stacks</code> directory we just cloned contains a lot of stuff. Open the folder in your favorite editor or just look at the repo <a href=https://github.com/jupyter/docker-stacks>here</a>. We&rsquo;re going to look at just a few bits of a few important files. First, the <code>Dockerfile</code> in the <code>/base-notebook</code> directory:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#408080;font-style:italic>############################################</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>## docker-stacks/base-notebook/Dockerfile ##</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>############################################</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Copyright (c) Jupyter Development Team.</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Distributed under the terms of the Modified BSD License.</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Ubuntu 18.04 (bionic) from 2019-06-12</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># https://github.com/tianon/docker-brew-ubuntu-core/commit/3c462555392cb188830b7c91e29311b5fad90cfe</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>BASE_CONTAINER</span><span style=color:#666>=</span>ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
-</span></span><span style=display:flex><span>FROM <span style=color:#19177c>$BASE_CONTAINER</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>LABEL <span style=color:#19177c>maintainer</span><span style=color:#666>=</span><span style=color:#ba2121>&#34;Jupyter Project&#34;</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>NB_USER</span><span style=color:#666>=</span><span style=color:#ba2121>&#34;jovyan&#34;</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>NB_UID</span><span style=color:#666>=</span><span style=color:#ba2121>&#34;1000&#34;</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>NB_GID</span><span style=color:#666>=</span><span style=color:#ba2121>&#34;100&#34;</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># ...</span>
-</span></span></code></pre></td></tr></table></div></div><p>This <code>Dockerfile</code> specifies that all jupyter containers will derive from a Linux Ubuntu &ldquo;bionic&rdquo; OS (<code>BASE_CONTAINER=ubuntu...</code>).</p><p>If you examine the <code>Dockerfile</code>s for other directories, you&rsquo;ll see there&rsquo;s a chain of derivations that end in the base-notebook:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#408080;font-style:italic># minimal-notebook/Dockerfile, top section:</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>BASE_CONTAINER</span><span style=color:#666>=</span>jupyter/base-notebook
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># scipy-notebook/Dockerfile, top section:</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>BASE_CONTAINER</span><span style=color:#666>=</span>jupyter/minimal-notebook
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># datascience-notebook/Dockerfile, top section:</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>BASE_CONTAINER</span><span style=color:#666>=</span>jupyter/scipy-notebook
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># pyspark-notebook/Dockerfile, top section:</span>
-</span></span><span style=display:flex><span>ARG <span style=color:#19177c>BASE_CONTAINER</span><span style=color:#666>=</span>jupyter/scipy-notebook
-</span></span></code></pre></td></tr></table></div></div><p>The docker-stacks team has structured the project so you can specify how complicated of a setup you want out of the box based on what image you select. The <code>jupyter/minimal-notebook</code> image will contain the simplest installation you need for jupyter to run at all. The <code>jupyter/pyspark-notebook</code> image will come with a lot more, like a spark installation in the jupyter container file system (likely overkill unless you&rsquo;re using pyspark!). Higher up images in the inheritance tree will include everything below them (e.g. pyspark-notebook contains everything from scipy-notebook, minimal-notebook, and base-notebook).</p><h3 id=custom-file-1-docker-compose>Custom File 1: Docker Compose</h3><p>The first file we add to the <code>docker-stacks</code> base repo is <code>docker-compose.yml</code>. The <code>docker-compose</code> tool is often used for orchestrating many containers (e.g. &ldquo;bring up an nginx container and a jupyter container together so nginx can act as a reverse proxy and make the jupyter URL more user-friendly&rdquo;), but here we only have one container (<code>jupyter</code>). I like to use <code>docker-compose.yml</code> as a way of version controlling a <code>docker run</code> command, which is typically used to bring single containers up. All <code>docker-run</code> commands can be translated into <code>docker-compose</code> files and vice versa.</p><p>You&rsquo;ll create a <code>docker-stacks/docker-compose.yml</code> file that looks something like this (totally up to you to customize!):</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#408080;font-style:italic>############################################</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>## docker-stacks/docker-compose.yml ##</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>############################################</span>
-</span></span><span style=display:flex><span>version: <span style=color:#ba2121>&#39;3&#39;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>services:
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    jupyter:
-</span></span><span style=display:flex><span>    container_name: jupyter
-</span></span><span style=display:flex><span>    image: jupyter/minimal-notebook <span style=color:#408080;font-style:italic># always get `latest` image on docker hub</span>
-</span></span><span style=display:flex><span>    <span style=color:#408080;font-style:italic># image: jupyter/pyspark-notebook:1386e2046833 # tagged/pinned image example. check for updates here: https://hub.docker.com/r/jupyter/pyspark-notebook/tags.</span>
-</span></span><span style=display:flex><span>    volumes:
-</span></span><span style=display:flex><span>        - ~/:/home/jovyan/work/
-</span></span><span style=display:flex><span>        - ./setup_envs.sh:/usr/local/bin/before-notebook.d/setup_envs.sh
-</span></span><span style=display:flex><span>    ports:
-</span></span><span style=display:flex><span>        - 9999:9999
-</span></span><span style=display:flex><span>    restart: unless-stopped
-</span></span><span style=display:flex><span>    environment:
-</span></span><span style=display:flex><span>        JUPYTER_ENABLE_LAB: <span style=color:#ba2121>&#39;yes&#39;</span>
-</span></span><span style=display:flex><span>    command: &gt;
-</span></span><span style=display:flex><span>        sh -c <span style=color:#ba2121>&#34;bash start-notebook.sh\
-</span></span></span><span style=display:flex><span><span style=color:#ba2121>                --NotebookApp.token=</span><span style=color:#19177c>$JUPYTER_PASSWORD</span><span style=color:#ba2121>\
-</span></span></span><span style=display:flex><span><span style=color:#ba2121>                --NotebookApp.notebook_dir=/home/jovyan/work/\
-</span></span></span><span style=display:flex><span><span style=color:#ba2121>                --port 9999&#34;</span>
-</span></span></code></pre></td></tr></table></div></div><p>Meaning of this witchcraft:</p><ul><li><code>version '3'</code>: docker-compose specifies versions. They have slightly different syntax between them</li><li><code>services</code>: our list of services here is just one service called jupyter that will create a container called jupyter</li><li><code>image</code>: here is where you call out which image you want to use, as discussed above</li><li><code>volumes</code>: this is how you break isolation between the container and host environment, linking directories and/or files from the host to the container filesystems. This is important because otherwise when you destroy your container, your files would be lost with it. Syntax * <code>host_path:container_path</code>. Changes made in either host or container will reflect in the other</li><li><code>ports</code>: jupyter will run on a port in the container. <code>ports</code> binds the host port to the container port. Syntax is <code>host_port:container_port</code></li><li><code>restart: unless-stopped</code>: if your container fails, it will auto-restart unless you stop it with e.g* <code>docker-compose down</code></li><li><code>environment</code>: specify environment variables. <code>JUPYTER_ENABLE_LAB</code> enables jupyter lab by default</li><li><code>command</code>: this is the final command docker will run in the container upon build. <code>NotebookApp.token</code> password-protects your jupyter instance. The port here should also match the container port * <code>ports</code> above</li></ul><h3 id=custom-file-2-setup-script>Custom File 2: Setup Script</h3><p>You may have noticed that the second volume specified in the <code>docker-compose.yml</code> file is called <code>./setup_envs.sh</code>. This is a custom startup script that I use to do the following:</p><ul><li>Create environment variables that are accessible in jupyter</li><li>Add jupyterlab extensions</li><li>Create custom conda environments and link them to jupyter kernels</li><li>Run other useful commands in the container upon startup (e.g. configure git, install <code>vim</code> or <code>svn</code>, etc.)</li></ul><p>You&rsquo;ll create a <code>docker-stacks/setup_envs.sh</code> file that looks something like this (totally up to you to customize!):</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">42
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">43
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">44
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">45
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">46
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">47
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">48
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">49
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">50
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">51
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">52
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">53
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">54
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">55
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">56
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">57
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">58
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">59
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">60
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">61
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">62
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">63
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">64
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#408080;font-style:italic>############################################</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>## example docker-stacks/setup_envs.sh ##</span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>############################################</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Creating useful environment variables...&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>export</span> <span style=color:#19177c>MYVAR</span><span style=color:#666>=</span><span style=color:#19177c>$MYVAR</span>
-</span></span><span style=display:flex><span><span style=color:green>export</span> <span style=color:#19177c>MYVAR2</span><span style=color:#666>=</span><span style=color:#19177c>$MYVAR2</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Finished creating useful environment variables!&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Adding jupyterlab extensions...&#34;</span>
-</span></span><span style=display:flex><span>rm -rf /home/jovyan/work/extensions
-</span></span><span style=display:flex><span>mkdir /home/jovyan/work/extensions
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Great extension by calpoly for better markdown formatting in cells: https://github.com/jupytercalpoly/jupyterlab-richtext-mode</span>
-</span></span><span style=display:flex><span>git clone https://github.com/jupytercalpoly/jupyterlab-richtext-mode.git /home/jovyan/work/extensions/jupyter-scribe <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span><span style=color:green>cd</span> /home/jovyan/work/extensions/jupyter-scribe <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>npm install <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>npm run build <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>jupyter labextension link .
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Rebuild to get extensions to work</span>
-</span></span><span style=display:flex><span>jlpm build
-</span></span><span style=display:flex><span>jupyter lab build
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Added jupyterlab extensions!&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Creating kernel py37...&#34;</span>
-</span></span><span style=display:flex><span>conda create -n py37 <span style=color:#19177c>python</span><span style=color:#666>=</span>3.7.4 pip -y
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Finished creating kernel py37!&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic># Install packages with pip, otherwise conda&#39;s &#34;auto-checking compatibility&#34; algo freaks out (with certain versions of conda)</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Installing packages in py37...&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>source</span> activate py37 <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>pip install ipykernel <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>pip install pandas <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>pip install numpy <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>pip install scipy <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>pip install matplotlib <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span>pip install seaborn <span style=color:#666>&amp;&amp;</span> <span style=color:#b62;font-weight:700>\
-</span></span></span><span style=display:flex><span><span style=color:#b62;font-weight:700></span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Finished installing packages in py37!&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Connecting env to kernel...&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>source</span> activate py37 <span style=color:#666>&amp;&amp;</span> python -m ipykernel install --user --name py37 --display-name <span style=color:#ba2121>&#34;py37&#34;</span>
-</span></span><span style=display:flex><span><span style=color:green>source</span> activate py37 <span style=color:#408080;font-style:italic># must activate/deactivate once to have changes displayed</span>
-</span></span><span style=display:flex><span><span style=color:green>source</span> activate base
-</span></span><span style=display:flex><span><span style=color:green>echo</span> <span style=color:#ba2121>&#34;Connected env to kernel!&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>cat &lt;&lt; <span style=color:#ba2121>&#34;EOF&#34;</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>WELCOME!
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>     ██╗██╗   ██╗██████╗ ██╗   ██╗████████╗███████╗██████╗
-</span></span><span style=display:flex><span>     ██║██║   ██║██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██╔══██╗
-</span></span><span style=display:flex><span>     ██║██║   ██║██████╔╝ ╚████╔╝    ██║   █████╗  ██████╔╝
-</span></span><span style=display:flex><span>██   ██║██║   ██║██╔═══╝   ╚██╔╝     ██║   ██╔══╝  ██╔══██╗
-</span></span><span style=display:flex><span>╚█████╔╝╚██████╔╝██║        ██║      ██║   ███████╗██║  ██║
-</span></span><span style=display:flex><span> ╚════╝  ╚═════╝ ╚═╝        ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Take it from here...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>EOF
-</span></span></code></pre></td></tr></table></div></div><p><em>Dirty details on how this runs just by placing it in the container:</em> the <code>start-notebook.sh</code> script run by the <code>docker-compose</code> command will subsequently run <code>start.sh</code>. Both these shell scripts are in the <code>base-notebook</code> directory. The <code>start.sh</code> script has &ldquo;hooks&rdquo; for running scripts that are in the <code>/usr/local/bin/before-notebook.d</code>. <strong>All this to say that <code>setup_envs.sh</code> will be run as part of your jupyter setup</strong> because we put it in the <code>/usr/local/bin/before-notebook.d</code> directory in the jupyter container!</p><p>Note that you could totally exclude the <code>setup_envs.sh</code> script and volume and your deployment would be fully functioning. I like to use this method as a way of customizing my jupyter setup in a version-controlled manner. Rather than installing a new python package in my base environment or installing a system package every time manually and trying to remember what I did when I port to a new machine, I&rsquo;ll edit the <code>setup_envs.sh</code> script, commit and push to my fork, then redeploy on whatever machine I want and get the exact same setup.</p><h2 id=3-bring-up-the-jupyter-container>3: Bring Up the Jupyter Container</h2><p>If you&rsquo;ve gotten this far, you&rsquo;re basically done! The one thing we&rsquo;re missing is to set a password/token. In terminal, run this command with your custom password. If you don&rsquo;t do this, <code>docker-compose</code> will warn you at the next step.</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:green>export</span> <span style=color:#19177c>JUPYTER_PASSWORD</span><span style=color:#666>=</span><span style=color:#19177c>$MY_CUSTOM_PASSWORD</span>
-</span></span></code></pre></td></tr></table></div></div><p>You can now navigate to the <code>docker-stacks</code> directory in a terminal and run:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker-compose up -d
-</span></span></code></pre></td></tr></table></div></div><p>The <code>-d</code> flag stands for &ldquo;detached&rdquo;, and ensures the <code>jupyter</code> container will stay running even if you exit the terminal.</p><p>You can now run:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker logs -f jupyter
-</span></span></code></pre></td></tr></table></div></div><p>The <code>-f</code> flag standing for &ldquo;follow&rdquo;. Watch the progress in your terminal as your jupyter container is instantiated and your <code>setup_envs.sh</code> script is run (if you made one).</p><p>Once you see something like the following:</p><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#666>[</span>I 16:19:04.574 LabApp<span style=color:#666>]</span> The Jupyter Notebook is running at:
-</span></span><span style=display:flex><span><span style=color:#666>[</span>I 16:19:04.574 LabApp<span style=color:#666>]</span> http://3204808557f5:9999/?token<span style=color:#666>=</span>...
-</span></span><span style=display:flex><span><span style=color:#666>[</span>I 16:19:04.575 LabApp<span style=color:#666>]</span>  or http://127.0.0.1:9999/?token<span style=color:#666>=</span>...
-</span></span><span style=display:flex><span><span style=color:#666>[</span>I 16:19:04.575 LabApp<span style=color:#666>]</span> Use Control-C to stop this server and shut down all kernels <span style=color:#666>(</span>twice to skip confirmation<span style=color:#666>)</span>.
-</span></span></code></pre></td></tr></table></div></div><p>You&rsquo;re ready to go! Navigate to <a href=http://127.0.0.1:9999>http://127.0.0.1:9999</a> (or whatever port you specified if different than <code>9999</code>) where you should see a page that prompts you for your password (set with the <code>JUPYTER_PASSWORD</code> environment variable earlier).</p><p>You have a fully functioning and replicable jupyter environment, portable to any machine that runs docker! Remember that even though your container has access to your host file system through the volume we created, your file system isn&rsquo;t (and shouldn&rsquo;t be) version controlled with the <code>docker-stacks</code> directory. Version control your projects separately.</p><h3 id=further-thoughts>Further thoughts</h3><ul><li>Another approach to version controlled customization could be to modify the Dockerfiles themselves. I prefer the <code>setup_envs.sh</code> script approach as rebuilding the images is time and disk space intensive. Modifying Dockerfiles, though, is a totally valid approach.</li><li>If you get stuck on anything in this process or see that I&rsquo;ve been wrong/unclear about something, please open an issue on the source of this website <a href=https://github.com/robinovitch61/the-leo-zone>here.</li></ul></div></div></div><footer><div class=nav><a href=/ target=_self>home</a></div><div class=woopsy>measure twice, cut once</div></footer></body></html>
+<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>jupyter with docker</h1><div class=post-date><p>Sep 27, 2019</p></div><div class=post><p>I love <a href=https://www.docker.com>docker</a>. It makes environments:</p><ul><li>portable across any machine</li><li>subject to version control (retraceable and recoverable history)</li><li>easily deployed and discarded with simple commands</li></ul><p>Jupyter is a great tool that allows for the creation of nice looking documents consisting of ordered code chunks with inline output. It is a fantastic way to get started with programming, clearly step through your workflow, and/or create stories and presentations out of your work. It runs in the browser after you install it on your machine (i.e. you access it with a URL in your web browser).</p><a class=img-link target=_blank href=/img/jupyterlab_ex.png><figure><img style=max-width:95% src=/img/jupyterlab_ex.png alt=jupyterlab_ex.png><figcaption class=figcaption-text>Source: <a href=https://jupyterlab.readthedocs.io/en/stable/>https://jupyterlab.readthedocs.io/en/stable/</a></figcaption></figure></a><p>This walkthrough will get you set up with a jupyter lab (or jupyter notebooks classic) environment that is fully customizable, isolated, version controllable and portable using docker.</p><p>If you don&rsquo;t want to use docker, you can always <a href=https://jupyter.org/install>install jupyter the classic way</a>. I like docker for the reasons outlined above (isolation, portability, version controllable, easily deployed/discarded).</p><h2 id=1-install-docker>1: Install Docker</h2><p>To install Docker, you&rsquo;ll have to follow the instructions below:</p><ul><li><a href=https://docs.docker.com/docker-for-mac/install/>Install docker for Mac</a></li><li><a href=https://docs.docker.com/install/linux/docker-ce/ubuntu/>Install docker for Ubuntu</a></li><li><a href=https://docs.docker.com/docker-for-windows/install/>Install docker for Windows 10</a></li></ul><p>Once installed, you&rsquo;ll want to open a terminal (or cmd.exe for windows) and enter <code>docker</code>. You should see a long list of options and commands and not something like <code>command 'docker' not found</code>. If you see the long list, you&rsquo;re ready to proceed!</p><p>Docker uses the language of images (<em>recipes for containers</em>) and containers (<em>instances of images</em>). In this specific case, things like <code>jupyter/minimal-notebook</code> and <code>jupyter/pyspark-notebook</code> are <strong>images</strong> while our <strong>container</strong> will just be called <code>juptyer</code>.</p><p>I like to think of a container as an isolated environment that my app/service (in this case, jupyter) will run in, almost entirely isolated from the rest of my host machine.</p><a class=img-link target=_blank href=/img/docker-infrastructure.png><figure><img style=max-width:95% src=/img/docker-infrastructure.png alt=docker-infrastructure.png><figcaption class=figcaption-text>Source: <a href=https://www.docker.com/resources/what-container>https://www.docker.com/resources/what-container</a></figcaption></figure></a><h2 id=2-clone-the-docker-stacks-repo>2: Clone the <code>docker-stacks</code> Repo</h2><p>You&rsquo;ll need git for this step, which you can <a href=https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>install here</a> if you don&rsquo;t already have it. You can check by typing <code>git</code> in to the terminal and seeing if the command is found.</p><p>What you&rsquo;ll clone is <a href=https://github.com/jupyter/docker-stacks>Project Jupyter&rsquo;s docker-stacks</a>. You can also <a href=https://help.github.com/en/articles/fork-a-repo>fork this</a> repo and clone your fork. We&rsquo;ll go through adding a couple files to this repo that will make deployment and customizing things easy. You can use <a href=https://github.com/robinovitch61/docker-stacks>my fork</a> or this tutorial as a reference. To clone the <code>docker-stacks</code> repo, run the following command in terminal/command prompt:</p><pre tabindex=0><code># run in the desired directory, e.g. ~/projects 
+git clone https://github.com/jupyter/docker-stacks.git
+</code></pre><p>The <code>docker-stacks</code> directory we just cloned contains a lot of stuff. Open the folder in your favorite editor or just look at the repo <a href=https://github.com/jupyter/docker-stacks>here</a>. We&rsquo;re going to look at just a few bits of a few important files. First, the <code>Dockerfile</code> in the <code>/base-notebook</code> directory:</p><pre tabindex=0><code>############################################
+## docker-stacks/base-notebook/Dockerfile ##
+############################################
+
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+# Ubuntu 18.04 (bionic) from 2019-06-12
+# https://github.com/tianon/docker-brew-ubuntu-core/commit/3c462555392cb188830b7c91e29311b5fad90cfe
+ARG BASE_CONTAINER=ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
+FROM $BASE_CONTAINER
+
+LABEL maintainer=&#34;Jupyter Project&#34;
+ARG NB_USER=&#34;jovyan&#34;
+ARG NB_UID=&#34;1000&#34;
+ARG NB_GID=&#34;100&#34;
+# ...
+</code></pre><p>This <code>Dockerfile</code> specifies that all jupyter containers will derive from a Linux Ubuntu &ldquo;bionic&rdquo; OS (<code>BASE_CONTAINER=ubuntu...</code>).</p><p>If you examine the <code>Dockerfile</code>s for other directories, you&rsquo;ll see there&rsquo;s a chain of derivations that end in the base-notebook:</p><pre tabindex=0><code># minimal-notebook/Dockerfile, top section:
+ARG BASE_CONTAINER=jupyter/base-notebook
+
+# scipy-notebook/Dockerfile, top section:
+ARG BASE_CONTAINER=jupyter/minimal-notebook
+
+# datascience-notebook/Dockerfile, top section:
+ARG BASE_CONTAINER=jupyter/scipy-notebook
+
+# pyspark-notebook/Dockerfile, top section:
+ARG BASE_CONTAINER=jupyter/scipy-notebook
+</code></pre><p>The docker-stacks team has structured the project so you can specify how complicated of a setup you want out of the box based on what image you select. The <code>jupyter/minimal-notebook</code> image will contain the simplest installation you need for jupyter to run at all. The <code>jupyter/pyspark-notebook</code> image will come with a lot more, like a spark installation in the jupyter container file system (likely overkill unless you&rsquo;re using pyspark!). Higher up images in the inheritance tree will include everything below them (e.g. pyspark-notebook contains everything from scipy-notebook, minimal-notebook, and base-notebook).</p><h3 id=custom-file-1-docker-compose>Custom File 1: Docker Compose</h3><p>The first file we add to the <code>docker-stacks</code> base repo is <code>docker-compose.yml</code>. The <code>docker-compose</code> tool is often used for orchestrating many containers (e.g. &ldquo;bring up an nginx container and a jupyter container together so nginx can act as a reverse proxy and make the jupyter URL more user-friendly&rdquo;), but here we only have one container (<code>jupyter</code>). I like to use <code>docker-compose.yml</code> as a way of version controlling a <code>docker run</code> command, which is typically used to bring single containers up. All <code>docker-run</code> commands can be translated into <code>docker-compose</code> files and vice versa.</p><p>You&rsquo;ll create a <code>docker-stacks/docker-compose.yml</code> file that looks something like this (totally up to you to customize!):</p><pre tabindex=0><code>############################################
+## docker-stacks/docker-compose.yml ##
+############################################
+version: &#39;3&#39;
+
+services:
+
+    jupyter:
+    container_name: jupyter
+    image: jupyter/minimal-notebook # always get `latest` image on docker hub
+    # image: jupyter/pyspark-notebook:1386e2046833 # tagged/pinned image example. check for updates here: https://hub.docker.com/r/jupyter/pyspark-notebook/tags.
+    volumes:
+        - ~/:/home/jovyan/work/
+        - ./setup_envs.sh:/usr/local/bin/before-notebook.d/setup_envs.sh
+    ports:
+        - 9999:9999
+    restart: unless-stopped
+    environment:
+        JUPYTER_ENABLE_LAB: &#39;yes&#39;
+    command: &gt;
+        sh -c &#34;bash start-notebook.sh\
+                --NotebookApp.token=$JUPYTER_PASSWORD\
+                --NotebookApp.notebook_dir=/home/jovyan/work/\
+                --port 9999&#34;
+</code></pre><p>Meaning of this witchcraft:</p><ul><li><code>version '3'</code>: docker-compose specifies versions. They have slightly different syntax between them</li><li><code>services</code>: our list of services here is just one service called jupyter that will create a container called jupyter</li><li><code>image</code>: here is where you call out which image you want to use, as discussed above</li><li><code>volumes</code>: this is how you break isolation between the container and host environment, linking directories and/or files from the host to the container filesystems. This is important because otherwise when you destroy your container, your files would be lost with it. Syntax * <code>host_path:container_path</code>. Changes made in either host or container will reflect in the other</li><li><code>ports</code>: jupyter will run on a port in the container. <code>ports</code> binds the host port to the container port. Syntax is <code>host_port:container_port</code></li><li><code>restart: unless-stopped</code>: if your container fails, it will auto-restart unless you stop it with e.g* <code>docker-compose down</code></li><li><code>environment</code>: specify environment variables. <code>JUPYTER_ENABLE_LAB</code> enables jupyter lab by default</li><li><code>command</code>: this is the final command docker will run in the container upon build. <code>NotebookApp.token</code> password-protects your jupyter instance. The port here should also match the container port * <code>ports</code> above</li></ul><h3 id=custom-file-2-setup-script>Custom File 2: Setup Script</h3><p>You may have noticed that the second volume specified in the <code>docker-compose.yml</code> file is called <code>./setup_envs.sh</code>. This is a custom startup script that I use to do the following:</p><ul><li>Create environment variables that are accessible in jupyter</li><li>Add jupyterlab extensions</li><li>Create custom conda environments and link them to jupyter kernels</li><li>Run other useful commands in the container upon startup (e.g. configure git, install <code>vim</code> or <code>svn</code>, etc.)</li></ul><p>You&rsquo;ll create a <code>docker-stacks/setup_envs.sh</code> file that looks something like this (totally up to you to customize!):</p><pre tabindex=0><code>############################################
+## example docker-stacks/setup_envs.sh ##
+############################################
+echo &#34;&#34;
+echo &#34;Creating useful environment variables...&#34;
+export MYVAR=$MYVAR
+export MYVAR2=$MYVAR2
+echo &#34;Finished creating useful environment variables!&#34;
+
+echo &#34;&#34;
+echo &#34;Adding jupyterlab extensions...&#34;
+rm -rf /home/jovyan/work/extensions
+mkdir /home/jovyan/work/extensions
+
+# Great extension by calpoly for better markdown formatting in cells: https://github.com/jupytercalpoly/jupyterlab-richtext-mode
+git clone https://github.com/jupytercalpoly/jupyterlab-richtext-mode.git /home/jovyan/work/extensions/jupyter-scribe &amp;&amp; \
+cd /home/jovyan/work/extensions/jupyter-scribe &amp;&amp; \
+npm install &amp;&amp; \
+npm run build &amp;&amp; \
+jupyter labextension link .
+
+# Rebuild to get extensions to work
+jlpm build
+jupyter lab build
+echo &#34;Added jupyterlab extensions!&#34;
+
+echo &#34;&#34;
+echo &#34;Creating kernel py37...&#34;
+conda create -n py37 python=3.7.4 pip -y
+echo &#34;Finished creating kernel py37!&#34;
+
+# Install packages with pip, otherwise conda&#39;s &#34;auto-checking compatibility&#34; algo freaks out (with certain versions of conda)
+echo &#34;&#34;
+echo &#34;Installing packages in py37...&#34;
+source activate py37 &amp;&amp; \
+pip install ipykernel &amp;&amp; \
+pip install pandas &amp;&amp; \
+pip install numpy &amp;&amp; \
+pip install scipy &amp;&amp; \
+pip install matplotlib &amp;&amp; \
+pip install seaborn &amp;&amp; \
+echo &#34;Finished installing packages in py37!&#34;
+
+echo &#34;&#34;
+echo &#34;Connecting env to kernel...&#34;
+source activate py37 &amp;&amp; python -m ipykernel install --user --name py37 --display-name &#34;py37&#34;
+source activate py37 # must activate/deactivate once to have changes displayed
+source activate base
+echo &#34;Connected env to kernel!&#34;
+
+cat &lt;&lt; &#34;EOF&#34;
+
+WELCOME!
+
+     ██╗██╗   ██╗██████╗ ██╗   ██╗████████╗███████╗██████╗
+     ██║██║   ██║██╔══██╗╚██╗ ██╔╝╚══██╔══╝██╔════╝██╔══██╗
+     ██║██║   ██║██████╔╝ ╚████╔╝    ██║   █████╗  ██████╔╝
+██   ██║██║   ██║██╔═══╝   ╚██╔╝     ██║   ██╔══╝  ██╔══██╗
+╚█████╔╝╚██████╔╝██║        ██║      ██║   ███████╗██║  ██║
+ ╚════╝  ╚═════╝ ╚═╝        ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝
+
+Take it from here...
+
+EOF
+</code></pre><p><em>Dirty details on how this runs just by placing it in the container:</em> the <code>start-notebook.sh</code> script run by the <code>docker-compose</code> command will subsequently run <code>start.sh</code>. Both these shell scripts are in the <code>base-notebook</code> directory. The <code>start.sh</code> script has &ldquo;hooks&rdquo; for running scripts that are in the <code>/usr/local/bin/before-notebook.d</code>. <strong>All this to say that <code>setup_envs.sh</code> will be run as part of your jupyter setup</strong> because we put it in the <code>/usr/local/bin/before-notebook.d</code> directory in the jupyter container!</p><p>Note that you could totally exclude the <code>setup_envs.sh</code> script and volume and your deployment would be fully functioning. I like to use this method as a way of customizing my jupyter setup in a version-controlled manner. Rather than installing a new python package in my base environment or installing a system package every time manually and trying to remember what I did when I port to a new machine, I&rsquo;ll edit the <code>setup_envs.sh</code> script, commit and push to my fork, then redeploy on whatever machine I want and get the exact same setup.</p><h2 id=3-bring-up-the-jupyter-container>3: Bring Up the Jupyter Container</h2><p>If you&rsquo;ve gotten this far, you&rsquo;re basically done! The one thing we&rsquo;re missing is to set a password/token. In terminal, run this command with your custom password. If you don&rsquo;t do this, <code>docker-compose</code> will warn you at the next step.</p><pre tabindex=0><code>export JUPYTER_PASSWORD=$MY_CUSTOM_PASSWORD
+</code></pre><p>You can now navigate to the <code>docker-stacks</code> directory in a terminal and run:</p><pre tabindex=0><code>docker-compose up -d
+</code></pre><p>The <code>-d</code> flag stands for &ldquo;detached&rdquo;, and ensures the <code>jupyter</code> container will stay running even if you exit the terminal.</p><p>You can now run:</p><pre tabindex=0><code>docker logs -f jupyter
+</code></pre><p>The <code>-f</code> flag standing for &ldquo;follow&rdquo;. Watch the progress in your terminal as your jupyter container is instantiated and your <code>setup_envs.sh</code> script is run (if you made one).</p><p>Once you see something like the following:</p><pre tabindex=0><code>[I 16:19:04.574 LabApp] The Jupyter Notebook is running at:
+[I 16:19:04.574 LabApp] http://3204808557f5:9999/?token=...
+[I 16:19:04.575 LabApp]  or http://127.0.0.1:9999/?token=...
+[I 16:19:04.575 LabApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+</code></pre><p>You&rsquo;re ready to go! Navigate to <a href=http://127.0.0.1:9999>http://127.0.0.1:9999</a> (or whatever port you specified if different than <code>9999</code>) where you should see a page that prompts you for your password (set with the <code>JUPYTER_PASSWORD</code> environment variable earlier).</p><p>You have a fully functioning and replicable jupyter environment, portable to any machine that runs docker! Remember that even though your container has access to your host file system through the volume we created, your file system isn&rsquo;t (and shouldn&rsquo;t be) version controlled with the <code>docker-stacks</code> directory. Version control your projects separately.</p><h3 id=further-thoughts>Further thoughts</h3><ul><li>Another approach to version controlled customization could be to modify the Dockerfiles themselves. I prefer the <code>setup_envs.sh</code> script approach as rebuilding the images is time and disk space intensive. Modifying Dockerfiles, though, is a totally valid approach.</li><li>If you get stuck on anything in this process or see that I&rsquo;ve been wrong/unclear about something, please open an issue on the source of this website <a href=https://github.com/robinovitch61/the-leo-zone>here.</li></ul></div></div></div><footer><div class=nav><a href=/ target=_self>home</a></div><div class=woopsy>measure twice, cut once</div></footer></body></html>

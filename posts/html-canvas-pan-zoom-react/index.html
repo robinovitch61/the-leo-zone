@@ -1,495 +1,249 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."><link rel=stylesheet href=/sass/main.min.8eb19d45d5b9f3e72f14e37dc7c1a8a470ac3ae390cd2d2caed1bd7467d0832d.css><link rel=stylesheet href=/sass/header.min.b46e6b299714edde117a0d62d9c5e1b9cce79b1928fe641a6a1efda74182202d.css><link rel=stylesheet href=/sass/footer.min.b710a156aec222bba88e7de18131715e01a40a3d2c04fbe80c79875a3f00af79.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
+<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."><link rel=stylesheet href=/sass/main.min.497f2a044fb50316af45ea0425f90c2a4953a62f52a72e82e6a5a3f7c654feb4.css><link rel=stylesheet href=/sass/header.min.3fc10c142e7649a0a84d6da73eb3d784878cb765190699401f4f7fe90640adc6.css><link rel=stylesheet href=/sass/footer.min.eaac730dad5c96ec74b1b6ad615c2653058b703041364f7f2f29ffe0deb6b650.css></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
 <a href=https://github.com/robinovitch61 target=_blank>github</a>
-<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>react html5 zoom/pan canvas</h1><div class=post-date><p>May 02, 2021</p></div><div class=post><p>A pannable, mouse-centered zoomable, HTML5 canvas template in React + Typescript. You&rsquo;d think this would be a solved problem, but despite the plethora of solutions out there, I couldn&rsquo;t get quite what I wanted for some time. Finally, here it all is in one place for future me and others to use as boilerplate for their embedded interactive canvases in their apps.</p><p>If you see any bugs or possible improvements, please comment on the gist here:</p><p><a href=https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d>https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d</a></p><iframe src="https://codesandbox.io/embed/react-typescript-zoom-pan-html-canvas-p3itj?fontsize=14&hidenavigation=1&theme=dark" style=width:100%;height:500px;border:0;border-radius:4px;overflow:hidden title="React  Typescript Zoom Pan HTML Canvas" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe><div class=highlight><div style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  1
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  2
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  3
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  4
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  5
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  6
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  7
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  8
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">  9
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 10
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 11
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 12
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 13
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 14
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 15
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 16
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 17
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 18
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 19
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 20
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 21
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 22
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 23
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 24
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 25
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 26
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 27
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 28
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 29
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 30
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 31
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 32
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 33
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 34
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 35
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 36
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 37
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 38
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 39
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 40
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 41
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 42
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 43
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 44
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 45
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 46
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 47
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 48
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 49
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 50
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 51
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 52
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 53
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 54
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 55
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 56
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 57
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 58
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 59
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 60
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 61
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 62
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 63
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 64
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 65
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 66
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 67
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 68
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 69
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 70
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 71
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 72
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 73
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 74
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 75
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 76
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 77
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 78
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 79
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 80
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 81
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 82
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 83
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 84
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 85
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 86
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 87
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 88
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 89
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 90
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 91
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 92
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 93
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 94
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 95
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 96
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 97
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 98
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 99
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">100
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">101
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">102
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">103
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">104
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">105
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">106
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">107
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">108
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">109
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">110
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">111
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">112
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">113
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">114
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">115
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">116
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">117
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">118
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">119
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">120
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">121
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">122
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">123
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">124
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">125
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">126
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">127
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">128
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">129
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">130
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">131
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">132
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">133
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">134
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">135
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">136
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">137
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">138
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">139
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">140
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">141
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">142
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">143
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">144
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">145
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">146
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">147
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">148
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">149
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">150
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">151
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">152
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">153
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">154
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">155
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">156
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">157
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">158
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">159
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">160
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">161
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">162
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">163
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">164
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">165
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">166
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">167
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">168
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">169
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">170
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">171
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">172
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">173
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">174
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">175
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">176
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">177
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">178
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">179
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">180
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">181
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">182
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">183
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">184
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">185
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">186
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">187
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">188
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">189
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">190
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">191
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">192
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">193
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">194
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">195
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">196
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">197
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">198
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">199
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">200
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">201
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">202
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">203
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">204
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">205
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">206
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">207
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">208
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">209
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">210
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">211
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">212
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">213
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">214
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">215
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">216
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">217
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">218
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">219
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">220
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">221
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">222
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">223
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">224
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">225
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">226
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">227
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">228
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">229
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">230
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">231
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">232
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">233
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">234
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">235
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">236
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">237
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">238
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">239
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">240
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">241
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">242
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">243
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">244
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">245
-</span><span style="white-space:pre;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">246
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=display:flex><span><span style=color:green;font-weight:700>import</span> {
-</span></span><span style=display:flex><span>  useEffect,
-</span></span><span style=display:flex><span>  useCallback,
-</span></span><span style=display:flex><span>  useLayoutEffect,
-</span></span><span style=display:flex><span>  useRef,
-</span></span><span style=display:flex><span>  useState
-</span></span><span style=display:flex><span>} <span style=color:green;font-weight:700>from</span> <span style=color:#ba2121>&#34;react&#34;</span>;
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>import</span> <span style=color:#666>*</span> <span style=color:green;font-weight:700>as</span> React <span style=color:green;font-weight:700>from</span> <span style=color:#ba2121>&#34;react&#34;</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>type</span> CanvasProps <span style=color:#666>=</span> {
-</span></span><span style=display:flex><span>  canvasWidth: <span style=color:#b00040>number</span>;
-</span></span><span style=display:flex><span>  canvasHeight: <span style=color:#b00040>number</span>;
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>type</span> Point <span style=color:#666>=</span> {
-</span></span><span style=display:flex><span>  x: <span style=color:#b00040>number</span>;
-</span></span><span style=display:flex><span>  y: <span style=color:#b00040>number</span>;
-</span></span><span style=display:flex><span>};
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>const</span> ORIGIN <span style=color:#666>=</span> <span style=color:green>Object</span>.freeze({ x: <span style=color:#b00040>0</span>, y: <span style=color:#b00040>0</span> });
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#408080;font-style:italic>// adjust to device to avoid blur
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span><span style=color:green;font-weight:700>const</span> { devicePixelRatio: <span style=color:#b00040>ratio</span> <span style=color:#666>=</span> <span style=color:#666>1</span> } <span style=color:#666>=</span> <span style=color:green>window</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>function</span> diffPoints(p1: <span style=color:#b00040>Point</span>, p2: <span style=color:#b00040>Point</span>) {
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>return</span> { x: <span style=color:#b00040>p1.x</span> <span style=color:#666>-</span> p2.x, y: <span style=color:#b00040>p1.y</span> <span style=color:#666>-</span> p2.y };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>function</span> addPoints(p1: <span style=color:#b00040>Point</span>, p2: <span style=color:#b00040>Point</span>) {
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>return</span> { x: <span style=color:#b00040>p1.x</span> <span style=color:#666>+</span> p2.x, y: <span style=color:#b00040>p1.y</span> <span style=color:#666>+</span> p2.y };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>function</span> scalePoint(p1: <span style=color:#b00040>Point</span>, scale: <span style=color:#b00040>number</span>) {
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>return</span> { x: <span style=color:#b00040>p1.x</span> <span style=color:#666>/</span> scale, y: <span style=color:#b00040>p1.y</span> <span style=color:#666>/</span> scale };
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>const</span> ZOOM_SENSITIVITY <span style=color:#666>=</span> <span style=color:#666>500</span>; <span style=color:#408080;font-style:italic>// bigger for lower zoom per scroll
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>
-</span></span><span style=display:flex><span><span style=color:green;font-weight:700>export</span> <span style=color:green;font-weight:700>default</span> <span style=color:green;font-weight:700>function</span> Canvas(props: <span style=color:#b00040>CanvasProps</span>) {
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> canvasRef <span style=color:#666>=</span> useRef&lt;<span style=color:green;font-weight:700>HTMLCanvasElement</span>&gt;(<span style=color:green;font-weight:700>null</span>);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> [context, setContext] <span style=color:#666>=</span> useState&lt;<span style=color:green;font-weight:700>CanvasRenderingContext2D</span> <span>|</span> <span style=color:#7d9029>null</span>&gt;(<span style=color:green;font-weight:700>null</span>);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> [scale, setScale] <span style=color:#666>=</span> useState&lt;<span style=color:green;font-weight:700>number</span>&gt;(<span style=color:#666>1</span>);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> [offset, setOffset] <span style=color:#666>=</span> useState&lt;<span style=color:green;font-weight:700>Point</span>&gt;(ORIGIN);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> [mousePos, setMousePos] <span style=color:#666>=</span> useState&lt;<span style=color:green;font-weight:700>Point</span>&gt;(ORIGIN);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> [viewportTopLeft, setViewportTopLeft] <span style=color:#666>=</span> useState&lt;<span style=color:green;font-weight:700>Point</span>&gt;(ORIGIN);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> isResetRef <span style=color:#666>=</span> useRef&lt;<span style=color:green;font-weight:700>boolean</span>&gt;(<span style=color:green;font-weight:700>false</span>);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> lastMousePosRef <span style=color:#666>=</span> useRef&lt;<span style=color:green;font-weight:700>Point</span>&gt;(ORIGIN);
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> lastOffsetRef <span style=color:#666>=</span> useRef&lt;<span style=color:green;font-weight:700>Point</span>&gt;(ORIGIN);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// update last offset
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  useEffect(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    lastOffsetRef.current <span style=color:#666>=</span> offset;
-</span></span><span style=display:flex><span>  }, [offset]);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// reset
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  <span style=color:green;font-weight:700>const</span> reset <span style=color:#666>=</span> useCallback(
-</span></span><span style=display:flex><span>    (context: <span style=color:#b00040>CanvasRenderingContext2D</span>) <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>if</span> (context <span style=color:#666>&amp;&amp;</span> <span style=color:#666>!</span>isResetRef.current) {
-</span></span><span style=display:flex><span>        <span style=color:#408080;font-style:italic>// adjust for device pixel density
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>        context.canvas.width <span style=color:#666>=</span> props.canvasWidth <span style=color:#666>*</span> ratio;
-</span></span><span style=display:flex><span>        context.canvas.height <span style=color:#666>=</span> props.canvasHeight <span style=color:#666>*</span> ratio;
-</span></span><span style=display:flex><span>        context.scale(ratio, ratio);
-</span></span><span style=display:flex><span>        setScale(<span style=color:#666>1</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:#408080;font-style:italic>// reset state and refs
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>        setContext(context);
-</span></span><span style=display:flex><span>        setOffset(ORIGIN);
-</span></span><span style=display:flex><span>        setMousePos(ORIGIN);
-</span></span><span style=display:flex><span>        setViewportTopLeft(ORIGIN);
-</span></span><span style=display:flex><span>        lastOffsetRef.current <span style=color:#666>=</span> ORIGIN;
-</span></span><span style=display:flex><span>        lastMousePosRef.current <span style=color:#666>=</span> ORIGIN;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:#408080;font-style:italic>// this thing is so multiple resets in a row don&#39;t clear canvas
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>        isResetRef.current <span style=color:#666>=</span> <span style=color:green;font-weight:700>true</span>;
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    [props.canvasWidth, props.canvasHeight]
-</span></span><span style=display:flex><span>  );
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// functions for panning
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  <span style=color:green;font-weight:700>const</span> mouseMove <span style=color:#666>=</span> useCallback(
-</span></span><span style=display:flex><span>    (event: <span style=color:#b00040>MouseEvent</span>) <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>if</span> (context) {
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> lastMousePos <span style=color:#666>=</span> lastMousePosRef.current;
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> currentMousePos <span style=color:#666>=</span> { x: <span style=color:#b00040>event.pageX</span>, y: <span style=color:#b00040>event.pageY</span> }; <span style=color:#408080;font-style:italic>// use document so can pan off element
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>        lastMousePosRef.current <span style=color:#666>=</span> currentMousePos;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> mouseDiff <span style=color:#666>=</span> diffPoints(currentMousePos, lastMousePos);
-</span></span><span style=display:flex><span>        setOffset((prevOffset) <span style=color:#666>=&gt;</span> addPoints(prevOffset, mouseDiff));
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    [context]
-</span></span><span style=display:flex><span>  );
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> mouseUp <span style=color:#666>=</span> useCallback(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:green>document</span>.removeEventListener(<span style=color:#ba2121>&#34;mousemove&#34;</span>, mouseMove);
-</span></span><span style=display:flex><span>    <span style=color:green>document</span>.removeEventListener(<span style=color:#ba2121>&#34;mouseup&#34;</span>, mouseUp);
-</span></span><span style=display:flex><span>  }, [mouseMove]);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>const</span> startPan <span style=color:#666>=</span> useCallback(
-</span></span><span style=display:flex><span>    (event: <span style=color:#b00040>React.MouseEvent</span>&lt;<span style=color:green;font-weight:700>HTMLCanvasElement</span><span>,</span> <span style=color:#7d9029>MouseEvent</span>&gt;) <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>      <span style=color:green>document</span>.addEventListener(<span style=color:#ba2121>&#34;mousemove&#34;</span>, mouseMove);
-</span></span><span style=display:flex><span>      <span style=color:green>document</span>.addEventListener(<span style=color:#ba2121>&#34;mouseup&#34;</span>, mouseUp);
-</span></span><span style=display:flex><span>      lastMousePosRef.current <span style=color:#666>=</span> { x: <span style=color:#b00040>event.pageX</span>, y: <span style=color:#b00040>event.pageY</span> };
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    [mouseMove, mouseUp]
-</span></span><span style=display:flex><span>  );
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// setup canvas and set context
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  useLayoutEffect(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>if</span> (canvasRef.current) {
-</span></span><span style=display:flex><span>      <span style=color:#408080;font-style:italic>// get new drawing context
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>      <span style=color:green;font-weight:700>const</span> renderCtx <span style=color:#666>=</span> canvasRef.current.getContext(<span style=color:#ba2121>&#34;2d&#34;</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>if</span> (renderCtx) {
-</span></span><span style=display:flex><span>        reset(renderCtx);
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }, [reset, props.canvasHeight, props.canvasWidth]);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// pan when offset or scale changes
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  useLayoutEffect(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>if</span> (context <span style=color:#666>&amp;&amp;</span> lastOffsetRef.current) {
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>const</span> offsetDiff <span style=color:#666>=</span> scalePoint(
-</span></span><span style=display:flex><span>        diffPoints(offset, lastOffsetRef.current),
-</span></span><span style=display:flex><span>        scale
-</span></span><span style=display:flex><span>      );
-</span></span><span style=display:flex><span>      context.translate(offsetDiff.x, offsetDiff.y);
-</span></span><span style=display:flex><span>      setViewportTopLeft((prevVal) <span style=color:#666>=&gt;</span> diffPoints(prevVal, offsetDiff));
-</span></span><span style=display:flex><span>      isResetRef.current <span style=color:#666>=</span> <span style=color:green;font-weight:700>false</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }, [context, offset, scale]);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// draw
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  useLayoutEffect(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>if</span> (context) {
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>const</span> squareSize <span style=color:#666>=</span> <span style=color:#666>20</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>      <span style=color:#408080;font-style:italic>// clear canvas but maintain transform
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>      <span style=color:green;font-weight:700>const</span> storedTransform <span style=color:#666>=</span> context.getTransform();
-</span></span><span style=display:flex><span>      context.canvas.width <span style=color:#666>=</span> context.canvas.width;
-</span></span><span style=display:flex><span>      context.setTransform(storedTransform);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>      context.fillRect(
-</span></span><span style=display:flex><span>        props.canvasWidth <span style=color:#666>/</span> <span style=color:#666>2</span> <span style=color:#666>-</span> squareSize <span style=color:#666>/</span> <span style=color:#666>2</span>,
-</span></span><span style=display:flex><span>        props.canvasHeight <span style=color:#666>/</span> <span style=color:#666>2</span> <span style=color:#666>-</span> squareSize <span style=color:#666>/</span> <span style=color:#666>2</span>,
-</span></span><span style=display:flex><span>        squareSize,
-</span></span><span style=display:flex><span>        squareSize
-</span></span><span style=display:flex><span>      );
-</span></span><span style=display:flex><span>      context.arc(viewportTopLeft.x, viewportTopLeft.y, <span style=color:#666>5</span>, <span style=color:#666>0</span>, <span style=color:#666>2</span> <span style=color:#666>*</span> <span style=color:green>Math</span>.PI);
-</span></span><span style=display:flex><span>      context.fillStyle <span style=color:#666>=</span> <span style=color:#ba2121>&#34;red&#34;</span>;
-</span></span><span style=display:flex><span>      context.fill();
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>  }, [
-</span></span><span style=display:flex><span>    props.canvasWidth,
-</span></span><span style=display:flex><span>    props.canvasHeight,
-</span></span><span style=display:flex><span>    context,
-</span></span><span style=display:flex><span>    scale,
-</span></span><span style=display:flex><span>    offset,
-</span></span><span style=display:flex><span>    viewportTopLeft
-</span></span><span style=display:flex><span>  ]);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// add event listener on canvas for mouse position
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  useEffect(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>const</span> canvasElem <span style=color:#666>=</span> canvasRef.current;
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>if</span> (canvasElem <span style=color:#666>===</span> <span style=color:green;font-weight:700>null</span>) {
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>return</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>function</span> handleUpdateMouse(event: <span style=color:#b00040>MouseEvent</span>) {
-</span></span><span style=display:flex><span>      event.preventDefault();
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>if</span> (canvasRef.current) {
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> viewportMousePos <span style=color:#666>=</span> { x: <span style=color:#b00040>event.clientX</span>, y: <span style=color:#b00040>event.clientY</span> };
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> topLeftCanvasPos <span style=color:#666>=</span> {
-</span></span><span style=display:flex><span>          x: <span style=color:#b00040>canvasRef.current.offsetLeft</span>,
-</span></span><span style=display:flex><span>          y: <span style=color:#b00040>canvasRef.current.offsetTop</span>
-</span></span><span style=display:flex><span>        };
-</span></span><span style=display:flex><span>        setMousePos(diffPoints(viewportMousePos, topLeftCanvasPos));
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    canvasElem.addEventListener(<span style=color:#ba2121>&#34;mousemove&#34;</span>, handleUpdateMouse);
-</span></span><span style=display:flex><span>    canvasElem.addEventListener(<span style=color:#ba2121>&#34;wheel&#34;</span>, handleUpdateMouse);
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> () <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>      canvasElem.removeEventListener(<span style=color:#ba2121>&#34;mousemove&#34;</span>, handleUpdateMouse);
-</span></span><span style=display:flex><span>      canvasElem.removeEventListener(<span style=color:#ba2121>&#34;wheel&#34;</span>, handleUpdateMouse);
-</span></span><span style=display:flex><span>    };
-</span></span><span style=display:flex><span>  }, []);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#408080;font-style:italic>// add event listener on canvas for zoom
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>  useEffect(() <span style=color:#666>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>const</span> canvasElem <span style=color:#666>=</span> canvasRef.current;
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>if</span> (canvasElem <span style=color:#666>===</span> <span style=color:green;font-weight:700>null</span>) {
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>return</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#408080;font-style:italic>// this is tricky. Update the viewport&#39;s &#34;origin&#34; such that
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>    <span style=color:#408080;font-style:italic>// the mouse doesn&#39;t move during scale - the &#39;zoom point&#39; of the mouse
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>    <span style=color:#408080;font-style:italic>// before and after zoom is relatively the same position on the viewport
-</span></span></span><span style=display:flex><span><span style=color:#408080;font-style:italic></span>    <span style=color:green;font-weight:700>function</span> handleWheel(event: <span style=color:#b00040>WheelEvent</span>) {
-</span></span><span style=display:flex><span>      event.preventDefault();
-</span></span><span style=display:flex><span>      <span style=color:green;font-weight:700>if</span> (context) {
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> zoom <span style=color:#666>=</span> <span style=color:#666>1</span> <span style=color:#666>-</span> event.deltaY <span style=color:#666>/</span> ZOOM_SENSITIVITY;
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> viewportTopLeftDelta <span style=color:#666>=</span> {
-</span></span><span style=display:flex><span>          x<span style=color:#666>:</span> (mousePos.x <span style=color:#666>/</span> scale) <span style=color:#666>*</span> (<span style=color:#666>1</span> <span style=color:#666>-</span> <span style=color:#666>1</span> <span style=color:#666>/</span> zoom),
-</span></span><span style=display:flex><span>          y<span style=color:#666>:</span> (mousePos.y <span style=color:#666>/</span> scale) <span style=color:#666>*</span> (<span style=color:#666>1</span> <span style=color:#666>-</span> <span style=color:#666>1</span> <span style=color:#666>/</span> zoom)
-</span></span><span style=display:flex><span>        };
-</span></span><span style=display:flex><span>        <span style=color:green;font-weight:700>const</span> newViewportTopLeft <span style=color:#666>=</span> addPoints(
-</span></span><span style=display:flex><span>          viewportTopLeft,
-</span></span><span style=display:flex><span>          viewportTopLeftDelta
-</span></span><span style=display:flex><span>        );
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        context.translate(viewportTopLeft.x, viewportTopLeft.y);
-</span></span><span style=display:flex><span>        context.scale(zoom, zoom);
-</span></span><span style=display:flex><span>        context.translate(<span style=color:#666>-</span>newViewportTopLeft.x, <span style=color:#666>-</span>newViewportTopLeft.y);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>        setViewportTopLeft(newViewportTopLeft);
-</span></span><span style=display:flex><span>        setScale(scale <span style=color:#666>*</span> zoom);
-</span></span><span style=display:flex><span>        isResetRef.current <span style=color:#666>=</span> <span style=color:green;font-weight:700>false</span>;
-</span></span><span style=display:flex><span>      }
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    canvasElem.addEventListener(<span style=color:#ba2121>&#34;wheel&#34;</span>, handleWheel);
-</span></span><span style=display:flex><span>    <span style=color:green;font-weight:700>return</span> () <span style=color:#666>=&gt;</span> canvasElem.removeEventListener(<span style=color:#ba2121>&#34;wheel&#34;</span>, handleWheel);
-</span></span><span style=display:flex><span>  }, [context, mousePos.x, mousePos.y, viewportTopLeft, scale]);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:green;font-weight:700>return</span> (
-</span></span><span style=display:flex><span>    &lt;<span style=color:green;font-weight:700>div</span>&gt;
-</span></span><span style=display:flex><span>      &lt;<span style=color:green;font-weight:700>button</span> <span style=color:#7d9029>onClick</span><span style=color:#666>=</span>{() <span style=color:#666>=&gt;</span> context <span style=color:#666>&amp;&amp;</span> reset(context)}&gt;Reset&lt;/<span style=color:green;font-weight:700>button</span>&gt;
-</span></span><span style=display:flex><span>      &lt;<span style=color:green;font-weight:700>pre</span>&gt;scale<span style=color:#666>:</span> {scale}&lt;/<span style=color:green;font-weight:700>pre</span>&gt;
-</span></span><span style=display:flex><span>      &lt;<span style=color:green;font-weight:700>pre</span>&gt;offset<span style=color:#666>:</span> {JSON.stringify(offset)}&lt;/<span style=color:green;font-weight:700>pre</span>&gt;
-</span></span><span style=display:flex><span>      &lt;<span style=color:green;font-weight:700>pre</span>&gt;viewportTopLeft<span style=color:#666>:</span> {JSON.stringify(viewportTopLeft)}&lt;/<span style=color:green;font-weight:700>pre</span>&gt;
-</span></span><span style=display:flex><span>      &lt;<span style=color:green;font-weight:700>canvas</span>
-</span></span><span style=display:flex><span>        <span style=color:#7d9029>onMouseDown</span><span style=color:#666>=</span>{startPan}
-</span></span><span style=display:flex><span>        <span style=color:#7d9029>ref</span><span style=color:#666>=</span>{canvasRef}
-</span></span><span style=display:flex><span>        <span style=color:#7d9029>width</span><span style=color:#666>=</span>{props.canvasWidth <span style=color:#666>*</span> ratio}
-</span></span><span style=display:flex><span>        <span style=color:#7d9029>height</span><span style=color:#666>=</span>{props.canvasHeight <span style=color:#666>*</span> ratio}
-</span></span><span style=display:flex><span>        <span style=color:#7d9029>style</span><span style=color:#666>=</span>{{
-</span></span><span style=display:flex><span>          border<span style=color:#666>:</span> <span style=color:#ba2121>&#34;2px solid #000&#34;</span>,
-</span></span><span style=display:flex><span>          width<span style=color:#666>:</span> <span style=color:#ba2121>`</span><span style=color:#b68;font-weight:700>${</span>props.canvasWidth<span style=color:#b68;font-weight:700>}</span><span style=color:#ba2121>px`</span>,
-</span></span><span style=display:flex><span>          height<span style=color:#666>:</span> <span style=color:#ba2121>`</span><span style=color:#b68;font-weight:700>${</span>props.canvasHeight<span style=color:#b68;font-weight:700>}</span><span style=color:#ba2121>px`</span>
-</span></span><span style=display:flex><span>        }}
-</span></span><span style=display:flex><span>      &gt;&lt;/<span style=color:green;font-weight:700>canvas</span>&gt;
-</span></span><span style=display:flex><span>    &lt;/<span style=color:green;font-weight:700>div</span>&gt;
-</span></span><span style=display:flex><span>  );
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></td></tr></table></div></div></div></div></div><footer><div class=nav><a href=/ target=_self>home</a></div><div class=woopsy>measure twice, cut once</div></footer></body></html>
+<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>react html5 zoom/pan canvas</h1><div class=post-date><p>May 02, 2021</p></div><div class=post><p>A pannable, mouse-centered zoomable, HTML5 canvas template in React + Typescript. You&rsquo;d think this would be a solved problem, but despite the plethora of solutions out there, I couldn&rsquo;t get quite what I wanted for some time. Finally, here it all is in one place for future me and others to use as boilerplate for their embedded interactive canvases in their apps.</p><p>If you see any bugs or possible improvements, please comment on the gist here:</p><p><a href=https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d>https://gist.github.com/robinovitch61/483190546bf8f0617d2cd510f3b4b86d</a></p><iframe src="https://codesandbox.io/embed/react-typescript-zoom-pan-html-canvas-p3itj?fontsize=14&hidenavigation=1&theme=dark" style=width:100%;height:500px;border:0;border-radius:4px;overflow:hidden title="React  Typescript Zoom Pan HTML Canvas" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"></iframe><pre tabindex=0><code>import {
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState
+} from &#34;react&#34;;
+import * as React from &#34;react&#34;;
+
+type CanvasProps = {
+  canvasWidth: number;
+  canvasHeight: number;
+};
+
+type Point = {
+  x: number;
+  y: number;
+};
+
+const ORIGIN = Object.freeze({ x: 0, y: 0 });
+
+// adjust to device to avoid blur
+const { devicePixelRatio: ratio = 1 } = window;
+
+function diffPoints(p1: Point, p2: Point) {
+  return { x: p1.x - p2.x, y: p1.y - p2.y };
+}
+
+function addPoints(p1: Point, p2: Point) {
+  return { x: p1.x + p2.x, y: p1.y + p2.y };
+}
+
+function scalePoint(p1: Point, scale: number) {
+  return { x: p1.x / scale, y: p1.y / scale };
+}
+
+const ZOOM_SENSITIVITY = 500; // bigger for lower zoom per scroll
+
+export default function Canvas(props: CanvasProps) {
+  const canvasRef = useRef&lt;HTMLCanvasElement&gt;(null);
+  const [context, setContext] = useState&lt;CanvasRenderingContext2D | null&gt;(null);
+  const [scale, setScale] = useState&lt;number&gt;(1);
+  const [offset, setOffset] = useState&lt;Point&gt;(ORIGIN);
+  const [mousePos, setMousePos] = useState&lt;Point&gt;(ORIGIN);
+  const [viewportTopLeft, setViewportTopLeft] = useState&lt;Point&gt;(ORIGIN);
+  const isResetRef = useRef&lt;boolean&gt;(false);
+  const lastMousePosRef = useRef&lt;Point&gt;(ORIGIN);
+  const lastOffsetRef = useRef&lt;Point&gt;(ORIGIN);
+
+  // update last offset
+  useEffect(() =&gt; {
+    lastOffsetRef.current = offset;
+  }, [offset]);
+
+  // reset
+  const reset = useCallback(
+    (context: CanvasRenderingContext2D) =&gt; {
+      if (context &amp;&amp; !isResetRef.current) {
+        // adjust for device pixel density
+        context.canvas.width = props.canvasWidth * ratio;
+        context.canvas.height = props.canvasHeight * ratio;
+        context.scale(ratio, ratio);
+        setScale(1);
+
+        // reset state and refs
+        setContext(context);
+        setOffset(ORIGIN);
+        setMousePos(ORIGIN);
+        setViewportTopLeft(ORIGIN);
+        lastOffsetRef.current = ORIGIN;
+        lastMousePosRef.current = ORIGIN;
+
+        // this thing is so multiple resets in a row don&#39;t clear canvas
+        isResetRef.current = true;
+      }
+    },
+    [props.canvasWidth, props.canvasHeight]
+  );
+
+  // functions for panning
+  const mouseMove = useCallback(
+    (event: MouseEvent) =&gt; {
+      if (context) {
+        const lastMousePos = lastMousePosRef.current;
+        const currentMousePos = { x: event.pageX, y: event.pageY }; // use document so can pan off element
+        lastMousePosRef.current = currentMousePos;
+
+        const mouseDiff = diffPoints(currentMousePos, lastMousePos);
+        setOffset((prevOffset) =&gt; addPoints(prevOffset, mouseDiff));
+      }
+    },
+    [context]
+  );
+
+  const mouseUp = useCallback(() =&gt; {
+    document.removeEventListener(&#34;mousemove&#34;, mouseMove);
+    document.removeEventListener(&#34;mouseup&#34;, mouseUp);
+  }, [mouseMove]);
+
+  const startPan = useCallback(
+    (event: React.MouseEvent&lt;HTMLCanvasElement, MouseEvent&gt;) =&gt; {
+      document.addEventListener(&#34;mousemove&#34;, mouseMove);
+      document.addEventListener(&#34;mouseup&#34;, mouseUp);
+      lastMousePosRef.current = { x: event.pageX, y: event.pageY };
+    },
+    [mouseMove, mouseUp]
+  );
+
+  // setup canvas and set context
+  useLayoutEffect(() =&gt; {
+    if (canvasRef.current) {
+      // get new drawing context
+      const renderCtx = canvasRef.current.getContext(&#34;2d&#34;);
+
+      if (renderCtx) {
+        reset(renderCtx);
+      }
+    }
+  }, [reset, props.canvasHeight, props.canvasWidth]);
+
+  // pan when offset or scale changes
+  useLayoutEffect(() =&gt; {
+    if (context &amp;&amp; lastOffsetRef.current) {
+      const offsetDiff = scalePoint(
+        diffPoints(offset, lastOffsetRef.current),
+        scale
+      );
+      context.translate(offsetDiff.x, offsetDiff.y);
+      setViewportTopLeft((prevVal) =&gt; diffPoints(prevVal, offsetDiff));
+      isResetRef.current = false;
+    }
+  }, [context, offset, scale]);
+
+  // draw
+  useLayoutEffect(() =&gt; {
+    if (context) {
+      const squareSize = 20;
+
+      // clear canvas but maintain transform
+      const storedTransform = context.getTransform();
+      context.canvas.width = context.canvas.width;
+      context.setTransform(storedTransform);
+
+      context.fillRect(
+        props.canvasWidth / 2 - squareSize / 2,
+        props.canvasHeight / 2 - squareSize / 2,
+        squareSize,
+        squareSize
+      );
+      context.arc(viewportTopLeft.x, viewportTopLeft.y, 5, 0, 2 * Math.PI);
+      context.fillStyle = &#34;red&#34;;
+      context.fill();
+    }
+  }, [
+    props.canvasWidth,
+    props.canvasHeight,
+    context,
+    scale,
+    offset,
+    viewportTopLeft
+  ]);
+
+  // add event listener on canvas for mouse position
+  useEffect(() =&gt; {
+    const canvasElem = canvasRef.current;
+    if (canvasElem === null) {
+      return;
+    }
+
+    function handleUpdateMouse(event: MouseEvent) {
+      event.preventDefault();
+      if (canvasRef.current) {
+        const viewportMousePos = { x: event.clientX, y: event.clientY };
+        const topLeftCanvasPos = {
+          x: canvasRef.current.offsetLeft,
+          y: canvasRef.current.offsetTop
+        };
+        setMousePos(diffPoints(viewportMousePos, topLeftCanvasPos));
+      }
+    }
+
+    canvasElem.addEventListener(&#34;mousemove&#34;, handleUpdateMouse);
+    canvasElem.addEventListener(&#34;wheel&#34;, handleUpdateMouse);
+    return () =&gt; {
+      canvasElem.removeEventListener(&#34;mousemove&#34;, handleUpdateMouse);
+      canvasElem.removeEventListener(&#34;wheel&#34;, handleUpdateMouse);
+    };
+  }, []);
+
+  // add event listener on canvas for zoom
+  useEffect(() =&gt; {
+    const canvasElem = canvasRef.current;
+    if (canvasElem === null) {
+      return;
+    }
+
+    // this is tricky. Update the viewport&#39;s &#34;origin&#34; such that
+    // the mouse doesn&#39;t move during scale - the &#39;zoom point&#39; of the mouse
+    // before and after zoom is relatively the same position on the viewport
+    function handleWheel(event: WheelEvent) {
+      event.preventDefault();
+      if (context) {
+        const zoom = 1 - event.deltaY / ZOOM_SENSITIVITY;
+        const viewportTopLeftDelta = {
+          x: (mousePos.x / scale) * (1 - 1 / zoom),
+          y: (mousePos.y / scale) * (1 - 1 / zoom)
+        };
+        const newViewportTopLeft = addPoints(
+          viewportTopLeft,
+          viewportTopLeftDelta
+        );
+
+        context.translate(viewportTopLeft.x, viewportTopLeft.y);
+        context.scale(zoom, zoom);
+        context.translate(-newViewportTopLeft.x, -newViewportTopLeft.y);
+
+        setViewportTopLeft(newViewportTopLeft);
+        setScale(scale * zoom);
+        isResetRef.current = false;
+      }
+    }
+
+    canvasElem.addEventListener(&#34;wheel&#34;, handleWheel);
+    return () =&gt; canvasElem.removeEventListener(&#34;wheel&#34;, handleWheel);
+  }, [context, mousePos.x, mousePos.y, viewportTopLeft, scale]);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; context &amp;&amp; reset(context)}&gt;Reset&lt;/button&gt;
+      &lt;pre&gt;scale: {scale}&lt;/pre&gt;
+      &lt;pre&gt;offset: {JSON.stringify(offset)}&lt;/pre&gt;
+      &lt;pre&gt;viewportTopLeft: {JSON.stringify(viewportTopLeft)}&lt;/pre&gt;
+      &lt;canvas
+        onMouseDown={startPan}
+        ref={canvasRef}
+        width={props.canvasWidth * ratio}
+        height={props.canvasHeight * ratio}
+        style={{
+          border: &#34;2px solid #000&#34;,
+          width: `${props.canvasWidth}px`,
+          height: `${props.canvasHeight}px`
+        }}
+      &gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div></div></div><footer><div class=nav><a href=/ target=_self>home</a></div><div class=woopsy>measure twice, cut once</div></footer></body></html>
