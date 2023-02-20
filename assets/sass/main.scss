@@ -72,6 +72,11 @@ html, body {
               border: 1px solid black;
               min-width: 198px;
               min-height: 198px;
+
+              @media screen and (max-width: $MOBILE_WIDTH) {
+                min-width: unset;
+                min-height: unset;
+              }
             }
 
             > p {
