@@ -33,3 +33,8 @@ layers of depth surpassing the average Fantasy novel character.
   building in between to allow you to care about what's happening and to who
 * there is a Dune or GoT like level of intrigue and motivation-driven character development. In such an intense
   environment, every child in the school is a master of trade, barter, study of others, and hierarchy setting
+* there is a bit of the Patrick Rothfuss Kingkiller Chronicle thing going on where the main character is troubled but
+  also just happens to be the absolute best at everything. It's much more balanced than that, but still. I like that in
+  certain fantasy like Harry Potter or Earthsea, the main characters aren't particularly "genius" at anything, and their
+  success comes largely from their internal struggles to be brave, do the right thing, and endure during hard and scary
+  times.
