@@ -4,6 +4,3 @@ title = "Leo Robinovitch @ The Leo Zone"
 
 [params]
   description = "The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."
-
-[markup.goldmark.renderer]
-  unsafe = true
