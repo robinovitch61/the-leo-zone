@@ -12,10 +12,11 @@
   {{ $mainStyle := resources.Get "sass/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
   {{ $headerStyle := resources.Get "sass/header.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
   {{ $footerStyle := resources.Get "sass/footer.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
-  {{ $footerStyle := resources.Get "sass/code.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  {{ $codeStyle := resources.Get "sass/code.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $mainStyle.RelPermalink }}">
   <link rel="stylesheet" href="{{ $headerStyle.RelPermalink }}">
   <link rel="stylesheet" href="{{ $footerStyle.RelPermalink }}">
+  <link rel="stylesheet" href="{{ $codeStyle.RelPermalink }}">
   <a rel="me" href="https://recurse.social/@robinovitch61"></a>
 </head>
 
