@@ -26,7 +26,7 @@ code {
 /* PreWrapper */ .chroma { background-color: $CODE_BACKGROUND; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err {  }
-/* CodeLine */ .chroma .cl {  }
+/* CodeLine */ .chroma .cl { display: inline-block; padding-right: 0.5em; }
 /* LineTableTD */ .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
 /* LineTable */ .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
 /* LineHighlight */ .chroma .hl { background-color: #ffffcc }
