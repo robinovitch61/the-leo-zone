@@ -413,7 +413,7 @@ span.bold {
 
 // code blocks
 pre {
-  background-color: $CODE_BACKGROUND;
+  background-color: $CODE_BACKGROUND !important;
   overflow-y: auto;
   padding: 1em 0.5em;
   box-shadow: 1px 1px 3px black;

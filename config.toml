@@ -4,3 +4,8 @@ title = "Leo Robinovitch @ The Leo Zone"
 
 [params]
   description = "The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."
+
+[markup]
+  [markup.highlight]
+    # styling is handled by assets/sass/code.scss
+    noClasses = false

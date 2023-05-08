@@ -14,7 +14,7 @@ But `Iterable` really just means [something that implements
 
 And `str` implements `__iter__()`, e.g.:
 
-```
+```python
 for char in "abc":
     print(char)
 # a
@@ -26,7 +26,7 @@ And "a" is a `str`, just like "abc" is a `str`.
 
 So this type checks: `my_var: Iterable[str] = "abc"` (!!!).
 
-```
+```python
 from typing import Iterable, List
 
 # these all pass type check
