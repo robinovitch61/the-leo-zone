@@ -411,27 +411,6 @@ span.bold {
   text-align: center;
 }
 
-// code blocks
-pre {
-  background-color: $CODE_BACKGROUND !important;
-  overflow-y: auto;
-  padding: 1em 0.5em;
-  box-shadow: 1px 1px 3px black;
-
-  // undo the inline code style below
-  code {
-    padding: 0;
-    background: none;
-  }
-}
-
-// inline code
-code {
-  padding: 0 0.2em;
-  font-size: 1.1em;
-  background: $CODE_BACKGROUND;
-}
-
 // Try to always show scrollbars (doesn't work on mobile)
 ::-webkit-scrollbar {
   -webkit-appearance: none;

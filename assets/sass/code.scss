@@ -1,7 +1,29 @@
 $CODE_STRING_COLOR: #007e00;
+$CODE_BACKGROUND: #eaeaea;
 
-/* Background */ .bg { background-color: #ffffff; }
-/* PreWrapper */ .chroma { background-color: #ffffff; }
+// code blocks
+pre {
+  overflow-y: auto;
+  padding: 1em 0.5em;
+  box-shadow: 1px 1px 3px black;
+
+  // undo the inline code style below
+  code {
+    padding: 0;
+    background: none;
+  }
+}
+
+// inline code
+code {
+  padding: 0 0.2em;
+  font-size: 1.1em;
+  background: $CODE_BACKGROUND;
+}
+
+
+/* Background */ .bg { background-color: $CODE_BACKGROUND; }
+/* PreWrapper */ .chroma { background-color: $CODE_BACKGROUND; }
 /* Other */ .chroma .x {  }
 /* Error */ .chroma .err {  }
 /* CodeLine */ .chroma .cl {  }

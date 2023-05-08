@@ -26,7 +26,7 @@ And "a" is a `str`, just like "abc" is a `str`.
 
 So this type checks: `my_var: Iterable[str] = "abc"` (!!!).
 
-```python
+```python {hl_lines=[5]}
 from typing import Iterable, List
 
 # these all pass type check
