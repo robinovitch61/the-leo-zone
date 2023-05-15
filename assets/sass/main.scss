@@ -423,6 +423,35 @@ span.bold {
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
+// Tables
+table {
+  border-collapse: collapse;
+
+  thead {
+    background: #303030;
+    color: #f3efef;
+
+    th {
+      padding: 0.2em 0.3em;
+      text-align: start;
+    }
+  }
+
+  tbody {
+    border-bottom: 2px solid #303030;
+
+    tr {
+      &:nth-child(2n) {
+        background: #e9f2ff;
+      }
+
+      td {
+        padding: 0.1em 0.3em;
+      }
+    }
+  }
+}
+
 // MathJax
 .MathJax {
   padding-top: 0.25em;
