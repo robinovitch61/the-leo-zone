@@ -5,30 +5,31 @@ description: "A hash table implementation in C, by Leo Robinovitch."
 draft: true
 ---
 
-I implemented a simple [hash table][wiki_hash_table] in C via a problem in [CS Primer](https://csprimer.com/). In doing
+I implemented a simple [hash table][wiki_hash_table] in C in a problem in [CS Primer](https://csprimer.com/). In doing
 so, I gained better intuition around hash functions, pointers, and memory segments like the stack and the heap.
 
 This post is aimed at relative beginners to C and people interested in how a basic hash table might be implemented.
 
-## Theory
+## Basics
 
 You probably have encountered a hash table in the wild, like a [`dict` in Python][python_source]
 or [`Map` in JavaScript][v8_source]. Hash tables map a key to a value. Setting, looking up, and deleting values is
 average O(1) time complexity.
 
-Under the hood, there is an array of "buckets" or "slots" (I'll use the term buckets) that can hold values. When you
-associate a key and a value, the key's hash is used such that the associated value lives at an index in the array that
-is (usually) easy to find.
+Under the hood, there is an array of "buckets" or "slots". I'll use the term buckets going forward. The buckets array
+can hold values. When you associate a key with a value, the hash of the key is used to obtain the index where that value
+lives in the buckets array. Since the value's index in the buckets array is easy to derive from the hash of the key,
+setting and looking up by key (usually) takes very little work.
 
-There are a number of design decisions and techniques when implementing a hash table:
+There are a number of design decisions when implementing a hash table:
 
 * hash function selection
 * initial size of the buckets array
 * collision resolution
 * when to resize or compact the buckets array
 
-The C hash table data structure I show below starts with a buckets array of size 8, has no resizing, takes only strings
-as keys, and uses chained (linked list) hash collision resolution.
+The C hash table data structure I show below starts with a buckets array of size 4, has no resizing, accepts only
+strings as keys, and uses chained (linked list) hash collision resolution.
 
 ### Hash functions
 
@@ -36,13 +37,18 @@ Hash functions take a value and deterministically return a number. As a contrive
 returns 123 for the lifetime of the program[^1]. An input like "world" might return a different number, say 127. There
 are a number of desirable characteristics for a good hash function[^2].
 
-[^1]: I say for the lifetime of the program and not "always" because most programming languages add an unpredictable
-random value to the hash function output. This value is the same for the lifetime of the process, but different across
-processes. This is the reason [Python `sets` are not ordered][set_ordering]. The reason for changing the hash output
-between processes is extremely interesting - if attackers know or can infer the hash function by providing application
-input, they can [purposefully increase the number of collisions in order to DoS the server][dos_attack].
+[^1]: **hash functions returning the same value for the same input for the life of the program**: I say for the life of
+the program and not "always" because most programming languages [add an unpredictable random value][python_seed] (a
+seed) to the hash function input. This value is the same for the lifetime of the process, but different across
+processes. The reason for changing the hash output between processes is extremely interesting - if attackers know or can
+infer the hash function output by providing application input, they
+can [purposefully increase the number of collisions in order to DoS the server][dos_attack]. This is also the
+reason [Python `sets` are not ordered][set_ordering].
 
-[^2]: TODO
+[^2]: **desirable characteristics of a hash function**:
+
+    * TODO
+    * TODO
 
 ### The buckets array
 
@@ -189,6 +195,8 @@ TODO discuss `calloc`, `strdup`, `strncmp` as alternatives/simplifications/safet
 [python_source]: https://github.com/python/cpython/blob/main/Objects/dictobject.c
 
 [v8_source]: https://github.com/v8/v8/blob/main/src/objects/ordered-hash-table.cc
+
+[python_seed]: https://en.wikipedia.org/wiki/Hash_function#Deterministic
 
 [set_ordering]: https://docs.python.org/3/reference/datamodel.html#object.__hash__
 
