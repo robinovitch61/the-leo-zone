@@ -396,7 +396,7 @@ Some easy optimizations:
 
 * use `(h << 5) + h` instead of `33 * h` in `djb2` as they are equivalent, but bit shifting & addition may produce
   faster machine code than multiplication depending on the compiler
-* store the hash of the key on each entry and only compare the keys if the `Entry`s hashed values match
+* store the hash of the key in each `Entry` and only compare the keys if the hash values match
 
 More involved improvements:
 
