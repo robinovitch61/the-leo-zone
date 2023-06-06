@@ -1,25 +1,22 @@
 ---
 title: "a simple hash table in C"
-date: "2023-06-07"
+date: "2023-06-06"
 description: "A simple hash table implementation in C, by Leo Robinovitch."
-draft: true
 ---
 
-I implemented a simple [hash table][wiki_hash_table] in C when solving a problem in [CS Primer][csprimer]. By doing so,
-I gained better intuition around hash functions, pointers, and memory segments like the stack and the heap.
-
-This post is aimed at relative beginners to C and people interested in how a basic hash table is implemented.
+I implemented a simple [hash table][wiki_hash_table] in C when solving a problem in [CS Primer][csprimer]. Solving it
+helped me gain better intuition around hash functions, pointers, and memory segments like the stack and the heap.
 
 ## Basics
 
-You have probably encountered a hash table in the wild, like a [`dict` in Python][python_source]
-or [`Map` in JavaScript][v8_source]. Hash tables associate a key with a value. Setting, looking up, and deleting values
-is average O(1) time complexity - fast.
+You have probably encountered a hash table in the wild, like
+a [`dict` in Python][python_source], [`map` in Go][go_source], or [`Map` in JavaScript][v8_source]. Hash tables
+associate a key with a value. Setting, looking up, and deleting values is average O(1) time complexity -- fast.
 
-Under the hood, there is an array of "buckets" or "slots". I'll use the term buckets going forward. The buckets array
-can hold values. When you associate a key with a value, a "property" of the key - its hash - is used to obtain the index
-where its value lives in the buckets array. Since the value's index in the buckets array is quick and easy to derive
-from the key, setting and looking up by key (usually) takes very little work.
+Under the hood of a hash table, there is an array of "buckets" or "slots". I'll use the term buckets going forward. The
+buckets array holds the values stored in the hash table. When you associate a key with a value, the key's hash is used
+to obtain the index of its value in the buckets array. Since the index is quick and easy to derive from the key, setting
+and looking up by key (usually) takes little work.
 
 There are a number of design decisions when implementing a hash table:
 
@@ -29,7 +26,7 @@ There are a number of design decisions when implementing a hash table:
 * when to resize or compact the buckets array
 
 The C hash table implementation I walk through below starts with a buckets array of size 4, has no resizing or
-compaction, accepts only strings as keys, and uses chained (linked list) hash collision resolution.
+compaction, accepts only strings as keys, and uses separate chaining (linked list) hash collision resolution.
 
 ### Hash functions
 
@@ -41,22 +38,27 @@ characteristics for a good hash function[^2].
 [^1]: **a hash function returns the same number for the same input for the *life of the program***: I say for the life
 of the program and not "always" because most programming languages [add an unpredictable random value][python_seed] (a
 seed) to the hash function input. This value is the same for the lifetime of the process, but different across
-processes. The reason for this is extremely interesting - if attackers know or can infer the hash function output by
-providing application input, they
-can [purposefully increase the number of collisions in order to DoS attack the server][dos_attack]. This is also the
-reason [Python `sets` are not ordered][set_ordering]. TODO: C's `hash` function seeded?
+processes. The reason for this is interesting -- if attackers know or can infer the hash function output by providing
+application input, they
+can [purposefully increase the number of hash table collisions in order to DoS attack the server][dos_attack]. Because
+of this random seed, [Python `sets` are not ordered][set_ordering].
 
-[^2]: **desirable characteristics of a hash function**: TODO
+[^2]: **desirable characteristics of a hash function**: read [this discussion][choosing_func]
+from [Queens' CISC-235][queens], but Tl;DR a good hash function does the following:
 
-    * TODO
-    * TODO
+    * gives equal weight to all elements (digits, chars) in the key
+    * uniformly distributes keys throughout the output space
+    * is fast to compute
+    * is discontinuous (keys that are close in value don't necessarily map to outputs that are close in value)
+
+    The [djb2] hash function used here is pretty good on these criteria.
 
 ### The buckets array
 
-The hash table internally runs keys through its hash function, `mod`'s the output by the length its buckets array, and
-stores the associated value at that index of the buckets array. For example, say "hello" hashed to 123 as above, and our
-buckets array is of length 4. `123 % 4` is 3. If I wanted to associate the key "hello" with the number 72 in my hash
-table, the buckets array would look like this in pseudo-code:
+When setting a value, the hash table internally runs the key through its hash function, takes the output modulo the
+length its buckets array, and puts the value at that index of the buckets array. For example, say "hello" hashed to 123
+as above, and our buckets array is of length 4. `123 % 4` is 3. If I wanted to associate the key "hello" with the number
+72 in my hash table, the buckets array would look like this in pseudo-code:
 
 ```python
 > h["hello"] = 72
@@ -72,22 +74,42 @@ linked list with a single value (72) associated with the key "hello".
 
 When looking up the value of key "hello", the hash map will once again infer that the key "hello" lives in bucket 3,
 then traverse the linked list in bucket 3. Once it finds the matching key "hello" in the linked list, it returns the
-associated value (72). If no matching key is found in the linked list, the hash table may throw an error (e.g.
-`KeyError` in Python ) or return a null pointer like my implementation below.
+associated value of 72. If no matching key is found in the linked list, the hash table may throw an error (e.g.
+`KeyError` in Python) or return a null pointer like my implementation below.
 
-You can imagine that if a lot of keys land in bucket 3, the linked list there will be very long, and setting/getting
-values from the hash table will no longer be performant. This is why most implementations resize the number of buckets
-when the buckets array gets too full[^3].
+You can imagine that if a lot of keys hash-and-mod to bucket 3, the linked list there will be very long, and
+setting/getting values from the hash table will no longer be performant. This is why most implementations resize the
+number of buckets when the buckets array gets too full[^3].
 
-[^3]: **when is the bucket array too full?**: TODO
+[^3]: **when is the bucket array too full?**: the load factor is the proportion of buckets with at least one value. When
+the load factor reaches some high enough value, it may be a good idea to resize the hash table by creating a larger
+buckets array, reinserting all values into it, and replacing the old bucket array with the new one.
+
+    As long as the hash function evenly distributes keys to output values, you
+    can expect about equal distribution of values throughout the buckets array, i.e. equally long linked lists when using
+    separate chaining collision resolution.
+
+    Hash tables using separate chaining hash collisions may tolerate higher load factors than those using open addressing,
+    as the extra operations required to seek an item is bound by the max length of the linked lists. Open addressing
+    collisions may cause up to the number of buckets extra operations as an empty bucket is sought, so the max load factor
+    is usually lower when this is used. Python, which uses open addressing, [uses a max load factor of 1/2 to
+    1/3][python_load].
+
+    It's also possible to implement a hash table that resizes based on frequency of access or overall process load, maybe
+    resizing only during periods of lower load.
+
+    The load factor can also be too low, which indicates an overuse of memory. In that case, your hash table may compact in
+    order to require less buckets and free up memory.
 
 ### The heap
 
 I'll be mentioning the heap frequently. You can think of the stack and heap as different memory spaces (or segments, à
-la [segfault]) in RAM during program runtime. Variables on the stack are scoped to a function - they are all deallocated
-and are no longer referencable when the function returns. The heap is used to store variables that need to be referenced
-outside the scope of the function that defines them. A common way variables are stored on the heap is with the function
-`malloc`. They are then referencable until the program calls the function `free` on them.
+la [segfault]) in RAM during program runtime. Variables on the stack are scoped to a function -- they are all
+deallocated and are no longer referencable when the function returns. The heap is used to store variables that need to
+be referenced outside the scope of the function that defines them. A common way variables are stored on the heap is with
+the function `malloc`. They are then referencable until the program calls the function `free` on them. Failure to `free`
+unused variables on the heap as the program continues to run is what is referred to as a memory leak, as the heap memory
+may repeatedly fill up, causing the process to request more heap memory.
 
 ## Hash table C implementation
 
@@ -108,10 +130,10 @@ typedef struct Entry {
 * `val`, a void ("any type") pointer to the value itself
 * `next`, a pointer to the next `Entry` for collision resolution
 
-All fields are pointers in order to ensure each `Entry` is a static size in memory - the output of the `sizeof`
+All fields are pointers in order to ensure each `Entry` is a static size in memory -- the output of the `sizeof`
 function for each field is fixed, therefore the output of `sizeof(Entry)` is constant.
 
-The other `struct`, `HashTable`, represents the hash table itself.
+The other `struct` represents the hash table itself:
 
 ```c
 typedef struct HashTable {
@@ -122,17 +144,19 @@ typedef struct HashTable {
 
 `HashTable` contains 2 fields:
 
-* `buckets`, a pointer to an array of pointers to `Entry`s - *the memory tables below may help if this is confusing*
+* `buckets`, a pointer to an array of pointers to `Entry`s (the memory tables below may help if this is initially
+  confusing)
 * `nBuckets`, the number of buckets in the Hashmap
 
 Similar to `Entry`, since both fields are a static size, a `HashTable` instance is also a static size.
 
+### The djb2 hash function
+
 The hash function used operates only on strings, and is called [djb2][djb2] written by [Daniel Bernstein][djb][^4].
 
-[^4]: **the djb2 hash function**: TODO
-
-    - magic numbers
-    - has the desirable properties discussed above
+[^4]: **the djb2 hash function**: this is a pretty strange looking function at first. What are these magic numbers 33
+and 5381? There is some explanation for them [here on stackoverflow](https://stackoverflow.com/a/13809282), but long
+story short, they seem to provide a hash function with all the desirable properties discussed in a footnote.
 
 ```c
 uint32_t hash(char *s) {
@@ -153,6 +177,8 @@ uint32_t get_bucket(HashTable *h, char *key) {
 }
 ```
 
+### Creating an empty hash table
+
 When creating a new `HashTable`, memory is allocated on the heap for the `HashTable` and its buckets array. Each entry
 in the buckets array, i.e. each bucket, is a pointer to an `Entry`. A pointer to the `HashTable` is returned.
 
@@ -172,6 +198,8 @@ After calling `HashTable_new`, `malloc` has been called twice, so the heap looks
 |-----------------------------------------|---------------------------------------------------------|------------------|
 | 0xFF00                                  | `HashTable(4, {{< color "red" >}}0xFF40{{< /color >}})` | HashTable itself |
 | {{< color "red" >}}0xFF40{{< /color >}} | `[NULL, NULL, NULL, NULL]`                              | Initial buckets  |
+
+### Associating a key and value
 
 Let's define a `HashTable_set` function to associate keys and values:
 
@@ -206,12 +234,12 @@ for the key is found, allocate memory for a new `Entry`, create and store a copy
 `malloc` under the hood), set its value, and insert it as the head[^5] of the linked list at the appropriate bucket
 index.
 
-[^5]: We could also append it to the end of the linked list, but it would involve keeping a reference to the previous
-`Entry` around or doing a look-ahead to find the linked list's termination point. If the aim is to create a generally
-performant data structure, there's no way to know whether users will be referencing recently inserted values more often
-than previously inserted values, so it's not such an important decision whether to put the new entry on the head or
-tail. In a more complete implementation, resizing the buckets array to reduce the length of the linked lists makes this
-decision even more arbitrary.
+[^5]: **why insert values at the head of the linked list?**: we could have also appended them to the end of the linked
+list, but it would involve keeping a reference to the previous `Entry` around or doing a look-ahead to find the linked
+list's termination point. If the aim is to create a generally performant data structure, there's no way to know whether
+users will be referencing recently inserted values more often than previously inserted values, so it's not such an
+important decision whether to put the new entry on the head or tail. In a more complete implementation, resizing the
+buckets array to reduce the length of the linked lists makes this decision even more arbitrary.
 
 Now we can run the following code:
 
@@ -238,7 +266,7 @@ The heap looks something like this:
 | {{< color "blue" >}}0xFF80{{< /color >}}   | `Entry({{< color "indigo" >}}0xFFB0{{< /color >}}, {{< color "green" >}}0x0000{{< /color >}}, NULL)` | Inserted entry   |
 | {{< color "indigo" >}}0xFFB0{{< /color >}} | `"item a"`                                                                                           | Key for entry    |
 
-And the output of something like `show_buckets()` for `h` looks like this:
+And the buckets of `h` looks like this:
 
 ```c
 bucket 0: NULL
@@ -246,6 +274,8 @@ bucket 1: ("item a", 5) -> NULL
 bucket 2: NULL
 bucket 3: NULL
 ```
+
+### Looking up values by key
 
 For looking up values by key, `HashTable_get` is similar but simpler than `HashTable_set`:
 
@@ -265,6 +295,10 @@ void *HashTable_get(HashTable *h, char *key) {
     return NULL;
 }
 ```
+
+A void pointer to the value rather than the value itself is returned.
+
+### Deleting entries
 
 Hash tables often also include functionality to delete an entry, like Python's [`del` keyword][del]. The
 `HashTable_delete` function allows the user or program to mark entries as removed:
@@ -324,6 +358,8 @@ And the heap looks the same as when the hash table was originally initialized:
 | 0xFF00                                  | `HashTable(4, {{< color "red" >}}0xFF40{{< /color >}})` | HashTable itself |
 | {{< color "red" >}}0xFF40{{< /color >}} | `[NULL, NULL, NULL, NULL]`                              | Buckets array    |
 
+### Discarding the hash table
+
 Finally, the user may want to free the entire hash table, so let's provide them with a `HashTable_free` function:
 
 ```c
@@ -365,20 +401,29 @@ Some easy optimizations:
 More involved improvements:
 
 * support non-string keys
-* resizing the buckets array once it gets too full
-* switch from chained hash collision with linked lists to a different technique like open addressing[^6]
+* use a balanced binary tree at each bucket rather than a linked list
+* resize the buckets array once it gets too full
+* switch from chained resolution with linked lists to a different technique like open addressing[^6]
 * maintain insertion order
+* add a random seed to each process that uses the hash table in order to prevent [DoS attacks][dos_attack]
 
 Thanks to Oz and [CS Primer][csprimer] for this problem. I found it a great exercise to learn more about hash tables and
 the design decisions behind them, hash functions, the C programming language, and memory management.
 
-[^6]: **what is open addressing?**: TODO link to Python blog post
+[^6]: **what is open addressing?**: [open addressing][open_addr] is a technique to efficiently locate empty buckets in
+which to place values during hash collisions. The absolute best resource I've found to deeply understand open addressing
+is [this explorable explanation of Python dicts][explorable], which is absolutely worth your time if you enjoyed this
+post.
 
 [csprimer]: https://csprimer.com/courses/
 
 [wiki_hash_table]: https://en.wikipedia.org/wiki/Hash_table
 
 [python_source]: https://github.com/python/cpython/blob/main/Objects/dictobject.c
+
+[python_load]: https://github.com/python/cpython/blob/2587b9f64eefde803a5e0b050171ad5f6654f31b/Objects/dictobject.c#L399-L409
+
+[go_source]: https://github.com/golang/go/blob/master/src/runtime/map.go
 
 [v8_source]: https://github.com/v8/v8/blob/main/src/objects/ordered-hash-table.cc
 
@@ -387,6 +432,10 @@ the design decisions behind them, hash functions, the C programming language, an
 [set_ordering]: https://docs.python.org/3/reference/datamodel.html#object.__hash__
 
 [dos_attack]: ./dos_via_algo_complexity_attack.pdf
+
+[choosing_func]: ./choosing_hash_function.pdf
+
+[queens]: https://sites.cs.queensu.ca/courses/cisc235/
 
 [segfault]: https://en.wikipedia.org/wiki/Segmentation_fault
 
@@ -401,3 +450,9 @@ the design decisions behind them, hash functions, the C programming language, an
 [`calloc`]: https://man7.org/linux/man-pages/man3/calloc.3p.html
 
 [`strncmp`]: https://linux.die.net/man/3/strncmp
+
+[magic_nums]: https://stackoverflow.com/a/13809282
+
+[open_addr]: https://en.wikipedia.org/wiki/Open_addressing
+
+[explorable]: https://just-taking-a-ride.com/inside_python_dict/chapter1.html
