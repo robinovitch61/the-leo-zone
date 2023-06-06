@@ -315,8 +315,8 @@ void HashTable_delete(HashTable *h, char *key) {
             // found Entry to delete
             if (prev == NULL) {
                 // if head of linked list,
-                // set whole bucket to NULL
-                h->buckets[bucket] = NULL;
+                // set head to next value
+                h->buckets[bucket] = v->next;
             } else {
                 // if middle or end of linked list,
                 // remove without disrupting pointers
