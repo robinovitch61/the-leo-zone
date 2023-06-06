@@ -123,8 +123,8 @@ index.</p><p>Now we can run the following code:</p><div class=highlight><pre tab
 </span></span><span class=line><span class=cl>            <span class=c1>// found Entry to delete
 </span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>if</span> <span class=p>(</span><span class=n>prev</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>                <span class=c1>// if head of linked list,
-</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=c1>// set whole bucket to NULL
-</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=n>h</span><span class=o>-&gt;</span><span class=n>buckets</span><span class=p>[</span><span class=n>bucket</span><span class=p>]</span> <span class=o>=</span> <span class=nb>NULL</span><span class=p>;</span>
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=c1>// set head to next value
+</span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=n>h</span><span class=o>-&gt;</span><span class=n>buckets</span><span class=p>[</span><span class=n>bucket</span><span class=p>]</span> <span class=o>=</span> <span class=n>v</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>;</span>
 </span></span><span class=line><span class=cl>            <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>                <span class=c1>// if middle or end of linked list,
 </span></span></span><span class=line><span class=cl><span class=c1></span>                <span class=c1>// remove without disrupting pointers
