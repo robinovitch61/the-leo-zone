@@ -12,6 +12,14 @@
   font-weight: bold;
 }
 
+// prevent safari on mobile scaling text on mobile
+// https://stackoverflow.com/a/3428477
+@media screen and (max-device-width: $MOBILE_WIDTH){
+  body{
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
 html, body {
   margin: 0;
   padding: 0;
