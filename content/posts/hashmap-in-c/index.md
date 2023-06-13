@@ -187,12 +187,15 @@ HashTable *HashTable_new() {
     int nBuckets = 4;
     HashTable *h = malloc(sizeof(HashTable));
     h->nBuckets = nBuckets;
-    h->buckets = malloc(nBuckets * sizeof(Entry *));
+    h->buckets = calloc(nBuckets, sizeof(Entry *));
     return h;
 }
 ```
 
-After calling `HashTable_new`, `malloc` has been called twice, so the heap looks something like this:
+Note that [`calloc`] is called instead of [`malloc`] when initializing the buckets array to ensure that all items are
+initially zero'd out (NULL).
+
+After calling `HashTable_new`, `malloc`/`calloc` has been called twice, so the heap looks something like this:
 
 | Address                                 | Pseudo-value                                            | Description      |
 |-----------------------------------------|---------------------------------------------------------|------------------|
@@ -388,9 +391,10 @@ This completes the implementation of a simple hash table in C.
 
 There are a couple things I know I'm doing imperfectly above, and probably more that I don't know about:
 
-* [`calloc`] should be used instead of `malloc` in initialization to ensure allocated memory is zeroed
 * [`strncmp`] should be used instead of `strcmp` in order to avoid unexpected behavior if non-null-terminated strings
   are passed to it
+* the code should check if `malloc`, `strcmp`, and their analogues fail. In particular, this is important in embedded or 
+  older environments where the OS may not kill processes before address space is exhausted
 
 Some easy optimizations:
 
@@ -446,6 +450,8 @@ post.
 [strdup]: https://man7.org/linux/man-pages/man3/strdup.3.html
 
 [del]: https://docs.python.org/3/reference/simple_stmts.html#the-del-statement
+
+[`malloc`]: https://man7.org/linux/man-pages/man3/malloc.3p.html
 
 [`calloc`]: https://man7.org/linux/man-pages/man3/calloc.3p.html
 
