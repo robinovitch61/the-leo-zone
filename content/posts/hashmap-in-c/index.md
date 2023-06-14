@@ -393,7 +393,7 @@ There are a couple things I know I'm doing imperfectly above, and probably more 
 
 * [`strncmp`] should be used instead of `strcmp` in order to avoid unexpected behavior if non-null-terminated strings
   are passed to it
-* the code should check if `malloc`, `strcmp`, and their analogues fail. In particular, this is important in embedded or 
+* the code should check if `malloc`, `strcmp`, and their analogues fail. In particular, this is important in embedded or
   older environments where the OS may not kill processes before address space is exhausted
 
 Some easy optimizations:
@@ -415,9 +415,8 @@ Thanks to Oz and [CS Primer][csprimer] for this problem. I found it a great exer
 the design decisions behind them, hash functions, the C programming language, and memory management.
 
 [^6]: **what is open addressing?**: [open addressing][open_addr] is a technique to efficiently locate empty buckets in
-which to place values during hash collisions. The absolute best resource I've found to deeply understand open addressing
-is [this explorable explanation of Python dicts][explorable], which is absolutely worth your time if you enjoyed this
-post.
+which to place values during hash collisions. The best resource I've found to deeply understand open addressing is [this
+explorable explanation of Python dicts][explorable], which is absolutely worth your time if you enjoyed this post.
 
 [csprimer]: https://csprimer.com/courses/
 
