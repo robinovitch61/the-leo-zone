@@ -56,9 +56,9 @@ from [Queens' CISC-235][queens], but Tl;DR a good hash function does the followi
 ### The buckets array
 
 When setting a value, the hash table internally runs the key through its hash function, takes the output modulo the
-length its buckets array, and puts the value at that index of the buckets array. For example, say "hello" hashed to 123
-as above, and our buckets array is of length 4. `123 % 4` is 3. If I wanted to associate the key "hello" with the number
-72 in my hash table, the buckets array would look like this in pseudo-code:
+length of its buckets array, and puts the value at that index of the buckets array. For example, say "hello" hashed to
+123 as above, and our buckets array is of length 4. `123 % 4` is 3. If I wanted to associate the key "hello" with the
+number 72 in my hash table, the buckets array would look like this in pseudo-code:
 
 ```python
 > h["hello"] = 72
