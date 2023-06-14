@@ -11,9 +11,9 @@ compaction, accepts only strings as keys, and uses separate chaining (linked lis
 <code>my_hash_func(key="hello")</code> returns 123 for the lifetime of the program<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. A different key,
 say <code>my_hash_func(key="world")</code> might return a different number, say 127. There are a number of desirable
 characteristics for a good hash function<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><h3 id=the-buckets-array>The buckets array</h3><p>When setting a value, the hash table internally runs the key through its hash function, takes the output modulo the
-length its buckets array, and puts the value at that index of the buckets array. For example, say &ldquo;hello&rdquo; hashed to 123
-as above, and our buckets array is of length 4. <code>123 % 4</code> is 3. If I wanted to associate the key &ldquo;hello&rdquo; with the number
-72 in my hash table, the buckets array would look like this in pseudo-code:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;</span> <span class=n>h</span><span class=p>[</span><span class=s2>&#34;hello&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>72</span>
+length of its buckets array, and puts the value at that index of the buckets array. For example, say &ldquo;hello&rdquo; hashed to
+123 as above, and our buckets array is of length 4. <code>123 % 4</code> is 3. If I wanted to associate the key &ldquo;hello&rdquo; with the
+number 72 in my hash table, the buckets array would look like this in pseudo-code:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>&gt;</span> <span class=n>h</span><span class=p>[</span><span class=s2>&#34;hello&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=mi>72</span>
 </span></span><span class=line><span class=cl><span class=o>&gt;</span> <span class=n>h</span><span class=o>.</span><span class=n>show_buckets</span><span class=p>()</span> <span class=c1># &#34;hello&#34; hashes to 123, and 123 % 4 = 3</span>
 </span></span><span class=line><span class=cl><span class=n>bucket</span> <span class=mi>0</span><span class=p>:</span> <span class=n>NULL</span>
 </span></span><span class=line><span class=cl><span class=n>bucket</span> <span class=mi>1</span><span class=p>:</span> <span class=n>NULL</span>
