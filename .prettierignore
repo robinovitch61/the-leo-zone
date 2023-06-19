@@ -1,0 +1,11 @@
+/_site
+.idea
+.DS_Store
+.jekyll-cache
+Gemfile.lock
+*.swp
+node_modules
+_gen
+testing
+public
+resources
