@@ -18,7 +18,7 @@ Some related media that I thought about when reading:
 
 - AMC's [Halt and Catch Fire][halt] - Sadie was Cameron pretty much 1:1, Sam was less-innocent Tom, and Marx was
   non-sociopathic Joe. Or Marx + Dov = Joe.
-- [Masters of Doom][doom] - mentioned by Zevin as an influence, and the two Johns called out by name, in many ways T3 is
+- [Masters of Doom][doom] - mentioned by Zevin as an influence and the two Johns called out by name, in many ways T3 is
   the love story version of the real story of making DOOM.
 - [The Bear][bear] - I watched both seasons of The Bear in 3 days last week while sick, and the relation I saw to T3 is
   the way that unhealthy, stressed, or suffering people who are inextricably linked due to passions, circumstances, or
@@ -43,7 +43,7 @@ I loved that Super Mario Bros was referenced often, and I could think back to ly
 trying to minimize Game Boy sun glare while playing my clear-cased cartridge of that game for hours.
 
 I have gotten a small sample of chronic pain in the last few years, no where close to Sam's, but I could empathise with
-Same while being increasingly grateful for my own largely healthy condition.
+Sam while being increasingly grateful for my own largely healthy condition.
 
 Jews were everywhere in this book, both the main characters were part Jewish AND the two worst most dislikable
 characters were full Jewish. I didn't love reading about Dov and George. Dov, a smelly, hairy, overconfident,
