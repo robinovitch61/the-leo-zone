@@ -1,93 +1,125 @@
 <!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title><link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."><link rel=stylesheet href=/sass/main.min.b351dc88cce4da5c9a0b68539c2db0a2ccb6cd6239cfe161ed344a08d1e2c6f9.css><link rel=stylesheet href=/sass/header.min.3a05763a683cf36d1c69c38bcd70ef997e4139b9f5b7b964ce4ec50f69a2a4e3.css><link rel=stylesheet href=/sass/footer.min.eaac730dad5c96ec74b1b6ad615c2653058b703041364f7f2f29ffe0deb6b650.css><link rel=stylesheet href=/sass/code.min.a20af48ca3a864274a8c935eafe4779c5aec4b9e19e252fb0df3f7147401df13.css><a rel=me href=https://recurse.social/@robinovitch61></a></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
 <a href=https://github.com/robinovitch61 target=_blank>github</a>
-<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>RC 07 (fib 5 ways)</h1><div class=post-date><p>Nov 19, 2019</p></div><div class=post><p>Recurse continues!</p><p>Each successive number in the Fibonacci Sequence is the sum of the two prior numbers:</p><p class=centered>0, 1, 1, 2, 3, 5, 8, 13...</p><p>While learning about algorithms and doing nand2tetris, I&rsquo;ve come across the Fibonacci Sequence a number of times. Here are a 5 ways to calculate the Nth element of the sequence:</p><h2 id=method-1-recursion>Method 1: Recursion</h2><p>Recursion is when a function calls itself. Intuitively, it&rsquo;s a top down approach to problem solving. Say Charlie is wondering what the fourth number in the Fibonacci Sequence is. She might say, well, the fourth number is the second number plus the third number. The second number is 1 as the sequence starts with 1, 1. The third number is the first number plus the second number, both of which are 1, so the third number is 1 + 1 = 2. So the fourth number is 1 + 2 = 3!</p><p>The idea is to drill down until you get to the base cases (here, the first and second numbers), and then traverse up your nested logic back to the original question. In a computer, each recursive call adds a new &ldquo;frame&rdquo; to the working stack, where a frame includes function arguments, local variables, and relevant pointers that allow restoration of the previous frame. More on this later.</p><p>In python, recursively solving for the Nth Fibonacci Number looks as follows:</p><pre tabindex=0><code>## Recursive Fibbing
-def recursive_fib(n):
-if n &lt;= 0:
-    raise ValueError(&#39;Fibonacci sequence starts at first number.&#39;)
-elif n &lt;= 2:
-    return n-1 # first = 0, second = 1
-else:
-    return recursive_fib(n-2) + recursive_fib(n-1)
-
-# Timing code included here for reference
-from timeit import timeit
-runs = 10000
-time = timeit(
-&#34;recursive_fib(10)&#34;,
-setup=&#34;from __main__ import recursive_fib&#34;,
-number=runs)
-print(&#34;recursive_fib took average of {:.2E}s across {} runs&#34;
-.format(time/runs, runs))
-# &gt;&gt; recursive_fib took average of 1.82E-05s across 10000 runs
-
-recursive_fib(10)
-# &gt;&gt; 34
-</code></pre><p>Note that this gets realllly slow as time goes on, and it isn&rsquo;t very space efficient either. Each progressive call to the function adds a frame to the call stack that uses up some memory. Additionally, repeat operations occur - note how Fib(3) shows up twice in the tree below.</p><a class=img-link target=_blank href=/img/recursive_fib.png><figure><img style=max-width:60% src=/img/recursive_fib.png alt=recursive_fib.png><figcaption class=figcaption-text>Recursive Fibonacci 'touches' about $ \phi^{n} $ Nodes</figcaption></figure></a><p>In <a href=https://en.wikipedia.org/wiki/Big_O_notation>Big-O notation</a>, this algorithm is O(~2^n) in time and O(n) in space, both not ideal.</p><h2 id=method-2-dynamic-programming---top-down>Method 2: Dynamic Programming - Top Down</h2><p>This method, sometimes also called &ldquo;Memoization&rdquo;, confusingly references &ldquo;Dynamic Programming&rdquo;. Note that Dynamic Programming has nothing to do with the concept of a Dynamic Programming Language. Dynamic Programming is a method for solving complex problems by breaking them in to smaller sub problems and solving each of these problems once, storing the answer for possible reuse. A Dynamic Programming Language like Python or Javascript can execute code at <a href=https://en.wikipedia.org/wiki/Runtime_(program_lifecycle_phase)>runtime</a> that would require compilation in a Static Programming Language.</p><p>The simple improvement upon the purely recursive solution above is to save the results of each calculation. In doing so, recalculating prior results multiple times is avoided. The dictionary implementation in Python is a hashmap with constant time insertion and retrieval, so no time complexity is added by the use of a <code>dict</code> below:</p><pre tabindex=0><code>## Fibbing with Memoization
-def memo_fib(n, memo=None):
-if memo is None:
-    memo = {}
-if n &lt;= 0:
-    raise ValueError(&#39;Fibonacci sequence starts at first number.&#39;)
-elif n &lt;= 2:
-    return n-1 # first = 0, second = 1
-else:
-    # check if already calculated result
-    if n not in memo:
-        # function calls itself twice w/ same memo
-        memo[n] = memo_fib(n-2, memo) + memo_fib(n-1, memo)
-    return memo[n]
-
-# Similar timing code to above produces:
-# &gt;&gt; memo_fib(10) took average of 5.04E-06s across 10000 runs
-
-memo_fib(10)
-# &gt;&gt; 34
-</code></pre><p>As per the timing code, memoization produces a much faster calculation - other than the hashtable lookups, no duplicate computation is being done.</p><p>The time complexity is now O(n), with space complexity still at O(n) as the call stack and memo <code>dict</code> both have O(n) space.</p><h2 id=method-3-dynamic-programming---bottom-up>Method 3: Dynamic Programming - Bottom Up</h2><p>Another equivalent and sometimes more intuitive way to look at Dynamic Programming as a solution is to build a &ldquo;table&rdquo; of all the solutions to each little problem that must be solved along the way to solving the more complicated problem. This is sometimes called &ldquo;Tabulation&rdquo; In this case, the &ldquo;table&rdquo; could be a Python list that holds its <code>index+1</code>&lsquo;th Fibonacci number, e.g. the 1st Fibonacci number is at <code>table[0]</code>, 4th at <code>table[3]</code>, etc.</p><pre tabindex=0><code>## Fibbing with Tabulation
-def table_fib(n):
-if n &lt;= 0:
-    raise ValueError(&#39;Fibonacci sequence starts at first number.&#39;)
-elif n &lt;= 2:
-    return n-1 # first = 0, second = 1
-else:
-    table = [0, 1] + [None]*(n-2)
-    for idx in range(2, len(table)):
-        table[idx] = table[idx-2] + table[idx-1]
-    return table[n-1]
-
-# Similar timing code to above produces:
-# &gt;&gt; table_fib(10) took average of 2.18E-06s across 10000 runs
-
-table_fib(10)
-# &gt;&gt; 34
-</code></pre><p>As discussed in the excellent post <a href=https://programming.guide/dynamic-programming-vs-memoization-vs-tabulation.html>here</a>, tabulation is best when each sub problem is to be solved only once, where memoization is best when not all subproblems have to be solved to get to the answer to the overarching question. Fibonacci is a case where all subproblems must be solved only once, so Tabulation is faster by a constant factor.</p><p>Both Tabulation and Memoization are O(n) in time and O(n) in space.</p><h2 id=method-4-iteration>Method 4: Iteration</h2><p>Note that the tabulation method is actually wasting space. If you were to solve for the n&rsquo;th Fibonacci number in your head, you&rsquo;d likely only keep track of 2 or 3 numbers at a time: &ldquo;0 plus 1 is 1, now 1 plus 1 is 2, now 1 plus 2 is 3&mldr;&rdquo;. Once you&rsquo;ve gotten the n&rsquo;th Fibonacci number there&rsquo;s no need to keep anything before the n-1&rsquo;th number around in memory! This method is called iteration:</p><pre tabindex=0><code>## Fibbing with Iteration
-def iter_fib(n):
-if n &lt;= 0:
-    raise ValueError(&#39;Fibonacci sequence starts at first number.&#39;)
-elif n &lt;= 2:
-    return n-1 # first = 0, second = 1
-else:
-    prevprev = 0
-    new = 1
-    for _ in range(2, n):
-        prev = new
-        new = prevprev + prev
-        prevprev = prev
-    return new
-
-# Similar timing code to above produces:
-# &gt;&gt; iter_fib(10) took average of 1.13E-06s across 10000 runs
-
-iter_fib(10)
-# &gt;&gt; 34
-</code></pre><p>This is as good as it gets: O(n) time and O(1) space.</p><h2 id=method-5-hack-computer-nand2tetris>Method 5: Hack Computer (Nand2Tetris)</h2><p>The Fibonacci sequence also came up in Nand2Tetris as a debugging program for my VM translator in Rust! While I can&rsquo;t show an easy example, it does serve to illustrate the idea for the VM Translator.</p><p>This is the &ldquo;Virtual Machine Code&rdquo; for a Fibonacci sequence. It is much like an <a href=https://theleo.zone/recurse/rc-06-intermediate-representations/>LLVM intermediate representation</a>, but in the virtual machine language created by the Nand2Tetris team.</p><pre tabindex=0><code>// Main.vm
+<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>RC 07 (fib 5 ways)</h1><div class=post-date><p>Nov 19, 2019</p></div><div class=post><p>Recurse continues!</p><p>Each successive number in the Fibonacci Sequence is the sum of the two prior numbers:</p><p class=centered>0, 1, 1, 2, 3, 5, 8, 13...</p><p>While learning about algorithms and doing nand2tetris, I&rsquo;ve come across the Fibonacci Sequence a number of times. Here
+are a 5 ways to calculate the Nth element of the sequence:</p><h2 id=method-1-recursion>Method 1: Recursion</h2><p>Recursion is when a function calls itself. Intuitively, it&rsquo;s a top down approach to problem solving. Say Charlie is
+wondering what the fourth number in the Fibonacci Sequence is. She might say, well, the fourth number is the second
+number plus the third number. The second number is 1 as the sequence starts with 1, 1. The third number is the first
+number plus the second number, both of which are 1, so the third number is 1 + 1 = 2. So the fourth number is 1 + 2 = 3!</p><p>The idea is to drill down until you get to the base cases (here, the first and second numbers), and then traverse up
+your nested logic back to the original question. In a computer, each recursive call adds a new &ldquo;frame&rdquo; to the working
+stack, where a frame includes function arguments, local variables, and relevant pointers that allow restoration of the
+previous frame. More on this later.</p><p>In python, recursively solving for the Nth Fibonacci Number looks as follows:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## Recursive Fibbing</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>recursive_fib</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s1>&#39;Fibonacci sequence starts at first number.&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span><span class=o>-</span><span class=mi>1</span> <span class=c1># first = 0, second = 1</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>recursive_fib</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>2</span><span class=p>)</span> <span class=o>+</span> <span class=n>recursive_fib</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Timing code included here for reference</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>timeit</span> <span class=kn>import</span> <span class=n>timeit</span>
+</span></span><span class=line><span class=cl><span class=n>runs</span> <span class=o>=</span> <span class=mi>10000</span>
+</span></span><span class=line><span class=cl><span class=n>time</span> <span class=o>=</span> <span class=n>timeit</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;recursive_fib(10)&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>setup</span><span class=o>=</span><span class=s2>&#34;from __main__ import recursive_fib&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=n>number</span><span class=o>=</span><span class=n>runs</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;recursive_fib took average of </span><span class=si>{:.2E}</span><span class=s2>s across </span><span class=si>{}</span><span class=s2> runs&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>time</span><span class=o>/</span><span class=n>runs</span><span class=p>,</span> <span class=n>runs</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; recursive_fib took average of 1.82E-05s across 10000 runs</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>recursive_fib</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; 34</span>
+</span></span></code></pre></div><p>Note that this gets realllly slow as time goes on, and it isn&rsquo;t very space efficient either. Each progressive call to
+the function adds a frame to the call stack that uses up some memory. Additionally, repeat operations occur - note how
+Fib(3) shows up twice in the tree below.</p><a class=img-link target=_blank href=/img/recursive_fib.png><figure><img style=max-width:60% src=/img/recursive_fib.png alt=recursive_fib.png><figcaption class=figcaption-text>Recursive Fibonacci 'touches' about $ \phi^{n} $ Nodes</figcaption></figure></a><p>In <a href=https://en.wikipedia.org/wiki/Big_O_notation>Big-O notation</a>, this algorithm is O(~2^n) in time and O(n) in space,
+both not ideal.</p><h2 id=method-2-dynamic-programming---top-down>Method 2: Dynamic Programming - Top Down</h2><p>This method, sometimes also called &ldquo;Memoization&rdquo;, confusingly references &ldquo;Dynamic Programming&rdquo;. Note that Dynamic
+Programming has nothing to do with the concept of a Dynamic Programming Language. Dynamic Programming is a method for
+solving complex problems by breaking them in to smaller sub problems and solving each of these problems once, storing
+the answer for possible reuse. A Dynamic Programming Language like Python or Javascript can execute code at
+<a href=https://en.wikipedia.org/wiki/Runtime_(program_lifecycle_phase)>runtime</a> that would require compilation in a Static
+Programming Language.</p><p>The simple improvement upon the purely recursive solution above is to save the results of each calculation. In doing so,
+recalculating prior results multiple times is avoided. The dictionary implementation in Python is a hashmap with
+constant time insertion and retrieval, so no time complexity is added by the use of a <code>dict</code> below:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## Fibbing with Memoization</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>memo_fib</span><span class=p>(</span><span class=n>n</span><span class=p>,</span> <span class=n>memo</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>memo</span> <span class=ow>is</span> <span class=kc>None</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>memo</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s1>&#39;Fibonacci sequence starts at first number.&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span><span class=o>-</span><span class=mi>1</span> <span class=c1># first = 0, second = 1</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># check if already calculated result</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>n</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>memo</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># function calls itself twice w/ same memo</span>
+</span></span><span class=line><span class=cl>            <span class=n>memo</span><span class=p>[</span><span class=n>n</span><span class=p>]</span> <span class=o>=</span> <span class=n>memo_fib</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span> <span class=n>memo</span><span class=p>)</span> <span class=o>+</span> <span class=n>memo_fib</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=n>memo</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>memo</span><span class=p>[</span><span class=n>n</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Similar timing code to above produces:</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; memo_fib(10) took average of 5.04E-06s across 10000 runs</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>memo_fib</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; 34</span>
+</span></span></code></pre></div><p>As per the timing code, memoization produces a much faster calculation - other than the hashtable lookups, no duplicate
+computation is being done.</p><p>The time complexity is now O(n), with space complexity still at O(n) as the call stack and memo <code>dict</code> both have O(n)
+space.</p><h2 id=method-3-dynamic-programming---bottom-up>Method 3: Dynamic Programming - Bottom Up</h2><p>Another equivalent and sometimes more intuitive way to look at Dynamic Programming as a solution is to build a &ldquo;table&rdquo;
+of all the solutions to each little problem that must be solved along the way to solving the more complicated problem.
+This is sometimes called &ldquo;Tabulation&rdquo; In this case, the &ldquo;table&rdquo; could be a Python list that holds its <code>index+1</code>&lsquo;th
+Fibonacci number, e.g. the 1st Fibonacci number is at <code>table[0]</code>, 4th at <code>table[3]</code>, etc.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## Fibbing with Tabulation</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>table_fib</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s1>&#39;Fibonacci sequence starts at first number.&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span><span class=o>-</span><span class=mi>1</span> <span class=c1># first = 0, second = 1</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>table</span> <span class=o>=</span> <span class=p>[</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=p>[</span><span class=kc>None</span><span class=p>]</span><span class=o>*</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>idx</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=nb>len</span><span class=p>(</span><span class=n>table</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>            <span class=n>table</span><span class=p>[</span><span class=n>idx</span><span class=p>]</span> <span class=o>=</span> <span class=n>table</span><span class=p>[</span><span class=n>idx</span><span class=o>-</span><span class=mi>2</span><span class=p>]</span> <span class=o>+</span> <span class=n>table</span><span class=p>[</span><span class=n>idx</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>table</span><span class=p>[</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Similar timing code to above produces:</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; table_fib(10) took average of 2.18E-06s across 10000 runs</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>table_fib</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; 34</span>
+</span></span></code></pre></div><p>As discussed in the excellent post
+<a href=https://programming.guide/dynamic-programming-vs-memoization-vs-tabulation.html>here</a>, tabulation is best when each
+sub problem is to be solved only once, where memoization is best when not all subproblems have to be solved to get to
+the answer to the overarching question. Fibonacci is a case where all subproblems must be solved only once, so
+Tabulation is faster by a constant factor.</p><p>Both Tabulation and Memoization are O(n) in time and O(n) in space.</p><h2 id=method-4-iteration>Method 4: Iteration</h2><p>Note that the tabulation method is actually wasting space. If you were to solve for the n&rsquo;th Fibonacci number in your
+head, you&rsquo;d likely only keep track of 2 or 3 numbers at a time: &ldquo;0 plus 1 is 1, now 1 plus 1 is 2, now 1 plus 2 is
+3&mldr;&rdquo;. Once you&rsquo;ve gotten the n&rsquo;th Fibonacci number there&rsquo;s no need to keep anything before the n-1&rsquo;th number around in
+memory! This method is called iteration:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>## Fibbing with Iteration</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>iter_fib</span><span class=p>(</span><span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s1>&#39;Fibonacci sequence starts at first number.&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=n>n</span> <span class=o>&lt;=</span> <span class=mi>2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>n</span><span class=o>-</span><span class=mi>1</span> <span class=c1># first = 0, second = 1</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>prevprev</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>        <span class=n>new</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>prev</span> <span class=o>=</span> <span class=n>new</span>
+</span></span><span class=line><span class=cl>            <span class=n>new</span> <span class=o>=</span> <span class=n>prevprev</span> <span class=o>+</span> <span class=n>prev</span>
+</span></span><span class=line><span class=cl>            <span class=n>prevprev</span> <span class=o>=</span> <span class=n>prev</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>new</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Similar timing code to above produces:</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; iter_fib(10) took average of 1.13E-06s across 10000 runs</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>iter_fib</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># &gt;&gt; 34</span>
+</span></span></code></pre></div><p>This is as good as it gets: O(n) time and O(1) space.</p><h2 id=method-5-hack-computer-nand2tetris>Method 5: Hack Computer (Nand2Tetris)</h2><p>The Fibonacci sequence also came up in Nand2Tetris as a debugging program for my VM translator in Rust! While I can&rsquo;t
+show an easy example, it does serve to illustrate the idea for the VM Translator.</p><p>This is the &ldquo;Virtual Machine Code&rdquo; for a Fibonacci sequence. It is much like an <a href=https://theleo.zone/recurse/rc-06-intermediate-representations/>LLVM intermediate
+representation</a>, but in the virtual machine language created by the
+Nand2Tetris team.</p><pre tabindex=0><code>// Main.vm
 // This file is part of www.nand2tetris.org
 // and the book The Elements of Computing Systems
 // by Nisan and Schocken, MIT Press.
 // File name: projects/08/FunctionCalls/FibonacciElement/Main.vm
 
 // Computes the nth element of the Fibonacci series, recursively.
-// n is given in argument[0].  Called by the Sys.init function 
-// (part of the Sys.vm file), which also pushes the argument[0] 
+// n is given in argument[0].  Called by the Sys.init function
+// (part of the Sys.vm file), which also pushes the argument[0]
 // parameter before this code starts running.
 
 function Main.fibonacci 0
@@ -97,7 +129,7 @@ lt                     // checks if n&lt;2
 if-goto IF_TRUE
 goto IF_FALSE
 label IF_TRUE          // if n&lt;2, return n
-push argument 0        
+push argument 0
 return
 label IF_FALSE         // if n&gt;=2, returns fib(n-2)+fib(n-1)
 push argument 0
@@ -119,7 +151,7 @@ return
 
 // Pushes a constant, say n, onto the stack, and calls the Main.fibonacii
 // function, which computes the nth element of the Fibonacci series.
-// Note that by convention, the Sys.init function is called &#34;automatically&#34; 
+// Note that by convention, the Sys.init function is called &#34;automatically&#34;
 // by the bootstrap code.
 
 function Sys.init 0
@@ -127,7 +159,8 @@ push constant 4
 call Main.fibonacci 1   // computes the 4&#39;th fibonacci element
 label WHILE
 goto WHILE              // loops infinitely
-</code></pre><p>My VM translator <a href=https://github.com/robinovitch61/nand2tetris/blob/master/projects/08/p08/src/main.rs>here</a> creates a bunch of Hack Computer-specific assembly code (~500 lines) from this that look like this:</p><pre tabindex=0><code>// Bootstrap
+</code></pre><p>My VM translator <a href=https://github.com/robinovitch61/nand2tetris/blob/master/projects/08/p08/src/main.rs>here</a> creates a
+bunch of Hack Computer-specific assembly code (~500 lines) from this that look like this:</p><pre tabindex=0><code>// Bootstrap
 
 @256
 D=A
@@ -207,7 +240,8 @@ A=A+D
 D=M
 @SP
 etc.
-</code></pre><p>Which then assembles down to the actual machine code using the assembler I wrote <a href=https://github.com/robinovitch61/nand2tetris/blob/master/projects/06/p06/src/main.rs>here</a>:</p><pre tabindex=0><code>0000000100000000 // this is @256
+</code></pre><p>Which then assembles down to the actual machine code using the assembler I wrote
+<a href=https://github.com/robinovitch61/nand2tetris/blob/master/projects/06/p06/src/main.rs>here</a>:</p><pre tabindex=0><code>0000000100000000 // this is @256
 1110110000010000 // this is D=A
 0000000000000000 // etc.
 1110001100001000
