@@ -28,7 +28,7 @@ In python, recursively solving for the Nth Fibonacci Number looks as follows:
 
 ```python
 ## Recursive Fibbing
-    def recursive_fib(n):
+def recursive_fib(n):
     if n <= 0:
         raise ValueError('Fibonacci sequence starts at first number.')
     elif n <= 2:
