@@ -2,12 +2,11 @@
 title: "Book Review: Designing Data Intensive Applications"
 date: "2023-10-08"
 description: "A book review of Designing Data Intensive Applications, by Martin Kleppmann. Reviewed by Leo Robinovitch."
-draft: true
 ---
 
-Rating: TODO
+Rating: 📀
 
-[Designing Data Intensive Applications][book] _(DDIA)_ is a book by [Martin Kleppmann][author].
+[Designing Data Intensive Applications][book] (DDIA) is a book by [Martin Kleppmann][author].
 
 How do I review this incredible reference? I'll first say that if you program professionally, you should read this book.
 It will introduce you to new ideas and help you clarify and reconceptualize ones you may already be familiar with. You
@@ -16,12 +15,14 @@ here][notes] if you'd like.
 
 In the rest of this review, I'll cherry pick a few of the experiences and learnings I took away from this book. I lead a
 book club for it at Voltus, and we took it really slowly, reading it over ~8 months. It was a 2023 goal of mine to
-finish the book, and I think leading the book club helped somewhat with accountability for it. That being said, very few
-others stuck with it throughout, and I think that actually reading this whole book is a serious commitment not to be
-taken lightly. There is a lot of rich content to get through. You also have to decide how many side quests to go on,
+finish the book and I think that leading the book club helped somewhat with accountability. That being said, very few
+others stuck with it all the way through. I think that actually reading this whole book is a serious commitment not to
+be taken lightly. There is a lot of rich content to get through. You also have to decide how many side quests to go on,
 e.g. "should I pause here in the Distributed Consensus section and go play with toy implementations of Paxos and/or
-Raft, or should I keep reading?". I don't claim to remember and fully grok every topic in DDIA now. But it did further
-my understanding across a variety of domains, give concrete justification for certain "accepted practices" that I'd
+Raft, or should I keep reading?".
+
+I don't claim to remember and fully grok every topic in DDIA now that I've finished it. But it did further my
+understanding across a variety of domains, give concrete justification for certain "accepted practices" that I'd
 previously taken at face value, and inspire further exploration and application of the plethora of concepts presented.
 
 If I were to choose the five chapters I got the most out of, it would go as follows. All chapters are relatively
@@ -66,15 +67,34 @@ more.
 
 ## 3. Chapter 7: Transactions
 
+This chapter has the best discussion around what ACID actually means I've ever found. Did you know that "Consistency"
+probably doesn't even belong in ACID? It lays out the concept of data races, failure recovery, isolation levels,
+consistent snapshots, atomic operations, and serializability.
+
+Kleppmann's sequence diagrams are so excellent. I found the concepts in this chapter challenging, and the diagrams were
+exceedingly helpful to get across specific conditions where unexpected behavior might occur.
+
 ## 4. Chapter 4: Encoding and Evolution
+
+This chapter also touches on a number of concepts very relevant to most software jobs, including forwards/backwards
+compatibility, JSON, XML, and binary encoding formats like MessagePack, Thrift, ProtoBufs, and Avro, schema and data
+migrations, and data transfer protocols like HTTP, REST/SOAP, RPCs, and message passing/actor frameworks.
 
 ## 5. Chapter 10: Batch Processing OR Chapter 11: Stream Processing
 
-- the first few chapters alone are insanely valuable, particularly 2 and 3
-- introduced me to completely new concepts as well as helped me reimagine ones I already understood well
-  - for example, kafka-style is REALLY not the only way to do event streaming
-- book club'd at work -- made me rethink the effectiveness of book clubs somewhat due to low turnout, but was also a
-  great thing for my own accountability
+Read either or both of these depending on your interests and relevant use cases. Having done a lot of streaming work
+with Kafka in my current role, Chapter 11 kinda blew my mind. Kafka is NOT the obvious/first design or implementation
+for a stream processor, even if it is a very good/advanced one. Conceptualizing batch processing/map reduce as a flavor
+of functional programming and learning about how Unix tools operate was super interesting.
+
+## Conclusion
+
+There is a lot more to say about this book, and I know it'll be a jumping off point reference for me for the rest of my
+career. I can't really recommend it enough. It's not overrated. Kleppmann is also so clearly ethically oriented, which
+really spoke to me. In the final chapter, he talks about replacing the word "data" with "surveillance" and seeing how
+your applications of data strike you in this context - are you doing good with your work?
+
+Jump in and start reading at the most interesting point for you, or read it all the way through. It's worth it!
 
 [book]: https://dataintensive.net/
 [author]: https://martin.kleppmann.com/
