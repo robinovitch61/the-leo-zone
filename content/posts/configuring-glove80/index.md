@@ -31,8 +31,8 @@ go to the great documentation there.
 
 - a template of the glove80 [zmk config repo](https://github.com/moergo-sc/glove80-zmk-config) - setup instructions in
   the README there
-  - note that the github action references the [glove80 zmk fork][zmkfork], so the built firmware will include that
-    version of ZMK by default
+  - note that the [github action references][actionref] the [glove80 zmk fork][zmkfork], so the built firmware will
+    include that version of ZMK by default
 - a browser bookmark of this excellent [zmk keymap editor][kmeditor], with the source configured to Github (my template
   of the repo above)
   - the [moergo layout editor](https://my.glove80.com/) is nice but does not have point-and-click macro and combo
@@ -302,5 +302,6 @@ post helped someone other than just me to get started configuring their own boar
 [zmkfork]: https://github.com/moergo-sc/zmk
 [macros]: https://zmk.dev/docs/behaviors/macros
 [custom]: https://my.glove80.com/#/layout/user/6d0bf84e-3a3e-4145-96d9-a9b2aeddd8f1
-[actionref]: https://github.com/moergo-sc/glove80-zmk-config/blob/main/.github/workflows/build.yml#L14
+[actionref]:
+  https://github.com/moergo-sc/glove80-zmk-config/blob/d09d3a07549490e2feed46c6d469939dd234d399/.github/workflows/build.yml#L14
 [flavors]: https://zmk.dev/docs/behaviors/hold-tap#flavors
