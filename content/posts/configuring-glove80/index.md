@@ -286,9 +286,9 @@ mode and seeing connection & battery status with the LEDs:
 
 ## Annoyances
 
-- I've found that the online keymap editor sometimes reformats the keymap file arbitrarily, even when it would still be
+- Update: Nick has since [fixed this!][fix] ~~I've found that the online keymap editor sometimes reformats the keymap file arbitrarily, even when it would still be
   valid without doing so. For example, it will remove newline spacing, or create an empty `behaviors` block if none
-  exists.
+  exists.~~
 - When the firmware build fails, the error message is often very obscure and/or hidden in a lot of log output.
 
 ## Conclusion
@@ -305,3 +305,4 @@ post helped someone other than just me to get started configuring their own boar
 [actionref]:
   https://github.com/moergo-sc/glove80-zmk-config/blob/d09d3a07549490e2feed46c6d469939dd234d399/.github/workflows/build.yml#L14
 [flavors]: https://zmk.dev/docs/behaviors/hold-tap#flavors
+[fix]: https://github.com/nickcoutsos/keymap-editor/discussions/152#discussioncomment-7560084
