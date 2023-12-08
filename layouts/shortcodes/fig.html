@@ -2,6 +2,7 @@
 <a class="img-link" target="_blank" href="/img/{{ $src }}">
   <figure>
       <img
+          loading="lazy"
           style="max-width: {{ .Get `width` | default 95 }}{{ .Get `unit` | default "%"}};"
           src="{{ if strings.Contains $src "./" }}{{ $src }}{{ else }}/img/{{ $src }}{{ end }}"
           alt="{{ .Get `alt` | default $src }}"
