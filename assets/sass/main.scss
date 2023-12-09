@@ -326,6 +326,11 @@ figure {
   font-size: 15px;
 
   @media screen and (max-width: $MOBILE_WIDTH) {
+    img {
+      // important because fig.html shortcode edits style attribute, which always has precedence over css files
+      max-width: 100% !important;
+    }
+
     figcaption {
       a {
         overflow-wrap: anywhere; // chrome
