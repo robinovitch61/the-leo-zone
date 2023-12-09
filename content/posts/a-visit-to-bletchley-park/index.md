@@ -11,60 +11,108 @@ draft: true
 >
 > \- Stuart Milner-Barry, Codebreaker at Bletchley Park
 
-One of my highest priority trips while living in London this year was visiting Bletchley Park. I'd seen [The Imitation
-Game][imitationgame] and of course knew a few things about [Alan Turing][turing] within the context of the history of
-computing, but still had a strong sense that [Bletchley Park][bletchley] would be a very special place to visit. I was
-not wrong.
+One of my highest priority trips while living in London this year was visiting [Bletchley Park][bletchley]. I'd seen
+[The Imitation Game][imitationgame] and knew a few things about [Alan Turing][turing] within the context of the history
+of computing, so I had a strong sense that Bletchley Park would be a special place to visit in real life.
 
 Bletchley Park was home base for the Allied code breaking operation during World War II. According to Historian [Harry
 Hinsley][hinsley], the intel out of Bletchley "shortened the war by not less that two years and probably by four years"
-([source][shortened]).
+([source][shortened]). At peak, it employed almost 9000 people - Mathematicians, Linguists, Cryptographers, Typists,
+Historians, Translators, Cooks, Dispatch Riders (motorcyclists who carried classified intel between locations),
+Librarians, Musicians, and many others. Most of the original physical documents and machines were destroyed and
+information about it remained classified after the war. It wasn't until the '70s that the world started to know the full
+nature of the work that was done there from 1938 to 1946. Work on some ciphers wasn't declassified until the 21st
+century!
 
-- TODO go through notes on phone
-- y stations
-- ending the war 2-4yrs faster
-- steps
-  - intercept
-  - work out encryption scheme
-  - decipher
-  - translate
-  - cross reference
-  - send out intel
-- not being able to act on every piece of intel (dramatacized brother scene in film)
-- enigma and lorenz
-  - enigma never encrypted letter as itself
-- typex machines for encryption + decryption
-- employee growth explosion (200 to 9000+)
-- took decades before recognition
-- turing exhibit pathetic ending
-- polish cryptographers pre-work
-- variety of people employed there (mathematicians, linguists, "classicists", translators, typists, cooks, dispatch
-  riders, librarians, etc)
-- the complex process of communicating decyphered messages with one time pads/typex (ULTRA)
-- japanese purple machine
-- machines
-  - Polish Bomba
-  - Turing-Welchman Bombe (complex UI/"menu")
-  - Colossus (Fish, Lorenz, Tommy Flowers, before ENIAC)
-- characters:
-  - Marian Rejewsky
-  - Alastair Denniston
-  - John Tiltman
-  - Alan Turing
-  - Dilly Knox
-  - Mavis Lever
-  - Peter Twinn
-  - British Tabulating Machine Company
-  - Gordon Welchman
-  - The Wrens
-  - Stuart Milner-Barry
-  - Hugh Alexander
-  - John Herivel
-  - Tommy Flowers
-  - Max Newman
-  - James Thirsk
-  - Gwen Davies
-  - Edward "Jumbo" Travis
+It reopened as a museum in '93, with the original mansion and huts where the codebreakers did most of their work intact
+and recreations of many other artifacts. The museum is lovely, with many interactive elements, informative tours, and a
+very high volume of content. Five hours in a single day wasn't enough to explore it fully. I'll share some of my photos
+and main recollections, but you should definitely go at least once if you have the chance!
+
+{{< fig src="./img/entrance_sign.png" width="50" caption="The Entrance to Bletchley Park" >}}
+
+[Y-stations][ystations] intercepted 3,000 to 20,000 messages daily from radio traffic which, if encrypted, were then
+hand-delivered or [teleprinted] to Bletchley Park. Then came the task of deciphering the encrypted messages, which is
+what so much of the literature of Bletchley Park focuses on. Once that day's cipher settings were worked out for a given
+machine (e.g. [Enigma], [Lorenz], and [Purple]), the mechanical task of deciphering all of the messages with modified
+[Typex] machines was completed. Then came translation (e.g. German to English), cross-referencing, and sending out the
+intel -- code named "Ultra" -- to relevant strategic parties. Ultra couldn't be used unless there was a viable cover
+story for how they had obtained the intel, as it was vital to keep the Axis powers believing that their ciphers remained
+unbroken.
+
+{{< fig src="./img/mod_typex.png" width="50" caption="British Typex machines modified to mimic Enigma" >}}
+
+{{< fig src="./img/lorenz.png" width="50" caption="A Lorenz machine, the successor to Enigma" >}}
+
+At Bletchley, the main mansion and breakout huts were busy with folks carrying out these tasks. Some of the rooms of the
+mansion were reserved for leisure and activities, like the Ballroom, Tennis Courts and the Drama club, that put on more
+than 20 performances through the years.
+
+{{< fig src="./img/ballroom.png" width="50" caption="The Ballroom" >}}
+
+{{< fig src="./img/mansion.png" width="80" caption="The Mansion" >}}
+
+{{< fig src="./img/office.png" width="80" caption="The Office" >}}
+
+{{< fig src="./img/newspaper_purchase.png" width="50" caption="\"Government Buy Park\" - 1938" >}}
+
+The people were extremely diverse, ranging from unkempt nerds to military command. [Tolkein] was on the list of
+emergency recruits for Bletchley, but declined. Hierarchy and bureaucracy emerged as the years went on, but there was a
+remarkably flat and self-directed structure for most of the years of Bletchley Park's operation.
+
+{{< fig src="./img/memos.png" width="70" caption="A wall of sampled memos sent around during wartime" >}}
+
+{{< fig src="./img/wrens.png" width="80" caption="Women's Royal Navy Service (\"Wrens\")" >}}
+
+Years before folks at Bletchley started working to crack Enigma, three Polish mathematician-cryptologists had made
+significant progress. [Marian Rejewsky][rejewsky], [Jerzy Różycki][jerzy], and [Henryk Zygalski][zygalski], working for
+the [Polish Cipher Bureau][polishbureau], reconstructed the Enigma machine from limited French military intelligence. In
+1939, they met the French and British at a conference in Warsaw and shared their intel, including copies of the
+reconstructed Enigma machine. Rejewsky also invented the [bomba kryptologiczna][bomba] in order to speed up the
+decipherment process. There is a great memorial to these men at Bletchley Park these days.
+
+{{< fig src="./img/polish_bomba.png" width="50" caption="A recreation of a Polish \"Bomba\"" >}}
+
+{{< fig src="./img/polish_plaque.png" width="80" caption="A Plaque to the Polish codebreakers" >}}
+
+The Bombe, cracking Enigma, the Wrens.
+
+- Turing-Welchman Bombe (complex UI/"menu")
+
+TODO PICS
+
+Colossus
+
+- Colossus (Fish, Lorenz, Tommy Flowers, before ENIAC)
+
+TODO PICS
+
+Garage and transport
+
+TODO PICS
+
+Notable people
+
+- Alan Turing
+  - turing exhibit pathetic ending
+- Marian Rejewsky
+- Alastair Denniston
+- John Tiltman
+- Dilly Knox
+- Mavis Lever
+- Peter Twinn
+- British Tabulating Machine Company
+- Gordon Welchman
+- The Wrens
+- Stuart Milner-Barry
+- Hugh Alexander
+- John Herivel
+- Tommy Flowers
+- Max Newman
+- James Thirsk
+- Gwen Davies
+- Edward "Jumbo" Travis
+
 - huts
   - Hut 6
   - Hut 8
@@ -74,3 +122,15 @@ Hinsley][hinsley], the intel out of Bletchley "shortened the war by not less tha
 [bletchley]: https://en.wikipedia.org/wiki/Bletchley_Park
 [shortened]: https://www.cix.co.uk/~klockstone/hinsley.htm
 [hinsley]: https://en.wikipedia.org/wiki/Harry_Hinsley
+[ystations]: https://en.wikipedia.org/wiki/Y_service
+[teleprinted]: https://en.wikipedia.org/wiki/Teleprinter
+[typex]: https://en.wikipedia.org/wiki/Typex
+[enigma]: https://en.wikipedia.org/wiki/Enigma_machine
+[lorenz]: https://en.wikipedia.org/wiki/Lorenz_cipher
+[purple]: https://en.wikipedia.org/wiki/Type_B_Cipher_Machine
+[tolkein]: https://www.telegraph.co.uk/news/uknews/6197169/JRR-Tolkien-trained-as-British-spy.html
+[rejewsky]: https://en.wikipedia.org/wiki/Marian_Rejewski
+[jerzy]: https://en.wikipedia.org/wiki/Jerzy_R%C3%B3%C5%BCycki
+[zygalski]: https://en.wikipedia.org/wiki/Henryk_Zygalski
+[polishbureau]: https://en.wikipedia.org/wiki/Cipher_Bureau_(Poland)
+[bomba]: https://en.wikipedia.org/wiki/Bomba_(cryptography)
