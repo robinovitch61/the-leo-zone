@@ -1,5 +1,5 @@
 {{ $src := .Get `src` }}
-<a class="img-link" target="_blank" href="/img/{{ $src }}">
+<a class="img-link" target="_blank" href="{{ if strings.Contains $src "./" }}{{ $src }}{{ else }}/img/{{ $src }}{{ end }}">
   <figure>
       <img
           loading="lazy"
