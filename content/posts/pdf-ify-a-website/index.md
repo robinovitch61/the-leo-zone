@@ -13,13 +13,13 @@ while I read the text.
 
 I want to reference solutions for SICP problems to check my own answers and for when I get stuck. I googled "SICP all
 solutions single pdf", but the most complete reference for solutions I could find was the
-[Scheme Wiki's Solutions](http://community.schemewiki.org/?SICP-Solutions), which individually link to each worked
+[Scheme Wiki's Solutions](http://community.schemewiki.org/?SICP-Solutions), which individually links to each worked
 solution.
 
-Using ChatGPT to get started and adapting the code myself to accommodate for the large number of links involved and some
-CSS parsing issues, I hacked together a Python script to scrape all the right links from this page, generate PDFs from
-each, and concatenate them all together into a single output file. The script, PDF output, and repro instructions are
-[here on Github](https://github.com/robinovitch61/sicp-solutions).
+Using ChatGPT to get started, then adapting the code myself to accommodate for the large number of links involved and
+some CSS parsing issues, I hacked together a Python script to scrape all the right links from this page, generate PDFs
+from each, and concatenate them all together into a single output file. The script, PDF output, and repro instructions
+are [here on Github](https://github.com/robinovitch61/sicp-solutions).
 
 Take inspiration if there is a website with a lot of links on it that you'd like to have as a single long PDF!
 
