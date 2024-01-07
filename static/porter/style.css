@@ -1,0 +1,92 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background: black;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: arial;
+  font-size: 28px;
+}
+
+@media only screen and (max-width: 600px) {
+  .content {
+    font-size: 20px;
+  }
+}
+
+.potaro {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  animation: dance 30s linear infinite ;
+}
+
+@media only screen and (max-width: 800px) {
+  .potaro {
+  animation: dance 5s linear infinite ;
+  }
+}
+
+@keyframes dance {
+  0% {
+    transform: translateX(0) scaleX(1);
+  }
+  50% {
+    transform: translateX(100vw) translateX(-100%) scaleX(1);
+  }
+  50.1% {
+    transform: translateX(100vw) translateX(-100%) scaleX(-1);
+  }
+  100% {
+    transform: translateX(0) scaleX(-1);
+  }
+}
+
+img {
+  width: 150px;
+}
+
+@media only screen and (max-width: 600px) {
+  img {
+    width: 120px;
+  }
+}
+
