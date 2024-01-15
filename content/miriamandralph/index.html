@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ralph & Miriam, through 60 and beyond.</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="description"
+        content="A website celebrating the anniversary of the world's greatest parents, grandparents, and great-grandparents."/>
+  <link rel="stylesheet" type="text/css" href="/miriamandralph/style.css"/>
+  <link rel="icon" href="/miriamandralph/img/favicon.png">
+</head>
+<body>
+<div class="content">
+  <h1>Ralph & Miriam - through 60 years and beyond!</h1>
+  <div class="control-wrapper">
+    <h2>Counting some of the events in our beloved heads of the family's 60+ years of marriage, love, and
+      friendship.</h2>
+    <div class="controls">
+    </div>
+    <h3 class="subtitle">Press a button above.</h3>
+  </div>
+  <div class="stuff"></div>
+</div>
+</body>
+<script type="module">
+  import { data } from '/miriamandralph/data.js'
+
+  const MARRIED = new Date("1963-01-09")
+
+  function getTime(startDate) {
+    const NOW = new Date()
+    const ms = NOW - startDate
+    const years = ms / 31556952000
+    const weeks = years * 52.143
+    const days = years * 365.25
+    return {years, weeks, days}
+  }
+
+  const stuff = document.querySelectorAll(".content .stuff")[0]
+  const controls = document.querySelectorAll(".content .controls")[0]
+  const subtitle = document.querySelectorAll(".content .subtitle")[0]
+
+  data.forEach(item => {
+    const btn = document.createElement("button")
+    btn.type = "button"
+    btn.value = item.id
+    btn.innerHTML = item.id
+    btn.onclick = () => {
+      const child = document.createElement("div")
+      const img = document.createElement("img")
+      img.src = `/miriamandralph/img/${item.imgFile}`
+      child.appendChild(img)
+
+      // determine the count and show it
+      const {years, weeks, days} = getTime(item.startDate || MARRIED)
+      let count = 0;
+      if (!!item.number) {
+        count = item.number
+      } else if (!!item.perWeek) {
+        count = Math.floor(item.perWeek * weeks)
+      } else if (!!item.perYear) {
+        count = Math.floor(item.perYear * years)
+      }
+      subtitle.innerHTML = `${item.prefix} ${count} ${item.suffix}!`
+
+      // showing entire menorah in picture, so show less images than candle count (divide by 9)
+      if (item.id === "Chanukah Candles") {
+        count = Math.floor(count / 9)
+      }
+
+      // show an initial number of images, adding more as they scroll to the bottom if necessary
+      stuff.innerHTML = ''
+      const initial = Math.min(count, 50)
+      const addMore = 10
+      const buffer = 100 // pixels from bottom before loading more
+      for (let i = 0; i < initial; i++) {
+        stuff.appendChild(child.cloneNode(true))
+      }
+
+      document.onscroll = () => {
+        // if close to bottom
+        if (stuff.getBoundingClientRect().bottom - document.body.clientHeight <= buffer) {
+          // if not showing all of them
+          if (stuff.childNodes.length < count) {
+            // add more
+            const toAdd = Math.min(count - stuff.childNodes.length, addMore)
+            for (let i = 0; i < toAdd; i++) {
+              stuff.appendChild(child.cloneNode(true))
+            }
+          }
+        }
+      }
+    }
+
+    controls.appendChild(btn)
+  })
+</script>
+</html>
