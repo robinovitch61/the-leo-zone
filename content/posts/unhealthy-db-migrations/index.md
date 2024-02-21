@@ -97,7 +97,7 @@ RUN apk add --no-cache git
 RUN go install github.com/pressly/goose/v3/cmd/goose@latest
 ```
 
-`./migrations/20240221040043_initial_migration.sql`
+`./migrations/20240221040043_run.sql`
 
 ```sql
 -- +goose Up
