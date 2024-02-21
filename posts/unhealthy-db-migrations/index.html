@@ -1,0 +1,65 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>Leo Robinovitch @ The Leo Zone</title>
+<link rel=icon href=/img/favicon.png type=image/x-icon><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Running migrated database integration tests with docker compose, by Leo Robinovitch"><link rel=stylesheet href=/sass/main.min.2a473876548390fce831ef46d8035de8538577de162b2074d1f870f0814cfc74.css><link rel=stylesheet href=/sass/header.min.3a05763a683cf36d1c69c38bcd70ef997e4139b9f5b7b964ce4ec50f69a2a4e3.css><link rel=stylesheet href=/sass/footer.min.eaac730dad5c96ec74b1b6ad615c2653058b703041364f7f2f29ffe0deb6b650.css><link rel=stylesheet href=/sass/code.min.a20af48ca3a864274a8c935eafe4779c5aec4b9e19e252fb0df3f7147401df13.css><a rel=me href=https://recurse.social/@robinovitch61></a></head><body><header><div class=header-content><a href=/><div class=logo>THE LEO ZONE</div></a><div class=stripes><div class="stripe top"></div><div class="stripe middle"></div><div class="stripe bottom"></div></div><a href=/><div class=sun><div class=stripes></div></div></a><div class=nav><a href=/ target=_self>home</a>
+<a href=https://github.com/robinovitch61 target=_blank>github</a>
+<a href=/about target=_self>about</a></div></div></header><div class=content><div class=container><h1>unhealthy database migrations</h1><div class=post-date><p>Feb 20, 2024</p></div><div class=post><p>Often, integration tests follow this pattern:</p><ol><li>Stand up a docker database container</li><li>Run migrations against this database container</li><li>Run the integration tests against this migrated container</li></ol><p>This can be done with docker-compose as follows, using Postgres and <a href=https://github.com/pressly/goose>goose</a> as an
+example:</p><p><code>./docker-compose.yaml</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>postgres</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>postgres:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>POSTGRES_USER</span><span class=p>:</span><span class=w> </span><span class=l>leo</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>POSTGRES_PASSWORD</span><span class=p>:</span><span class=w> </span><span class=m>123</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>POSTGRES_DB</span><span class=p>:</span><span class=w> </span><span class=l>db</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=s2>&#34;5432:5432&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>test</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;CMD-SHELL&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;pg_isready&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=l>2s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>postgres-migrations</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>build</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>context</span><span class=p>:</span><span class=w> </span><span class=l>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>dockerfile</span><span class=p>:</span><span class=w> </span><span class=l>Dockerfile-goose</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./migrations:/migrations</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>postgres</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>condition</span><span class=p>:</span><span class=w> </span><span class=l>service_healthy</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=p>&gt;</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>      sh -c &#34; goose -dir /migrations postgres &#39;host=postgres user=leo password=123 dbname=db&#39; up&#34;</span><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>healthcheck</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>test</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;CMD-SHELL&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;exit 1&#34;</span><span class=p>]</span><span class=w>
+</span></span></span></code></pre></div><p>A database container with a readiness healthcheck. A migrations container that waits until the database is ready, then
+runs the migrations against it.</p><p>The odd thing here is the never-successful migrations container healthcheck.</p><p>Two things need to be true before you can run integration tests:</p><ul><li>the database container must be ready</li><li>the database migrations must be complete</li></ul><p>If these containers are instantiated with <code>docker compose up -d</code> and then tests immediately run, the database container
+may not be healthy, and even more likely, the migrations may not have completed.</p><p>An arbitrary sleep time could be added before tests start, but that&rsquo;s either unreliable or overkill.</p><p>If containers are instantiated with:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># --wait  Wait for services to be running|healthy. Implies detached mode.</span>
+</span></span><span class=line><span class=cl>docker compose up --wait
+</span></span></code></pre></div><p>Now the <code>up</code> command blocks until all containers are running or healthy. In this scenario, that means it will wait right
+until the migrations complete and the container exits &ndash; no shorter or longer.</p><p>Without the failing healthcheck, the migrations container reports healthy before migrations complete and the <code>up --wait</code>
+doesn&rsquo;t block long enough.</p><p>Here are the other files I made to experiment with this:</p><p><code>./test.sh</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=cp>#!/usr/bin/env sh
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl>docker-compose up --wait
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;docker-compose up complete&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># the &#34;integration tests&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>PGPASSWORD</span><span class=o>=</span><span class=m>123</span> psql -h localhost -p <span class=m>5432</span> -U leo -d db -c <span class=s2>&#34;SELECT * FROM movies&#34;</span> <span class=o>||</span> <span class=nb>echo</span> <span class=s2>&#34;failed&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># clean up</span>
+</span></span><span class=line><span class=cl>docker-compose down
+</span></span></code></pre></div><p><code>./Dockerfile-goose</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-docker data-lang=docker><span class=line><span class=cl><span class=k>FROM</span><span class=s> golang:alpine as builder</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> apk add --no-cache git<span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> go install github.com/pressly/goose/v3/cmd/goose@latest<span class=err>
+</span></span></span></code></pre></div><p><code>./migrations/20240221040043_initial_migration.sql</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=c1>-- +goose Up
+</span></span></span><span class=line><span class=cl><span class=c1>-- +goose StatementBegin
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=n>pg_sleep</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span><span class=w>  </span><span class=c1>-- simulate migrations taking longer than they do
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>movies</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>id</span><span class=w> </span><span class=nb>SERIAL</span><span class=w> </span><span class=k>PRIMARY</span><span class=w> </span><span class=k>KEY</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>title</span><span class=w> </span><span class=nb>VARCHAR</span><span class=p>(</span><span class=mi>255</span><span class=p>)</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>INSERT</span><span class=w> </span><span class=k>INTO</span><span class=w> </span><span class=n>movies</span><span class=w> </span><span class=p>(</span><span class=n>title</span><span class=p>)</span><span class=w> </span><span class=k>VALUES</span><span class=w> </span><span class=p>(</span><span class=s1>&#39;Woohoo&#39;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- +goose StatementEnd
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- +goose Down
+</span></span></span><span class=line><span class=cl><span class=c1>-- +goose StatementBegin
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>DROP</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=k>IF</span><span class=w> </span><span class=k>EXISTS</span><span class=w> </span><span class=n>movies</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>-- +goose StatementEnd
+</span></span></span></code></pre></div><p>This is kind of neat. There are probably better ways to do this, and if you have any, please let me know by email at
+{leo at theleo.zone}.</p></div></div></div><footer><div class=nav><a href=/ target=_self>home</a></div><div class=woopsy>measure twice, cut once</div></footer></body></html>
