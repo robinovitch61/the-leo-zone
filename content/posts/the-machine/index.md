@@ -38,7 +38,7 @@ Machine to work on. While you're working a Machine, there's rarely the time or e
 This Machine, you suspect, has important ramifications for your planet, and you're hopeful that you can one day extend
 its function as you have other Machines.
 
-First, the pamphlet.
+First, this pamphlet.
 
 ...
 
