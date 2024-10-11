@@ -4,7 +4,8 @@ date: "2024-10-10"
 description: "The Nicolas Cage movies that Leo has watched ranked in relative order."
 ---
 
-I love Nicolas Cage movies. Well, most of them. Here is a list of all the ones I've seen.
+I love Nicolas Cage movies. Well, most of them. Here is a list of all the ones I've seen so far in rough order of
+favorite to least favorite.
 
 I'm not including movies like Spider-Man: Into the Spider-Verse. These may have Nicolas Cage in them, but they aren't
 Nicolas Cage movies.
