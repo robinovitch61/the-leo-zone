@@ -72,6 +72,9 @@ cars. Plenty of other ways to see cool cars.
 
 ### Next Up:
 
+- Bad Lieutenant: Port of Call New Orleans (2009)
+- Matchstick Men (2003)
+- Moonstruck (1987)
 - Vampire's Kiss (1989)
 - Mandy (2018)
 - Dream Scenario (2023)
