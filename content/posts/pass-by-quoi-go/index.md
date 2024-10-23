@@ -207,18 +207,19 @@ print(my_int)  # get 1
 But this isn't the whole story - rather than values in memory and pointers to those values, everything in Python is an
 object, and all functions are "passed by assignment". TODO: improve clarity
 
-https://docs.python.org/3/faq/programming.html#how-do-i-write-a-function-with-output-parameters-call-by-reference
-https://realpython.com/python-pass-by-reference/
-https://docs.python.org/3/reference/compound_stmts.html#function-definitions
-https://docs.python.org/3/reference/expressions.html#calls
-https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value
-https://cs.stanford.edu/people/nick/py/python-var.html
-https://docs.python.org/3/reference/simple_stmts.html#assignment-statements
-https://docs.python.org/3/reference/executionmodel.html#binding-of-names
-
-https://zchee.github.io/golang-wiki/MethodSets/ https://go.dev/tour/methods/9
-https://stackoverflow.com/questions/48790663/why-value-stored-in-an-interface-is-not-addressable-in-golang
-https://go.dev/play/p/eeaYzqZsmOs
-https://stackoverflow.com/questions/51264339/what-do-value-semantics-and-pointer-semantics-mean-in-go
+- https://docs.python.org/3/faq/programming.html#how-do-i-write-a-function-with-output-parameters-call-by-reference
+- https://realpython.com/python-pass-by-reference/
+- https://docs.python.org/3/reference/compound_stmts.html#function-definitions
+- https://docs.python.org/3/reference/expressions.html#calls
+- https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value
+- https://cs.stanford.edu/people/nick/py/python-var.html
+- https://docs.python.org/3/reference/simple_stmts.html#assignment-statements
+- https://docs.python.org/3/reference/executionmodel.html#binding-of-names
+- https://zchee.github.io/golang-wiki/MethodSets/
+- https://go.dev/tour/methods/9
+- https://stackoverflow.com/questions/48790663/why-value-stored-in-an-interface-is-not-addressable-in-golang
+- https://go.dev/play/p/eeaYzqZsmOs
+- https://stackoverflow.com/questions/51264339/what-do-value-semantics-and-pointer-semantics-mean-in-go
+- https://nedbatchelder.com/text/names.html
 
 [object]: https://docs.python.org/3/reference/datamodel.html#objects-values-and-types
