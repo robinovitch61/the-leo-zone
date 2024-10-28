@@ -10,7 +10,7 @@ favorite to least favorite.
 I'm not including movies like Spider-Man: Into the Spider-Verse. These may have Nicolas Cage in them, but they aren't
 Nicolas Cage movies.
 
-Last updated Oct 10, 2024.
+Last updated Oct 27, 2024.
 
 ### Face/Off (1997)
 
@@ -48,6 +48,13 @@ from rocketsh filled with poishon gash. Shuck it, Trebek.
 Liam Neeson's Taken, except with a truffle pig instead of a daughter. They could have done without the fight club scene.
 Otherwise, pretty excellent.
 
+### Bad Lieutenant: Port of Call New Orleans (2009)
+
+To blatantly plagiarize the recommendation given to me for this movie because it is accurate and glorious: "It is
+somehow both entirely a Nic Cage film and entirely a Werner Herzog film. There's breakdancing ghosts, Iguana
+hallucinations, illegal substances, paranoia, everything you'd expect from a movie made by those two certified insane,
+beautiful artists."
+
 ### Wild at Heart (1990)
 
 David Lynch made a Nicolas Cage movie. And it's very David Lynch, and great. My partner and I now regularly say "Oh,
@@ -73,7 +80,6 @@ cars. Plenty of other ways to see cool cars.
 
 ### Next Up:
 
-- Bad Lieutenant: Port of Call New Orleans (2009)
 - Matchstick Men (2003)
 - Moonstruck (1987)
 - Vampire's Kiss (1989)
