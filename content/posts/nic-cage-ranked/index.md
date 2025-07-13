@@ -10,7 +10,7 @@ favorite to least favorite.
 I'm not including movies like Spider-Man: Into the Spider-Verse. These may have Nicolas Cage in them, but they aren't
 Nicolas Cage movies.
 
-Last updated Oct 27, 2024.
+Last updated July 13th, 2025.
 
 ### Face/Off (1997)
 
@@ -60,6 +60,11 @@ beautiful artists."
 David Lynch made a Nicolas Cage movie. And it's very David Lynch, and great. My partner and I now regularly say "Oh,
 Sail!". Bobby Peru, now he's just not a very likeable guy.
 
+### Dream Scenario (2023)
+
+An uncomfortable watch at times. Cage demonstrates his ability to portray realistic human desires and failings pretty
+well.
+
 ### Longlegs (2024)
 
 Spooky scary, I loved it. Yes, the plot doesn't make sense, but you don't watch horror for the airtight logic.
@@ -68,15 +73,24 @@ Spooky scary, I loved it. Yes, the plot doesn't make sense, but you don't watch 
 
 The one everyone has seen! It's good!
 
+### The Surfer (2025)
+
+Don't live here, don't surf here! This movie makes a lot more sense if you read
+[this article on the IRL Bay Boys](https://en.wikipedia.org/wiki/Lunada_Bay_Boys) - it's almost a documentary.
+
+### Leaving Las Vegas (1995)
+
+Not a bad movie, but emotionally, absolutely brutal. An emotional trainwreck.
+
 ### Kick-Ass (2010)
 
 I don't really remember this movie much except that I liked it. Verging on not a Nic Cage movie?
 
 ### Gone in 60 Seconds (2000)
 
-A very bad movie. The only one on here below a 7/10 rating for me, and it might be something like a 4. A dreadlocked
-Angelina Jolie and Nic Cage awkwardly making out cuz the only thing better than sex or stealing cars is sex AND stealing
-cars. Plenty of other ways to see cool cars.
+An ok movie. The premise of stealing THAT many cars is cool I guess, but makes the action feel diffuse and unrealistic.
+A dreadlocked Angelina Jolie and Nic Cage awkwardly making out cuz the only thing better than sex or stealing cars is
+sex AND stealing cars. Plenty of other ways to see cool cars.
 
 ### Next Up:
 
@@ -84,10 +98,8 @@ cars. Plenty of other ways to see cool cars.
 - Moonstruck (1987)
 - Vampire's Kiss (1989)
 - Mandy (2018)
-- Dream Scenario (2023)
 - The Wicker Man (2006)
 - Lord of War (2005)
-- Leaving Las Vegas (1995) (started this on a plane but had to turn it off cuz too many boobies)
 - Ghost Rider (2007) (this would be a last resort)
 
 Missing one? Let me know!
