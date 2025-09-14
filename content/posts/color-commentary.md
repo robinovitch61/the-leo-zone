@@ -5,7 +5,7 @@ date: 2020-11-09T09:42:53-08:00
 
 {{< fig width="100" src="cc_collage.png" caption="Twitter bird - blue or purple?" >}}
 
-About 6 weeks ago, I launched [colorcontroversy.com](https://colorcontroversy.com). Since then, the site has collected over 800,000 color judgements and been shared around the web more than I expected.
+About 6 weeks ago, I launched [colorcontroversy.com](/colorcontroversy). Since then, the site has collected over 800,000 color judgements and been shared around the web more than I expected.
 
 A much-simplified version of Randal Monroe of XKCD's [color survey](https://blog.xkcd.com/2010/05/03/color-survey-results/), the site shows you a color shade and presents two color choices for that shade. For example, it shows you a {{< color "#00878e" >}}dark turquoise{{< /color >}} and asks you if it's {{< color "limegreen" >}}Green{{< /color >}} or {{< color "#547cff" >}}Blue{{< /color >}}. Then it shows you what other people thought it was.
 
