@@ -1,0 +1,109 @@
+---
+title: "Book Review: Lonesome Dove"
+date: "2026-03-01"
+description: "A book review of Lonesome Dove, by Larry McMurtry. Reviewed by Leo Robinovitch."
+---
+
+Rating: 🤠
+
+[Lonesome Dove][book] is a novel by [Larry McMurtry][author]. I absolutely loved this book and would recommend it to
+anyone wanting an exciting and empathetic old Western about imperfect men achieving imperfect goals.
+
+I had heard about Lonesome Dove before, but had never prioritized it on my list. One evening last month, at the top of a
+hill in San Francisco, I ran into a friend who I hadn't seen since he returned from his hike of the [Pacific Crest
+Trail][pct]. We got to chatting about books as we walked down, and he mentioned having listened to Lonesome Dove while
+walking the PCT and loving both the writing and narration.
+
+I picked it up soon after. It's a slow start - McMurtry develops the plot and characters at a steady pace throughout ,
+without too much exposition. My first impressions were that this was a book about cowboy heroes and their sidekicks
+going on a quest to settle new lands, and that overcomeable struggle, victory over evil, plot armor and other common
+storytelling tropes would pervade. This impression were very incorrect. At times, I was delighted by the unexpected
+twists and turns things took, but I was also often made emotional by McMurtry relentlessly denying these characters a
+break. Major spoilers from here on out.
+
+The characters of Lonesome Dove are fantastic:
+
+- Augustus "Gus" McCrae: the sharp, loud, talkative, and loveable adventurer, Gus' internal conflict lies in his
+  appreciation for life's joys (love interests, drinking whiskey on a porch, higher education, card playing) and an
+  unstoppable need to adventure into new lands, forgoing the joys of life for excitement and novelty. Probably the least
+  flawed and most badass character, this contradiction still leads Gus to an early end.
+- Woodrow Call: a solitary, steadfast, reluctant leader of men. What defines Call is purity. A pure work ethic, pure
+  resistance of vices, pure decision-making, purity of law. While everyone in the main troupe (except Gus) looks to Call
+  to make the important decisions, like where they're going, when they're to cross a river, and how to react to certain
+  dangers, Call's ignorance to his own emotions and misunderstandings of what he sees as failings of others leads to
+  nonoptimal outcomes.
+- Pea Eye: a kind friend, dull, and steadfastly hardworking man, Pea Eye is an admirer and follower. His worldview is
+  fairly limited and static, which results in him being surprised often. He says the obvious thing out loud, but given
+  the emotional stuntedness of the people around him, this is sometimes surprisingly poignant.
+- Deets: while unfortunately being a bit of a ["Magical Negro"][magical], Deets is still a deeply compelling character
+  in Lonesome Dove. Hyper competent, friendly, but lonely and depressed, Deets is a great tracker and scout, able to
+  accurately estimate and recount distances between locations, and is well respected despite being the only black man in
+  the troupe. There's a sort of "anti-Deets" side character, Frog Lip. While Deets is respected for his competence, Frog
+  Lip is a black man respected for his coldness and cruelty.
+- Newt: the youngest Cowboy and the unclaimed son of Call, Newt is the most emotionally open of the group. Egoless,
+  sensitive, and eager to impress, readers experience many of the disasters like golf-ball sized hail, grasshopper
+  storms, lightning strikes, as well as stampedes and attacks from Indians, through Newts eyes.
+- Clara: Gus's "one that got away", Clara goes from being a fable only spoken of in other characters memories to a
+  present character in her own right. McMurtry inserts a number of strong vignettes into Lonesome Dove. Characters are
+  introduced, their backstory fleshed out, and they enter the adventure. Clara's history and role in the main plot is
+  one of the most powerful of these vignettes.
+- Dish: like many of the men, Dish is technically competent (top hand, i.e. the best Cowboy), but emotionally inept. His
+  unrequited love for Lorena would be purely pathetic if not for the emphasis McMurtry puts on the lack of opportunities
+  for emotional development in the South during the 1870s.
+- Lorena ("Lorie"): Lorie is pretty much a 3-dimensional damsel in distress. The abuse she takes at the hands of many of
+  the surrounding men is pretty horrifying. The Blue Duck kidnap sequence is extremely gnarly, and really the point of
+  the book where it becomes obvious that this is no fairy tale. She has simple dreams of living in San Francisco to
+  escape the Southern heat and be by the sea, and her PTSD from her various terrible life experiences seems reasonably
+  portrayed.
+- Jake Spoon: Jake is a paragon of vice irresponsibility and laziness. His redeeming qualities are that he's
+  good-looking and that he can be sharp, fun, and kind when it helps him get what he wants. He plants the seed in Calls
+  mind to settle in Montana, leads Lorie on with false hope of helping her get to San Francisco, and deserts the gang
+  when the going gets tough, eventually falling in with some evil characters, then being hung by his friends when
+  caught.
+- Sheriff July Johnson: July is a heartbreaking character. He is boring, passive, and cowardly, but he's also smart
+  enough to recognize at least some of this in himself, and lacks the spirit to change his ways. He is principled, being
+  guided by what he thinks he ought to do and what is right and proper, but this results in him being limp and
+  unexciting. He sort of floats through the novel, going from potentially heroic to irritating to read about, and ends
+  up in a liminal space at Clara's ranch, having bounced from blind love for his terrible wife Elmira to a dead-end love
+  for Clara.
+- Deputy Sheriff Roscoe: Roscoe is almost comic relief. His adventures are a joy to follow, and his murder hurts a lot
+  to read. His side story with Louisa is one of the funniest and most interesting, and I wish he had stayed with her
+  hauling stumps out of the ground and eating corn bread out of the pan.
+- Blue Duck: the unparalleled villain of the novel. Even Frog Lip, another terrifying character, references Blue Duck
+  having stolen his horse. He wears a necklace of human fingers and commits unspeakable crimes, leaving an increasing
+  notoriety in his wake.
+
+There are a number of unmentioned characters as well, ranging from interesting to forgettable. McMurtry does not skimp
+on characters!
+
+Unlike Clint Eastwood style cowboy portrayals, Lonesome Dove provides an unpolished view of the life of a Cowboy.
+Cowboys, especially those bringing herds to new lands, were young, inexperienced suffered horrible death or injury
+often, complained all the time, interacted with almost no women or people very different from themselves, and loved to
+gamble, visit prostitutes, drink and boast. They were gross - dirty, with leaky guts, loose lips, and scars. I was
+talking with a friend about how Ursula K. Leguin takes fantasy, a genre written by men including mostly men without much
+real feeling, and inserts a diversity of realistic characters into comparably fantastical scenarios, and the depth of
+character making all the difference. While the characters of Lonesome Dove aren't as diverse as Leguin's, in, say,
+[Earthsea], they are extremely real-feeling, giving the genre a richness that I haven't experienced before.
+
+Gus and Call are on another level from the common Cowboy. Texas Rangers the both of them, they have years of experience
+fighting Indians, bringing justice to horse thieves, stealing horses from Mexico and bringing them across the border to
+Texas, and establishing business.
+
+Gus is so awesome. While not always admirable, he's always entertaining. The bar scene where he breaks the bartenders
+nose and gives a quick sharpshooting demo when Call and himself are being disrespected is the first time I really took
+him seriously. His slow, touch and go death is brutal, and it was the first time I cried from literature since
+Dumbledore died in my recent reread.
+
+It's a strongly male-centered book, but I think it's actually a really healthy portrayal of masculinity, at least in the
+sense of showing you what not to do and why. Dish is a cautionary tale about unrequited love and day-dreaming. Call is a
+cautionary tale about refusing to accept your own failings and taking your own word too seriously. July Johnson is a
+cautionary tale of passivity. Of everyone, I think Newt and parts of Gus are really the main characters to want to
+emulate.
+
+So if you want the best Wild West book you'll probably ever read, give Lonesome Dove a go.
+
+[book]: https://en.wikipedia.org/wiki/Lonesome_Dove
+[author]: https://en.wikipedia.org/wiki/Larry_McMurtry
+[pct]: https://en.wikipedia.org/wiki/Pacific_Crest_Trail
+[magical]: https://en.wikipedia.org/wiki/Magical_Negro
+[earthsea]: https://en.wikipedia.org/wiki/Earthsea
