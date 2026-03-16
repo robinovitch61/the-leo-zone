@@ -8,4 +8,5 @@ cd "${thisdir}"/..
 ip=$(ipconfig getifaddr en0)
 
 # watch all files that aren't in the testing directory and rebuild on changes to ./testing
-rg --files | rg -v testing | rg '.md|.html|.css|.scss' | entr -c hugo -D --baseURL http://"${ip}":9000 --destination ./testing
+rg --files | rg -v testing | rg '.md|.html|.css|.scss' | entr -c sh -c \
+  "uv run scripts/render-terminals.py && hugo -D --baseURL http://${ip}:9000 --destination ./testing"

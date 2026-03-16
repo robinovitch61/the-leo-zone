@@ -1,0 +1,58 @@
+<!--
+  terminal: render a fake terminal with ANSI color support and window chrome.
+
+  params:
+    title   - required, must be unique; used as the fragment filename
+    cols    - terminal width in characters (default 80)
+    rows    - terminal height in lines (default 24)
+    width   - max display width in px
+    caption - figcaption text below the terminal
+
+  screenplay format:
+    lines starting with "$ " render as prompt lines.
+    directives: #!title: ..., #!width: N, #!height: N, #!delay: N
+    lines starting with # are comments.
+
+  ANSI escape codes (use \e or \033):
+    attributes:  \e[1m bold  \e[2m dim  \e[4m underline  \e[7m reverse
+    reset:       \e[0m all   \e[22m bold/dim  \e[24m underline  \e[27m reverse
+
+    foreground:  \e[30-37m  black red green yellow blue magenta cyan white
+    bright fg:   \e[90-97m  bright-black .. bright-white
+    background:  \e[40-47m  (same names)
+    bright bg:   \e[100-107m
+    default:     \e[39m fg   \e[49m bg
+
+    256-color:   \e[38;5;Nm fg  \e[48;5;Nm bg  (0-15 have CSS rules)
+
+  examples:
+    \e[32mgreen text\e[0m                       green, then reset
+    \e[1;34mhello\e[0m                           bold blue
+    \e[33;44myellow on blue\e[0m                 fg + bg combined
+    \e[90mdimmed comment\e[0m                    bright-black (gray)
+    $ \e[36mcurl\e[0m https://example.com        colored command in prompt line
+
+  pipeline:
+    1. run `uv run scripts/render-terminals.py` before hugo build
+    2. it scans content/**/*.md for terminal shortcodes
+    3. converts screenplay text to HTML via scripts/term2html.py (ANSI → CSS spans)
+    4. caches output in static/terminals/<title>.html
+    5. this template reads the cached fragment via readFile
+    6. styling lives in assets/sass/main.scss under .terminal-embed
+-->
+{{- $caption := .Get "caption" -}}
+{{- $title := .Get "title" -}}
+{{- $width := .Get "width" -}}
+<figure class="terminal-embed"{{ with $width }} style="max-width:{{ $width }}px"{{ end }}>
+  <div class="terminal-window">
+    {{- if .Inner -}}
+      {{- $html := readFile (printf "static/terminals/%s.html" $title) -}}
+      {{- if $html -}}
+        <pre class="terminal-body">{{ $html | safeHTML }}</pre>
+      {{- else -}}
+        <div class="terminal-missing">HTML not generated — run <code>python3 scripts/render-terminals.py</code></div>
+      {{- end -}}
+    {{- end -}}
+  </div>
+  {{- with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
