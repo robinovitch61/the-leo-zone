@@ -2,16 +2,17 @@
 title: "I Made a Terminal Pager"
 date: "2026-03-04"
 description:
-  "A writeup of making my own terminal viewport, which eventually became a $PAGER (robinovitch61/lore) and is used in a
-  k8s log viewer TUI (robinovitch61/kl)."
+  "A writeup on implementing my own terminal viewport component in Go, which eventually became a Terminal pager
+  (robinovitch61/lore) and is used in a k8s log viewer TUI (robinovitch61/kl)."
 draft: true
 ---
 
-> _TL;DR: I built terminal applications like [wander] for Nomad and [kl] for k8s logs. Core functionality of these
-> applications is interacting with text, like application manifests and logs. I created a reusable `viewport` component
-> in Go for this purpose, then used it to make [lore], which I'm now daily driving as my terminal pager. In this post, I
-> detail the features I wanted to support in my `viewport` and some learnings and design decisions on my way to making
-> them a reality._
+> _TL;DR: I build terminal applications like [kl for k8s logs][kl] and [wander for Nomad][wander]. Core functionality of
+> these applications is interacting with long blocks of text like application manifests and logs. I created a reusable
+> `viewport` component in Go for text navigation in my projects. Terminal pagers are programs that allow you to page
+> forwards and backwards through multipage text. I used my `viewport` component to make [lore], which I'm now daily
+> driving as my terminal pager. In this post, I detail the features I wanted to support in my `viewport` and some
+> learnings and design decisions on my way to making them a reality._
 
 Along with running commands, the terminal is often a place for viewing and navigating text.
 
@@ -21,6 +22,8 @@ Along with running commands, the terminal is often a place for viewing and navig
 I love terminals!
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
+
+## Introduction to Terminal Paging
 
 Terminals have a grid-like nature with a monospace font. Their size is defined in rows and columns, with text filling
 this grid accordingly.
@@ -41,14 +44,14 @@ this grid accordingly.
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-{{< details summary="Aside: Styling Text in Terminals" >}}
+{{< details summary="Aside: styling text in terminals" >}}
 
 You can style text in terminals with [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code).
 
 <!-- prettier-ignore-start -->
 {{< terminal cols="40" rows="14" title="ansi-red" >}}
-\e[33m❯\e[0m echo "\x1b[31mred\x1b[0m"
-\e[31mred text\e[0m
+\e[33m❯\e[0m echo "default, \x1b[31mred text\x1b[0m, default"
+default, \e[31mred text\e[0m, default
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
@@ -56,34 +59,42 @@ You can style text in terminals with [ANSI escape codes](https://en.wikipedia.or
 - `red text`: content to be styled
 - `\x1b[0m`: reset styling
 
-This type of styling is how we get the grey checkerboard pattern in the terminal out of `chessboard.txt` above.
+This type of styling is how we get the grey checkerboard pattern in the terminal out of `chessboard.txt` above:
+`chessboard.txt` contains text with ANSI escape codes styling it for the terminal.
 
 {{< /details >}}
 
-There are often large volumes of text that developers scan through using their terminal:
+There are often high volumes of text output that developers scan through in their terminal:
 
+- verbose output from scripts and CLIs
 - `git` diffs
 - application logs
 - `man` pages
-- `README`s and other documentation
-- database query results (`psql`/`sqlite` result rows)
-- verbose output from scripts and CLIs
+- `README`s
+- database query results, e.g., `psql`/`sqlite` result rows
 
-Sometimes, especially when the output is less than one page's height, this text is printed directly to your terminal,
-after which you can scroll with the mouse and search using your terminal emulator's built in functionality (e.g. `cmd+f`
-in iTerm2). Or maybe you use a terminal multiplexer like `tmux` within your terminal emulator that has its own set of
-keyboard bindings for search and scrollback.
+Sometimes, especially when the text output is less than one terminal view's height, output is printed directly to your
+terminal without a special pager. You can then scroll with the mouse and search using your terminal emulator's built in
+functionality (e.g. `cmd+f` in iTerm2). Or maybe you use a terminal multiplexer like `tmux` within your terminal
+emulator that has its own set of keyboard bindings for search and scrollback.
 
-But more often than dumping large amounts of text as raw output, programs that are about to show many lines of text
-first ask "is the `$PAGER` environment variable set? If so, I'll use that to display the text instead."
+But most often for text spanning multiple terminal view heights, programs that are about to show many lines of text
+first ask "is the `PAGER` environment variable set? If so, I'll use that to display the text instead." The `PAGER`
+environment variable points to a program that expects either piped input `<lots of text output> | PAGER` or a file
+argument `PAGER myfile.txt`.
 
-TODO: aside about how programs use PAGER, pipeing etc.
+TODO: aside about how programs use PAGER, piping etc.
 
 Most developer machines use [`less`][less] as the default pager. If you wanted everything to be dumped to your terminal
-directly, you could export your `PAGER` environment variable to `cat`. Other options are
+directly, you could export your `PAGER` environment variable to `cat`. Other options include [bat], [most], and [delta].
+There are special paging environment variables as well, for example, setting [`GIT_PAGER`][gitpager] specifically for
+git output, or [`BAT_PAGER`][batpager] for paging within `bat` after it performs syntax highlighting.
 
-The default `PAGER`, `less`, is quite powerful with knowledge of the [options][lessopts] and
-[configuration][lessconfig].
+The default `PAGER`, `less`, is quite powerful with effective use of the options and configuration. For example, text by
+default is lost once you quit `less`, which is generally reasonable, but you can use `--no-init/-X` to have the text
+you've paged through up to the point of quitting persist in your terminal output once quit. And use `--ignore-case/-i`
+to make searching case-insensitive. I recommend these articles on [less options][lessopts] and [less
+configuration][lessconfig] to learn more.
 
 ## Unicode handling
 
@@ -122,7 +133,7 @@ But what's with these ones?
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-The sparkles emoji, represented by its [unicode code point][codepoint]
+The sparkles emoji, represented by its [Unicode code point][codepoint]
 [✨ U+2728 SPARKLES](https://unicode-explorer.com/c/2728), takes up two terminal cells in width.
 
 <!-- prettier-ignore-start -->
@@ -235,15 +246,21 @@ The terminology I've settled on in this viewport context is:
 - line
 - cell
 
-[wander]: https://github.com/robinovitch61/wander/
-[nomad]: https://developer.hashicorp.com/nomad
-[lore]: https://github.com/robinovitch61/lore/
+[ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
+[bat]: https://github.com/sharkdp/bat
+[batpager]: https://github.com/sharkdp/bat/blob/a1e7c0ab4ae87d388e2f2922a25f15b4ca5f62de/README.md?plain=1#L631
+[bubbletea]: https://github.com/charmbracelet/bubbletea
+[bubbleviewport]: https://github.com/charmbracelet/bubbles/tree/main/viewport
+[codepoint]: https://en.wikipedia.org/wiki/List_of_Unicode_characters
+[delta]: https://github.com/dandavison/delta
+[gitpager]: https://www.man7.org/linux/man-pages/man1/git.1.html
 [k9s]: https://github.com/derailed/k9s
 [kl]: https://github.com/robinovitch61/kl
-[bubbleviewport]: https://github.com/charmbracelet/bubbles/tree/main/viewport
-[ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
-[wcwidth]: https://github.com/jquast/wcwidth
-[codepoint]: https://en.wikipedia.org/wiki/List_of_Unicode_characters
 [less]: https://www.greenwoodsoftware.com/less/index.html
-[lessopts]: https://blog.thechases.com/posts/assorted-less-tips/
 [lessconfig]: https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
+[lessopts]: https://blog.thechases.com/posts/assorted-less-tips/
+[lore]: https://github.com/robinovitch61/lore/
+[most]: https://jedsoft.org/most/
+[nomad]: https://developer.hashicorp.com/nomad
+[wander]: https://github.com/robinovitch61/wander/
+[wcwidth]: https://github.com/jquast/wcwidth
