@@ -1,5 +1,5 @@
 ---
-title: "I Made a $PAGER"
+title: "I Made a Terminal Pager"
 date: "2026-03-04"
 description:
   "A writeup of making my own terminal viewport, which eventually became a $PAGER (robinovitch61/lore) and is used in a
@@ -7,16 +7,23 @@ description:
 draft: true
 ---
 
-Along with running commands, the terminal is a place for viewing and navigating text.
+> _TL;DR: I built terminal applications like [wander] for Nomad and [kl] for k8s logs. Core functionality of these
+> applications is interacting with text, like application manifests and logs. I created a reusable `viewport` component
+> in Go for this purpose, then used it to make [lore], which I'm now daily driving as my terminal pager. In this post, I
+> detail the features I wanted to support in my `viewport` and some learnings and design decisions on my way to making
+> them a reality._
+
+Along with running commands, the terminal is often a place for viewing and navigating text.
 
 <!-- prettier-ignore-start -->
 {{< terminal cols="100" rows="30" title="cat-file" >}}
-\e[33m❯\e[0m cat ~/file.txt
+\e[33m❯\e[0m cat file.txt
 I love terminals!
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-Terminals have a grid-like nature. Their size is defined in rows and columns, with text filling this grid accordingly.
+Terminals have a grid-like nature with a monospace font. Their size is defined in rows and columns, with text filling
+this grid accordingly.
 
 <!-- prettier-ignore-start -->
 {{< terminal cols="40" rows="14" title="chessboard" >}}
@@ -34,7 +41,9 @@ Terminals have a grid-like nature. Their size is defined in rows and columns, wi
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-You can style text with [ANSI escape codes][ansi].
+{{< details summary="Aside: Styling Text in Terminals" >}}
+
+You can style text in terminals with [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code).
 
 <!-- prettier-ignore-start -->
 {{< terminal cols="40" rows="14" title="ansi-red" >}}
@@ -48,6 +57,35 @@ You can style text with [ANSI escape codes][ansi].
 - `\x1b[0m`: reset styling
 
 This type of styling is how we get the grey checkerboard pattern in the terminal out of `chessboard.txt` above.
+
+{{< /details >}}
+
+There are often large volumes of text that developers scan through using their terminal:
+
+- `git` diffs
+- application logs
+- `man` pages
+- `README`s and other documentation
+- database query results (`psql`/`sqlite` result rows)
+- verbose output from scripts and CLIs
+
+Sometimes, especially when the output is less than one page's height, this text is printed directly to your terminal,
+after which you can scroll with the mouse and search using your terminal emulator's built in functionality (e.g. `cmd+f`
+in iTerm2). Or maybe you use a terminal multiplexer like `tmux` within your terminal emulator that has its own set of
+keyboard bindings for search and scrollback.
+
+But more often than dumping large amounts of text as raw output, programs that are about to show many lines of text
+first ask "is the `$PAGER` environment variable set? If so, I'll use that to display the text instead."
+
+TODO: aside about how programs use PAGER, pipeing etc.
+
+Most developer machines use [`less`][less] as the default pager. If you wanted everything to be dumped to your terminal
+directly, you could export your `PAGER` environment variable to `cat`. Other options are
+
+The default `PAGER`, `less`, is quite powerful with knowledge of the [options][lessopts] and
+[configuration][lessconfig].
+
+## Unicode handling
 
 Most Unicode characters take up 1 cell width in the terminal, but special ones don't.
 
@@ -131,6 +169,22 @@ In Unicode text and terminals, there are:
 - code point width: the number of terminal cells a code point occupies (0, 1, or 2)
   - a grapheme's terminal width is determined by its combined code points
 
+## Searching and filtering
+
+- exact, regex, case-insensitive regex
+- contextual or matches only
+- highlights
+
+## Reflow
+
+Item interface
+
+## Horizontal panning
+
+Solved also with Item interface out of the box
+
+## Item selection
+
 Terminal applications are a bit like native applications or websites, except that you really only have control of the
 terminal grid. The smallest editable item is the terminal cell rather than the pixel. This provides a nice constraint,
 pushing most terminal applications to remove all but the essential information and provide a hierarchy of
@@ -183,9 +237,13 @@ The terminology I've settled on in this viewport context is:
 
 [wander]: https://github.com/robinovitch61/wander/
 [nomad]: https://developer.hashicorp.com/nomad
+[lore]: https://github.com/robinovitch61/lore/
 [k9s]: https://github.com/derailed/k9s
 [kl]: https://github.com/robinovitch61/kl
 [bubbleviewport]: https://github.com/charmbracelet/bubbles/tree/main/viewport
 [ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
 [wcwidth]: https://github.com/jquast/wcwidth
 [codepoint]: https://en.wikipedia.org/wiki/List_of_Unicode_characters
+[less]: https://www.greenwoodsoftware.com/less/index.html
+[lessopts]: https://blog.thechases.com/posts/assorted-less-tips/
+[lessconfig]: https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/

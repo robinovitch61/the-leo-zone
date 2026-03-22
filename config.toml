@@ -6,6 +6,12 @@ title = "Leo Robinovitch @ The Leo Zone"
   description = "The personal site of Leo Robinovitch, an American & Canadian Software Engineer in the Bay Area."
 
 [markup]
+  [markup.goldmark.renderer]
+    # allow raw HTML in markdown. only "unsafe" for sites with untrusted user
+    # content — this is a single-author blog, so it just lets shortcodes like
+    # `details` render nested shortcode HTML via .Page.RenderString without
+    # goldmark stripping it to <!-- raw HTML omitted -->
+    unsafe = true
   [markup.highlight]
     # styling is handled by assets/sass/code.scss
     noClasses = false

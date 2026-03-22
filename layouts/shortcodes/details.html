@@ -1,0 +1,7 @@
+{{ $summary := .Get "summary" | default "Details" }}
+<details {{ if .Get "open" }}open{{ end }}>
+  <summary>{{ $summary }}</summary>
+  <div class="details-content">
+    {{ .Inner | .Page.RenderString }}
+  </div>
+</details>

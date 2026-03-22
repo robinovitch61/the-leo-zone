@@ -528,7 +528,7 @@ a[href^="#fn:"]:after {
   display: block;
   width: 100%;
   max-width: 100%;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 
   .terminal-window {
     background: var(--ansi-black);
@@ -550,42 +550,106 @@ a[href^="#fn:"]:after {
   }
 
   // foreground colors
-  .ansi-fg-black   { color: var(--ansi-black); }
-  .ansi-fg-red     { color: var(--ansi-red); }
-  .ansi-fg-green   { color: var(--ansi-green); }
-  .ansi-fg-yellow  { color: var(--ansi-yellow); }
-  .ansi-fg-blue    { color: var(--ansi-blue); }
-  .ansi-fg-magenta { color: var(--ansi-magenta); }
-  .ansi-fg-cyan    { color: var(--ansi-cyan); }
-  .ansi-fg-white   { color: var(--ansi-white); }
+  .ansi-fg-black {
+    color: var(--ansi-black);
+  }
+  .ansi-fg-red {
+    color: var(--ansi-red);
+  }
+  .ansi-fg-green {
+    color: var(--ansi-green);
+  }
+  .ansi-fg-yellow {
+    color: var(--ansi-yellow);
+  }
+  .ansi-fg-blue {
+    color: var(--ansi-blue);
+  }
+  .ansi-fg-magenta {
+    color: var(--ansi-magenta);
+  }
+  .ansi-fg-cyan {
+    color: var(--ansi-cyan);
+  }
+  .ansi-fg-white {
+    color: var(--ansi-white);
+  }
 
-  .ansi-fg-bright-black   { color: var(--ansi-bright-black); }
-  .ansi-fg-bright-red     { color: var(--ansi-bright-red); }
-  .ansi-fg-bright-green   { color: var(--ansi-bright-green); }
-  .ansi-fg-bright-yellow  { color: var(--ansi-bright-yellow); }
-  .ansi-fg-bright-blue    { color: var(--ansi-bright-blue); }
-  .ansi-fg-bright-magenta { color: var(--ansi-bright-magenta); }
-  .ansi-fg-bright-cyan    { color: var(--ansi-bright-cyan); }
-  .ansi-fg-bright-white   { color: var(--ansi-bright-white); }
+  .ansi-fg-bright-black {
+    color: var(--ansi-bright-black);
+  }
+  .ansi-fg-bright-red {
+    color: var(--ansi-bright-red);
+  }
+  .ansi-fg-bright-green {
+    color: var(--ansi-bright-green);
+  }
+  .ansi-fg-bright-yellow {
+    color: var(--ansi-bright-yellow);
+  }
+  .ansi-fg-bright-blue {
+    color: var(--ansi-bright-blue);
+  }
+  .ansi-fg-bright-magenta {
+    color: var(--ansi-bright-magenta);
+  }
+  .ansi-fg-bright-cyan {
+    color: var(--ansi-bright-cyan);
+  }
+  .ansi-fg-bright-white {
+    color: var(--ansi-bright-white);
+  }
 
   // background colors
-  .ansi-bg-black   { background-color: var(--ansi-black); }
-  .ansi-bg-red     { background-color: var(--ansi-red); }
-  .ansi-bg-green   { background-color: var(--ansi-green); }
-  .ansi-bg-yellow  { background-color: var(--ansi-yellow); }
-  .ansi-bg-blue    { background-color: var(--ansi-blue); }
-  .ansi-bg-magenta { background-color: var(--ansi-magenta); }
-  .ansi-bg-cyan    { background-color: var(--ansi-cyan); }
-  .ansi-bg-white   { background-color: var(--ansi-white); }
+  .ansi-bg-black {
+    background-color: var(--ansi-black);
+  }
+  .ansi-bg-red {
+    background-color: var(--ansi-red);
+  }
+  .ansi-bg-green {
+    background-color: var(--ansi-green);
+  }
+  .ansi-bg-yellow {
+    background-color: var(--ansi-yellow);
+  }
+  .ansi-bg-blue {
+    background-color: var(--ansi-blue);
+  }
+  .ansi-bg-magenta {
+    background-color: var(--ansi-magenta);
+  }
+  .ansi-bg-cyan {
+    background-color: var(--ansi-cyan);
+  }
+  .ansi-bg-white {
+    background-color: var(--ansi-white);
+  }
 
-  .ansi-bg-bright-black   { background-color: var(--ansi-bright-black); }
-  .ansi-bg-bright-red     { background-color: var(--ansi-bright-red); }
-  .ansi-bg-bright-green   { background-color: var(--ansi-bright-green); }
-  .ansi-bg-bright-yellow  { background-color: var(--ansi-bright-yellow); }
-  .ansi-bg-bright-blue    { background-color: var(--ansi-bright-blue); }
-  .ansi-bg-bright-magenta { background-color: var(--ansi-bright-magenta); }
-  .ansi-bg-bright-cyan    { background-color: var(--ansi-bright-cyan); }
-  .ansi-bg-bright-white   { background-color: var(--ansi-bright-white); }
+  .ansi-bg-bright-black {
+    background-color: var(--ansi-bright-black);
+  }
+  .ansi-bg-bright-red {
+    background-color: var(--ansi-bright-red);
+  }
+  .ansi-bg-bright-green {
+    background-color: var(--ansi-bright-green);
+  }
+  .ansi-bg-bright-yellow {
+    background-color: var(--ansi-bright-yellow);
+  }
+  .ansi-bg-bright-blue {
+    background-color: var(--ansi-bright-blue);
+  }
+  .ansi-bg-bright-magenta {
+    background-color: var(--ansi-bright-magenta);
+  }
+  .ansi-bg-bright-cyan {
+    background-color: var(--ansi-bright-cyan);
+  }
+  .ansi-bg-bright-white {
+    background-color: var(--ansi-bright-white);
+  }
 
   // wide characters (emoji, CJK)
   .wide-char {
@@ -597,10 +661,18 @@ a[href^="#fn:"]:after {
   }
 
   // text attributes
-  .ansi-bold      { font-weight: bold; }
-  .ansi-dim       { opacity: 0.5; }
-  .ansi-underline { text-decoration: underline; }
-  .ansi-reverse   { filter: invert(1); }
+  .ansi-bold {
+    font-weight: bold;
+  }
+  .ansi-dim {
+    opacity: 0.5;
+  }
+  .ansi-underline {
+    text-decoration: underline;
+  }
+  .ansi-reverse {
+    filter: invert(1);
+  }
 
   figcaption {
     margin-top: 0.5rem;
@@ -616,5 +688,16 @@ a[href^="#fn:"]:after {
     border-radius: 6px;
     color: #888;
     font-size: 0.85em;
+  }
+}
+
+// summary/details dropdown
+details {
+  background: $DETAILS_BACKGROUND;
+  padding: 0.3rem 0.5rem;
+
+  > summary {
+    cursor: pointer;
+    font-style: italic;
   }
 }
