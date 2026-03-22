@@ -124,6 +124,23 @@ h4 {
   text-decoration: underline;
 }
 
+.heading-anchor {
+  margin-left: 0.3em;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  color: $ANCHOR_COLOR;
+}
+
+h1:hover .heading-anchor,
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+h4:hover .heading-anchor,
+h5:hover .heading-anchor,
+h6:hover .heading-anchor {
+  opacity: 1;
+}
+
 .listings {
   margin-top: 0.5em;
 
