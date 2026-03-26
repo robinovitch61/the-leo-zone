@@ -7,12 +7,17 @@ description:
 draft: true
 ---
 
-> _TL;DR: I build terminal applications like [kl for k8s logs][kl] and [wander for Nomad][wander]. Core functionality of
-> these applications is interacting with long blocks of text like application manifests and logs. I created a reusable
-> `viewport` component in Go for text navigation in my projects. Terminal pagers are programs that allow you to page
-> forwards and backwards through multipage text. I used my `viewport` component to make [lore], which I'm now daily
-> driving as my terminal pager. In this post, I detail the features I wanted to support in my `viewport` and some
-> learnings and design decisions on my way to making them a reality._
+> TL;DR: I build terminal applications like [kl for k8s logs][kl] and [wander for Nomad][wander]. Core functionality
+> includes interacting with long blocks of text, like application manifests and logs. I created a reusable `viewport`
+> component in Go for text navigation in my projects.
+>
+> Terminal pagers are programs that allow you to page forwards and backwards through multi-page text. I used my
+> `viewport` component to make [lore], which I'm now daily driving as my terminal pager.
+>
+> In this post, I detail the features I wanted to support in my `viewport` as well as some learnings and design
+> decisions on the way to making them a reality.
+
+## Introduction to Terminal Paging
 
 Along with running commands, the terminal is often a place for viewing and navigating text.
 
@@ -22,8 +27,6 @@ Along with running commands, the terminal is often a place for viewing and navig
 I love terminals!
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
-
-## Introduction to Terminal Paging
 
 Terminals have a grid-like nature with a monospace font. Their size is defined in rows and columns, with text filling
 this grid accordingly.
@@ -72,6 +75,7 @@ There are often high volumes of text output that developers scan through in thei
 - `man` pages
 - `README`s
 - database query results, e.g., `psql`/`sqlite` result rows
+- output of agentic AI tools
 
 Sometimes, especially when the text output is less than one terminal view's height, output is printed directly to your
 terminal without a special pager. You can then scroll with the mouse and search using your terminal emulator's built in
@@ -79,14 +83,14 @@ functionality (e.g. `cmd+f` in iTerm2). Or maybe you use a terminal multiplexer 
 emulator that has its own set of keyboard bindings for search and scrollback.
 
 But most often for text spanning multiple terminal view heights, programs that are about to show many lines of text
-first ask "is the `PAGER` environment variable set? If so, I'll use that to display the text instead." The `PAGER`
-environment variable points to a program that expects either piped input `<lots of text output> | PAGER` or a file
-argument `PAGER myfile.txt`.
+first ask themselves: "is the `PAGER` environment variable set? If so, I'll use that to display the text instead." The
+`PAGER` environment variable points to a program that expects either piped input `<lots of text output> | $PAGER` or a
+file argument `$PAGER myfile.txt`.
 
 TODO: aside about how programs use PAGER, piping etc.
 
 Most developer machines use [`less`][less] as the default pager. If you wanted everything to be dumped to your terminal
-directly, you could export your `PAGER` environment variable to `cat`. Other options include [bat], [most], and [delta].
+directly, you could set your `PAGER` environment variable to `cat`. Other options include [bat], [most], and [delta].
 There are special paging environment variables as well, for example, setting [`GIT_PAGER`][gitpager] specifically for
 git output, or [`BAT_PAGER`][batpager] for paging within `bat` after it performs syntax highlighting.
 
@@ -95,6 +99,80 @@ default is lost once you quit `less`, which is generally reasonable, but you can
 you've paged through up to the point of quitting persist in your terminal output once quit. And use `--ignore-case/-i`
 to make searching case-insensitive. I recommend these articles on [less options][lessopts] and [less
 configuration][lessconfig] to learn more.
+
+## Terminal Applications/TUIs
+
+Terminal applications, or TUIs, are a bit like native desktop applications or websites, except that you run them within
+your terminal.
+
+TUIs may use the [alt screen][altscreen] to temporarily take over one full terminal width and screen, displaying
+application components like titles, side bars, help text, and text viewports within them. Text viewport components are
+similar to terminal pagers, but only take up part of the screen. Other common user workflows in TUIs are:
+
+- moving focus between components on the screen
+- selecting from a list of items on the screen
+- taking in user input
+
+In a TUI, the smallest editable unit is the terminal grid cell rather than the pixel. This provides a nice constraint,
+pushing terminal applications to remove all but essential information and provide a hierarchy of keyboard-driven views
+into the data, rather than one large scrollable screen of components and button-laden toolbars like a website or desktop
+app might provide.
+
+Take [kl], a TUI I built for interacting with Kubernetes logs across many clusters and namespaces, for example. On
+startup, you're presented with 2 text viewports: a Kubernetes entity hierarchy on the left showing your configured
+clusters, namespaces, pods, and containers, and an initially-empty view of logs on the right.
+
+{{< fig src="./img/kl_startup.jpg" width="100" caption="kl on startup" >}}
+
+You start focused in the selection viewport, where you select one or more containers to tail the logs for.
+
+{{< fig src="./img/kl_selected.jpg" width="100" caption="select some containers, see their logs" >}}
+
+Pressing `L` shows you those logs in full screen, hiding the selection tree. From there, you can search for exact
+matches with `/`.
+
+{{< fig src="./img/kl_search_error.jpg" width="100" caption="search the logs for \"ERROR\"" >}}
+
+You can see matches with surrounding (non-matching) context, or only the matching items by pressing `x`. Pressing `p`
+prettifies the JSON logs with spacing and indentation. Press `enter` to zoom into the single log view. `?` to show all
+the potential commands. `ctrl+c` to quit.
+
+{{< fig src="./img/kl_help.jpg" width="100" caption="? to show help" >}}
+
+This gives you an idea how a TUI is a keyboard-driven application consisting of components, where **the most important
+components are often just mini terminal pagers**. In `kl`, both the selection tree and the logs view are both mini
+terminal pagers. I extracted out this shared functionality into a `viewport` component.
+
+## The Viewport Component
+
+The core of both of these applications is a component called the "viewport". The viewport is a box that contains an
+arbitrary amount of text. This box of text:
+
+- is resizable
+- is scrollable
+- is (un)wrappable, with horizontal panning when unwrapped
+- makes text searchable, with match navigation
+- allows for item selection
+- provides context for how much text there is and your position in it
+- supports ANSI escape codes for styling text
+- supports Unicode
+- is generally efficient, even with a lot of text
+
+This viewport is written in Go and made to be used in [Bubble Tea][bubbletea] applications, which is the TUI framework
+both `wander` and `kl` are written in.
+
+There are three main components that make up the implementation of this viewport:
+
+- item
+- viewport
+- filterableviewport
+
+The terminology I've settled on in this viewport context is:
+
+- object
+- item
+- line
+- cell
 
 ## Unicode handling
 
@@ -196,56 +274,17 @@ Solved also with Item interface out of the box
 
 ## Item selection
 
-Terminal applications are a bit like native applications or websites, except that you really only have control of the
-terminal grid. The smallest editable item is the terminal cell rather than the pixel. This provides a nice constraint,
-pushing most terminal applications to remove all but the essential information and provide a hierarchy of
-keyboard-driven views into the data rather than one large scrollable screen of components or button-laden toolbars.
+--- ROUGH BELOW
 
-Common workflows in Terminal UIs are:
-
-- move focus between components on the screen
-- select from a list of items on the screen
-- navigate (scroll, pan, search, filter, wrap, etc.) text on the screen
-
-I have spent quite a bit of time making my own terminal-based applications (TUIs). First, I made [wander], a terminal
-interface to [HashiCorp Nomad][nomad], a Kubernetes alternative. Wander is a bit like [k9s] for Nomad.
-
-INSERT PIC OF WANDER
+I've loved the terminal for many years now. It has always felt like a cruft-free, powerful place for beginners and power
+users alike to derive a lot of productivity and value.
 
 When I left my last employer, I went from using Nomad back to Kubernetes. I wanted something that could explore
 sequential application logs from multiple containers across multiple clusters. This became [kl], a TUI for k8s logs.
 
 INSERT PIC OF KL
 
-The core of both of these applications is a component called the "viewport". The viewport is a box that contains an
-arbitrary amount of text. This box of text:
-
-- is resizable
-- is scrollable
-- is (un)wrappable, with horizontal panning when unwrapped
-- makes text searchable, with match navigation
-- allows for item selection
-- provides context for how much text there is and your position in it
-- supports ANSI escape codes for styling text
-- supports Unicode
-- is generally efficient, even with a lot of text
-
-This viewport is written in Go and made to be used in [Bubble Tea][bubbletea] applications, which is the TUI framework
-both `wander` and `kl` are written in.
-
-There are three main components that make up the implementation of this viewport:
-
-- item
-- viewport
-- filterableviewport
-
-The terminology I've settled on in this viewport context is:
-
-- object
-- item
-- line
-- cell
-
+[altscreen]: https://ratatui.rs/concepts/backends/alternate-screen/
 [ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
 [bat]: https://github.com/sharkdp/bat
 [batpager]: https://github.com/sharkdp/bat/blob/a1e7c0ab4ae87d388e2f2922a25f15b4ca5f62de/README.md?plain=1#L631
