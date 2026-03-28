@@ -135,46 +135,46 @@ matches with `/`.
 
 You can see matches with surrounding (non-matching) context, or only the matching items by pressing `x`. Pressing `p`
 prettifies the JSON logs with spacing and indentation. Press `enter` to zoom into the single log view. `?` to show all
-the potential commands. `ctrl+c` to quit.
+the potential commands, and `ctrl+c` to quit.
 
-{{< fig src="./img/kl_help.jpg" width="100" caption="? to show help" >}}
-
-This gives you an idea how a TUI is a keyboard-driven application consisting of components, where **the most important
-components are often just mini terminal pagers**. In `kl`, both the selection tree and the logs view are both mini
-terminal pagers. I extracted out this shared functionality into a `viewport` component.
+This gives you an idea how a TUI is a keyboard-driven application consisting of components, and **the most important
+components of TUIs are often just mini terminal pagers**. In `kl`, both the selection tree and the logs view are both
+mini terminal pagers. I extracted out this shared functionality into a `viewport` component.
 
 ## The Viewport Component
 
-The core of both of these applications is a component called the "viewport". The viewport is a box that contains an
-arbitrary amount of text. This box of text:
+The viewport is a flexibly-sized box with an arbitrary amount of text. This box of text is resizable, scrollable,
+provides a % indicator for your current position in the text, makes text (un)wrappable with horizontal panning when
+unwrapped, enables search with match navigation, allows for item selection, supports ANSI escape codes for styling text,
+handles Unicode, and is generally performant even with lots of text.
 
-- is resizable
-- is scrollable
-- is (un)wrappable, with horizontal panning when unwrapped
-- makes text searchable, with match navigation
-- allows for item selection
-- provides context for how much text there is and your position in it
-- supports ANSI escape codes for styling text
-- supports Unicode
-- is generally efficient, even with a lot of text
+This viewport is written in Go and can be easily integrated into applications using the [Bubble Tea][bubbletea] TUI
+framework.
 
-This viewport is written in Go and made to be used in [Bubble Tea][bubbletea] applications, which is the TUI framework
-both `wander` and `kl` are written in.
+To facilitate this feature set, there are three modules that make up the implementation:
 
-There are three main components that make up the implementation of this viewport:
+- **item**: wraps a string and maps bytes to grapheme terminal cell widths
+  - an item takes up one or more rows in the terminal, depending on the underlying string width, terminal width, and
+    wrap state
+- **viewport**: displays items and allows navigation
+- **filterableviewport**: adds search to viewport functionality
 
-- item
-- viewport
-- filterableviewport
+{{< fig src="./img/viewport_annotated.jpg" width="100" caption="filterable viewport in action" >}}
 
-The terminology I've settled on in this viewport context is:
+If you have Go installed, the fastest way to try this out yourself is to run:
 
-- object
-- item
-- line
-- cell
+```shell
+go run github.com/robinovitch61/viewport/examples/filterableviewport@latest
+```
 
-## Unicode handling
+Or if you don't have Go, in Docker:
+
+```shell
+docker run -ti golang:1.26-alpine \
+  go run github.com/robinovitch61/viewport/examples/filterableviewport@latest
+```
+
+### Unicode handling
 
 Most Unicode characters take up 1 cell width in the terminal, but special ones don't.
 
@@ -214,6 +214,17 @@ But what's with these ones?
 The sparkles emoji, represented by its [Unicode code point][codepoint]
 [✨ U+2728 SPARKLES](https://unicode-explorer.com/c/2728), takes up two terminal cells in width.
 
+In Unicode text in the context of terminals, there are:
+
+- code points: a number assigned to a character in the Unicode standard e.g. `U+2728`
+- grapheme: a human's perception of a single character (one or more code points), e.g. ✨
+- byte encoding: byte representation of code points, dependent on UTF-8/16/32, e.g. ✨ is 3 bytes, `0xE2 0x9C 0xA8`, in
+  UTF-8
+- code point width: the number of terminal cells a code point occupies (0, 1, or 2), e.g. 2 for ✨
+  - a grapheme's terminal width is determined by its combined code points
+
+It's hard to guess how many terminal cells a given character will take up by only looking at it visually:
+
 <!-- prettier-ignore-start -->
 {{< terminal cols="40" rows="14" title="half-width-emoji" >}}
 \e[33m❯\e[0m termwidth '全'
@@ -221,11 +232,14 @@ The sparkles emoji, represented by its [Unicode code point][codepoint]
 
 \e[33m❯\e[0m termwidth '￭'
 1
+
+\e[33m❯\e[0m termwidth '﷽'
+1
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-You can represent single-width characters like 'é' multiple different ways in Unicode: either as a single é code point,
-or an e code point with a combining accent codepoint following it.
+You can represent single-width characters like `é` multiple different ways in Unicode: either as a single `é` code
+point, or an e code point with a combining accent codepoint following it.
 
 - [é U+00E9 LATIN SMALL LETTER E WITH ACUTE](https://unicode-explorer.com/c/00E9)
 - [e U+0065 LATIN SMALL LETTER E](https://unicode-explorer.com/c/0065)
@@ -250,13 +264,32 @@ é
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-In Unicode text and terminals, there are:
+To support Unicode in my `viewport`, I had to consider the mapping of string bytes (usually UTF-8 in Go) to code points
+to graphemes and their corresponding terminal widths.
 
-- code points: a number assigned to a character in the Unicode standard
-- grapheme: a human's perception of a single character (one or more code points)
-- byte encoding: byte representation of code points, dependent on UTF-8/16/32
-- code point width: the number of terminal cells a code point occupies (0, 1, or 2)
-  - a grapheme's terminal width is determined by its combined code points
+The `Item` interface handles the implementation of this, simplified below:
+
+```go
+type Item interface {
+  // Width returns the total width in terminal cells
+  Width() int
+
+  // Take retrieves a string from startWidth to startWidth + takeWidth,
+  // width being in terminal cells
+  Take(startWidth, takeWidth int) string
+}
+```
+
+Immutable strings, like kubernetes logs, can have their `Item` object eagerly instantiated as they arrive. Instantiation
+builds a sparse internal map of string bytes to terminal cell widths.
+
+A `MultiItem` implementation implements the same interface, but works across multiple individual Items, allowing for
+efficient dynamic prefixing (e.g. line numbers, timestamps, container names, etc.) without needing to rebuild an entire
+single Item just to change the prefix. Another Item implementation, `MultiLineItem`, supports items that span multiple
+line breaks to allow multi-line formatted logs.
+
+This abstraction supports wrapping -- successive calls to `Take` until an items underlying content is used up -- and
+panning left and right efficiently when items are unwrapped.
 
 ## Searching and filtering
 
