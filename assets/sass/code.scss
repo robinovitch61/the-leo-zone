@@ -14,6 +14,34 @@ pre {
   }
 }
 
+// copy-to-clipboard button
+.highlight {
+  position: relative;
+
+  .copy-btn {
+    position: absolute;
+    top: 0.4em;
+    right: 0.4em;
+    padding: 0.2em 0.4em;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background: #fff;
+    color: #333;
+    font-size: 0.8em;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s;
+
+    &:hover {
+      background: #eee;
+    }
+  }
+
+  &:hover .copy-btn {
+    opacity: 1;
+  }
+}
+
 // inline code
 code {
   padding: 0 0.2em;
