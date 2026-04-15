@@ -10,11 +10,11 @@ description:
 > functionality of TUIs includes interacting with large blocks of text, like application manifests and logs. I created a
 > reusable `viewport` component in Go for text navigation in my projects.
 >
-> Terminal pagers are programs that allow you to interactively navigate multi-page text. I used my `viewport` component
+> Terminal pagers are programs that allow you to interactively navigate multi-page text. I used my [viewport] component
 > to make [lore], which I'm now daily driving as my terminal pager.
 >
-> In this post, I detail the features I wanted to support in my `viewport` as well as some learnings and design
-> decisions on the way to making them a reality.
+> In this post, I detail the features I wanted to support in my viewport as well as some learnings and design decisions
+> on the way to making them a reality.
 
 ## Introduction to Terminal Paging
 
@@ -392,3 +392,4 @@ I've implemented in my Go viewport, but with Zig and C bindings. I'll keep impro
 [most]: https://jedsoft.org/most/
 [wander]: https://github.com/robinovitch61/wander/
 [wcwidth]: https://github.com/jquast/wcwidth
+[viewport]: https://github.com/robinovitch61/viewport
