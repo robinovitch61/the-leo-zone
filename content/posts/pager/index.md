@@ -6,12 +6,12 @@ description:
   robinovitch61/lore and in my Kubernetes log viewer terminal application robinovitch61/kl."
 ---
 
-> TL;DR: I build terminal applications (TUIs) like [kl for k8s logs][kl] and [wander for Nomad][wander]. Core
-> functionality of TUIs includes interacting with large blocks of text, like application manifests and logs. I created a
-> reusable `viewport` component in Go for text navigation in my projects.
+> TL;DR: I build terminal applications (TUIs) like [kl for k8s logs][kl], [jeeves][jeeves], and [wander for
+> Nomad][wander]. Core functionality of TUIs includes interacting with large blocks of text, like application manifests
+> and logs. I created a reusable [viewport] component in Go for text navigation in my projects.
 >
-> Terminal pagers are programs that allow you to interactively navigate multi-page text. I used my [viewport] component
-> to make [lore], which I'm now daily driving as my terminal pager.
+> Terminal pagers are programs that allow you to interactively navigate multi-page text. I used my viewport component to
+> make [lore], which I'm now daily driving as my terminal pager.
 >
 > In this post, I detail the features I wanted to support in my viewport as well as some learnings and design decisions
 > on the way to making them a reality.
@@ -151,7 +151,7 @@ the potential commands, and `ctrl+c` to quit.
 
 This gives you an idea how a TUI is a keyboard-driven application consisting of components, and **the most important
 components of TUIs are often just mini terminal pagers**. In `kl`, both the selection tree and the logs view are mini
-terminal pagers. I extracted out this shared functionality into a `viewport` component.
+terminal pagers. I extracted out this shared functionality into a viewport component.
 
 ## The Viewport Component
 
@@ -276,8 +276,8 @@ é
 {{< /terminal >}}
 <!-- prettier-ignore-end -->
 
-To support Unicode in my `viewport`, I had to consider the mapping of string bytes (usually UTF-8 in Go), to code
-points, to graphemes and their corresponding terminal widths.
+To support Unicode in my viewport, I had to consider the mapping of string bytes (usually UTF-8 in Go), to code points,
+to graphemes and their corresponding terminal widths.
 
 The `Item` interface handles the implementation of this, simplified below:
 
@@ -330,13 +330,13 @@ focused match into view on screen.
 ### Item selection
 
 For some text views, paging through the content screen by screen is all that's needed. For other views, selection of an
-item from the visible set is required. The `viewport` handles both cases by setting selection to enabled or disabled. In
+item from the visible set is required. The viewport handles both cases by setting selection to enabled or disabled. In
 `kl`, for example, pressing `enter` on a log will bring you to a full page view of that log, nicely formatted, from
 which you can scroll, pan, search, or flip through surrounding logs one by one.
 
 {{< fig src="./img/kl_selection.jpg" width="100" caption="selecting a single log in `kl`" >}}
 
-To support item selection, the `viewport` is generic to an object type:
+To support item selection, the viewport is generic to an object type:
 
 ```go
 // New creates a new viewport to display Objects of generic type T
@@ -359,7 +359,7 @@ respond accordingly to the object returned.
 ## My Terminal Pager: lore
 
 Like `less` and `more` before it, [lore] is my simple terminal pager that is an alt-screen Bubble Tea TUI application
-leaning on the `viewport` component to handle all functionality. As long as I'm building these mini terminal pagers in
+leaning on the viewport component to handle all functionality. As long as I'm building these mini terminal pagers in
 apps like [kl] and [wander] that suit my preferences for viewing and navigating text, I may as well have that same
 functionality for paging in my terminal!
 
@@ -372,7 +372,7 @@ There are installation instructions for [lore here][lore]. I regularly run `lore
 `lore` instead of `less` in my day-to-day terminal interactions.
 
 This domain goes deep. I'm excited by the progress of packages like [libghostty] that cover much of the functionality
-I've implemented in my Go viewport, but with Zig and C bindings. I'll keep improving the core `viewport` functionality,
+I've implemented in my Go viewport, but with Zig and C bindings. I'll keep improving the core viewport functionality,
 `kl`, and my terminal pager `lore`, and other TUIs to come.
 
 [altscreen]: https://ratatui.rs/concepts/backends/alternate-screen/
@@ -383,6 +383,7 @@ I've implemented in my Go viewport, but with Zig and C bindings. I'll keep impro
 [codepoint]: https://en.wikipedia.org/wiki/List_of_Unicode_characters
 [delta]: https://github.com/dandavison/delta
 [gitpager]: https://www.man7.org/linux/man-pages/man1/git.1.html
+[jeeves]: https://github.com/robinovitch61/jeeves
 [kl]: https://github.com/robinovitch61/kl
 [less]: https://www.greenwoodsoftware.com/less/index.html
 [lessconfig]: https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/
