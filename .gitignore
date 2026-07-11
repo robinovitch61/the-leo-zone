@@ -1,10 +1,13 @@
 /_site
+/public/
+/.hugo_build.lock
+.claude/settings.local.json
 .idea
 .DS_Store
 .jekyll-cache
 Gemfile.lock
 *.swp
 node_modules
-_gen
+/resources/_gen/
 testing
 __pycache__

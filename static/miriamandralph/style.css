@@ -34,7 +34,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @font-face {
   font-family: "GreatVibes";
-  src: url("/GreatVibes-Regular.ttf") format("truetype");
+  src: url("./GreatVibes-Regular.ttf") format("truetype");
 }
 
 body {
@@ -121,4 +121,3 @@ button {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-
