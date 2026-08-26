@@ -4,7 +4,7 @@ date: "2026-08-26"
 description: "A book review of Dungeon Crawler Carl, by Matt Dinniman. Reviewed by Leo Robinovitch."
 ---
 
-Rating: 😼
+Rating:😼
 
 [Dungeon Crawler Carl][book] is a series by [Matt Dinniman][author]. I have the strong sense that I'll be reading all of
 these - eight of them are out so far - so I'll put some thoughts down book-by-book in this post as I go.
