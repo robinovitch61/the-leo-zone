@@ -18,7 +18,7 @@ without them online to help debug.</p><h3 id=infrastructure-immutability>Infrast
 team had replaced the use of docker machine with Terraform and Nomad. Given that Kafka still used the old tooling, there
 was no easy path for applying upgrades, security patches, backups & recovery, configuring brokers and topics, scaling up
 instance size, broker count or storage. Nothing could be easily upgraded, scaled, or reconfigured without some risk of
-downtime.</p><h3 id=limited-authentication--authorization>Limited Authentication &amp;amp; Authorization<a class=heading-anchor href=#limited-authentication--authorization aria-label="link to this section">#</a></h3><p>Authentication to access Kafka and authorization to access and control specific cluster resources were undifferentiated;
+downtime.</p><h3 id=limited-authentication--authorization>Limited Authentication & Authorization<a class=heading-anchor href=#limited-authentication--authorization aria-label="link to this section">#</a></h3><p>Authentication to access Kafka and authorization to access and control specific cluster resources were undifferentiated;
 if one could access Kafka, one could access and control everything with admin privileges.</p><p>Security groups controlled access to the Amazon EC2 instances outside our Nomad cluster, and engineers would need to
 manually update their current public IP address in these security groups through the Amazon EC2 console to access Kafka
 from their local machine.</p><p>In particular, this provided challenges for allowing third party services access to the Kafka cluster. We use ClickHouse
@@ -26,7 +26,7 @@ as a core database at Voltus, which has a Kafka Engine table construct. This act
 sinking data from the topic into a persistent table. Allowing the managed ClickHouse provider access to the entire
 cluster via IP whitelisting wasn’t secure or feasible, so the Kafka Engine tables weren’t available for use. In the
 meantime, we were maintaining our own tooling we had written to replicate some of the functionality of Kafka Engine
-tables.</p><h3 id=dated-metrics--alerting>Dated Metrics &amp;amp; Alerting<a class=heading-anchor href=#dated-metrics--alerting aria-label="link to this section">#</a></h3><p>Originally, Kafka metrics were ingested via telegraf daemons and JMX. A Grafana dashboard existed for basic metrics like
+tables.</p><h3 id=dated-metrics--alerting>Dated Metrics & Alerting<a class=heading-anchor href=#dated-metrics--alerting aria-label="link to this section">#</a></h3><p>Originally, Kafka metrics were ingested via telegraf daemons and JMX. A Grafana dashboard existed for basic metrics like
 broker CPU, RAM, and disk utilization. A few years later, Voltus adopted Datadog as an observability platform. There was
 no clear path to ingest the JMX metrics into Datadog for dashboards and alerting. Instead of examining consumer group
 lag or record rates in dashboards while debugging, we inferred what metrics we could from service logs and behavior.</p><h3 id=security-concerns>Security Concerns<a class=heading-anchor href=#security-concerns aria-label="link to this section">#</a></h3><p>In order to further harden our security, we needed to encrypt the disks on the Kafka cluster Amazon EC2 instances. We
