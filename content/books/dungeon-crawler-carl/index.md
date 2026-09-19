@@ -116,5 +116,40 @@ This was again a super fun read, but I'm a bit worried about the arbitrary and j
 quest storylines took. With six published books to go, I hope Dinniman maintains a semblance of plausibility in this
 wacky world of death, destruction, and leveling up!
 
+---
+
+## Book 3: The Dungeon Anarchist's Cookbook (2021)
+
+_Finished September 2026_
+
+Book 3 continues on the Fourth Floor, "The Iron Tangle", which is a super complex interconnected subway system. My main
+complaint about this one was going to be how complicated and difficult to visualize and remember the subway was. But
+then I just reread the author's note here! Sounds like Dinniman knew :).
+
+> Hey, Matt the author guy here. A quick note about this particular book. The fourth floor of the dungeon is set up as a
+> massive, deliberately-confusing puzzle. Carl, Donut, and the rest of the team have to work really hard to figure out
+> the dungeon’s layout. You, the super awesome reader, do not need to understand the floor’s intricacies in order to
+> understand or fully enjoy what is happening. Platform names and numbers and colors are gonna be flying by. It’s okay
+> not to remember them.
+
+Other than the long complicated descriptions of the system, I liked this one, too. Katia's continued character
+development is really awesome, and she successfully goes from a character that made me ask "why are you even here" to a
+solid team member with her own more clearly defined strengths and weaknesses.
+
+They introduce the joint personal space, a sort of Animal Crossing dynamic to the dungeon, which is fun.
+
+Katia learning how to absorb and manipulate metal into her body is awesome. When she kills Hekla with her rush
+ability..._chef's kiss_.
+
+The God battle (glurp glurp!) was really great. Carl's hubris finally catches up with him, and he's finally at the whim
+of an enemy, reliant on his friends to save him. I enjoy Carl's backstory. He's unreasonably competent, but you see some
+of the origins of his avoidant, angry tendencies. It feels like a fairly accurate representation of some male personal
+stories.
+
+The group chat and crawlers working together, like Elle and Li Na, is fun. Lots of teamwork required for this floor.
+Miriam and Prepotente seem hilarious, loved their intro tease.
+
+The politics ramp up a bit too, especially with the final show censorship by Borant and the replacement of Zev by Loita.
+
 [book]: https://en.wikipedia.org/wiki/Dungeon_Crawler_Carl
 [author]: https://en.wikipedia.org/wiki/Matt_Dinniman
