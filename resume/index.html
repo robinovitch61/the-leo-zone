@@ -9,13 +9,41 @@
     <link rel="shortcut icon" href="/img/favicon.png" type="image/vnd.microsoft.icon" />
     <style type="text/css">
       @font-face {
-        font-family: "arial";
+        font-family: "Inter";
+        src: url("/fonts/inter/Inter_18pt-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("/fonts/inter/Inter_18pt-Bold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("/fonts/inter/Inter_18pt-Italic.ttf") format("truetype");
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("/fonts/inter/Inter_18pt-BoldItalic.ttf") format("truetype");
+        font-weight: 700;
+        font-style: italic;
+        font-display: swap;
       }
 
       body {
         margin: 0;
         color: black;
-        font-family: "roboto", sans-serif;
+        font-family: "Inter", Arial, sans-serif;
       }
 
       .container {
@@ -37,6 +65,8 @@
         .container {
           width: 100%;
           max-width: none;
+          box-sizing: border-box;
+          padding: 0.1in 0.2in;
         }
 
         .no-print {
@@ -47,6 +77,19 @@
       header {
         margin: 3.125em 0 1.5625em;
         margin-top: 1.5em;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+        gap: 1em;
+      }
+
+      header > a:first-child {
+        justify-self: center;
+      }
+
+      header > :last-child {
+        justify-self: center;
+        overflow-wrap: anywhere;
       }
 
       section {
@@ -61,10 +104,6 @@
 
       .a-indicate {
         text-decoration: underline;
-      }
-
-      .a-contact {
-        padding: 0.25em 0.5em;
       }
 
       a:active,
@@ -110,7 +149,6 @@
         overflow-wrap: break-word;
       }
 
-      .doc-subtitle,
       .ul-container,
       .item-subtitle,
       .footer {
@@ -129,11 +167,6 @@
 
       .footer {
         margin-bottom: 1.5em;
-      }
-
-      .doc-subtitle {
-        justify-content: space-around;
-        margin-top: 1em;
       }
 
       @media screen and (max-width: 800px) {
@@ -163,8 +196,7 @@
         }
 
         .ul-container,
-        .item-subtitle,
-        .doc-subtitle {
+        .item-subtitle {
           flex-direction: column;
         }
 
@@ -172,21 +204,18 @@
           align-items: flex-start;
         }
 
-        .doc-subtitle {
-          align-items: center;
-          margin-top: 0;
-        }
-
-        .p-contact {
-          margin: 1em 0;
-        }
       }
 
-      .doc-subtitle p {
-        width: 12.5em;
-        min-width: 10%;
-        overflow-wrap: break-word;
-        text-align: center;
+      @media screen and (max-width: 600px) {
+        header {
+          grid-template-columns: auto minmax(0, 1fr) auto;
+          gap: 0.5em;
+          font-size: 0.85rem;
+        }
+
+        header h1 {
+          font-size: clamp(1.2rem, 4vw, 2rem);
+        }
       }
 
       .role-date {
@@ -213,21 +242,35 @@
   <body>
     <div class="container">
       <header>
-        <h1><a href="https://theleo.zone">Leo J. Robinovitch</a></h1>
-        <div class="doc-subtitle">
-          <p class="p-contact">
-            <a class="a-indicate" href="https://theleo.zone">Website</a>
-          </p>
-          <p>¸.·´¯`·.´¯`·.¸¸.·´¯`·.¸><(((º></p>
-          <p class="p-contact">
-            <a class="a-contact a-indicate" href="mailto:leorobinovitch@gmail.com">Email Me</a>
-          </p>
-        </div>
+        <a class="a-indicate" href="https://theleo.zone">Portfolio</a>
+        <h1>Leo J. Robinovitch</h1>
+        <span>leorobinovitch@gmail.com</span>
       </header>
 
       <!-- SELECTED EMPLOYMENT -->
       <section>
         <h2>Selected Employment</h2>
+
+        <!-- Tesla Energy -->
+        <div class="item-subtitle title-place">
+          <h3>TESLA</h3>
+          <h3>Palo Alto, CA</h3>
+        </div>
+        <div class="item-subtitle role-date">
+          <h3>Staff Software Engineer</h3>
+          <h3><span class="date">May 2025 - Present</span></h3>
+        </div>
+        <ul>
+          <li>
+            Develop software on the platform team for
+            <a class="a-indicate" href="https://www.tesla.com/support/energy/tesla-software/autobidder">Autobidder</a>,
+            Tesla Energy's product that manages batteries connected to electric grids
+          </li>
+        </ul>
+        <div class="item-subtitle role-date">
+          <h3>Senior Software Engineer</h3>
+          <h3><span class="date">Jan 2024 - May 2025</span></h3>
+        </div>
 
         <!-- Voltus -->
         <div class="item-subtitle title-place">
@@ -236,9 +279,10 @@
         </div>
         <div class="item-subtitle role-date">
           <h3>Senior Software Engineer</h3>
-          <h3><span class="date">Feb 2022 - Current</span></h3>
+          <h3><span class="date">Feb 2022 - Nov 2023</span></h3>
         </div>
         <ul>
+          <li>Technical lead of the Telemetry sub-team</li>
           <li>
             Drove millions in revenue by enabling entry into new energy market programs and unlocking new types of
             distributed energy resources (generators, batteries, sub-metered loads)
@@ -246,10 +290,6 @@
           <li>
             Improved access times of Voltus' most critical telemetry systems by 400x using FastAPI/Python, ClickHouse,
             and Kafka
-          </li>
-          <li>
-            Established canonical algorithm and lead implementation for accurately aggregating energy statistics for
-            multi-meter customers
           </li>
         </ul>
         <div class="item-subtitle role-date">
@@ -294,7 +334,6 @@
             Built out the service layer for Resumable Workspaces - allowed notebooks to reattach to persistent volumes,
             decoupling the commit process from the lifetime of the workspace
           </li>
-          <li>Worked in Scala, Typescript, React, Python, Kubernetes, and Docker</li>
         </ul>
         <!-- Tesla -->
         <div class="item-subtitle title-place">
@@ -319,10 +358,6 @@
             Electronics, Reliability, Manufacturing and Firmware teams with Python, Flask, HTML/CSS, MySQL, MongoDB,
             Docker, and Ansible
           </li>
-          <li>
-            Created and maintained Python packages for Weibull reliability analysis, state space thermal modeling, and
-            quantification of wear accumulation for specific vehicle failure modes
-          </li>
         </ul>
 
         <!-- Tesla Internship -->
@@ -338,23 +373,6 @@
           <li class="no-print">Created final exploded views for the Model 3 drivetrain using CATIA</li>
         </ul>
 
-        <!-- Landyachtz -->
-        <div class="no-print">
-          <div class="item-subtitle title-place">
-            <h3>LANDYACHTZ LONGBOARDS</h3>
-            <h3>Vancouver, BC</h3>
-          </div>
-          <div class="item-subtitle role-date">
-            <h3>Engineering Design Intern</h3>
-            <h3><span class="date">Jan 2016 - June 2016</span></h3>
-          </div>
-          <ul>
-            <li>
-              Designed and manufactured testing apparatus and prototyping hardware, including Arduino-controlled force
-              applicator, 3D printer, and standards of quality control applied to 4k+ products/yr
-            </li>
-          </ul>
-        </div>
       </section>
 
       <!-- EDUCATION, SKILLS & INTERESTS -->
@@ -487,7 +505,7 @@
 
       <footer>
         <div class="footer">
-          <p>Updated June 2023</p>
+          <p>Updated September 2026</p>
           <p>
             <a class="a-indicate" href="mailto:leorobinovitch@gmail.com">(^.^) get in touch</a>
           </p>
