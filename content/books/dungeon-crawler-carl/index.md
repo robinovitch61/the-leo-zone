@@ -151,5 +151,41 @@ Miriam and Prepotente seem hilarious, loved their intro tease.
 
 The politics ramp up a bit too, especially with the final show censorship by Borant and the replacement of Zev by Loita.
 
+---
+
+## Book 4: The Gate of the Feral Gods
+
+_Finished October 2026_
+
+This was a fun one. The world on the fifth floor is much less physically complex than the train system. Crawlers landed
+in one of hundreds of enormous bubbles, each sort of like the
+[dome in the Simpsons movie](https://www.imdb.com/title/tt0462538/). They find themselves in one of four quadrants
+within the bubble: land, sea, air, or water. Once their quadrant is liberated by defeating the castle boss, they can
+move to other quadrants. Once all quadrants are liberated, their bubble pops, and they can move to other popped bubbles
+or descend the stairs to the sixth level.
+
+Carl, Donut and Katia must liberate the air quadrant's gnome castle, which ends up being a feral goose named Denise that
+Carl kills by shoving its head in the garbage disposal. Getting up to the floating castle/house in the sky is pretty
+tough, though.
+
+Luis is one of the funnier new characters introduced. Florida Man who converted his mom's transit van to a convertible
+before the crawl began.
+
+Chris/Maggie's reappearance is ominous and disconcerting, but ultimately satisfying. The brain worm rushing through
+Carl's body to his brain was creepy.
+
+The weeb-like Mad Mage Ghazi who wanted to bring his "waifu" to life through negotiations with gods in the Nothing was
+entertaining. I loved the successful plot to kill Loita with the exploding robot Donut. The sharktopus sequence is
+pretty awesome. Keeping Orthrus, the two-headed bubble-sized puppy alive, was an interesting and satisfying sequence -
+love to see Quan's arm ripped off.
+
+The politics creeping in are interesting, too. People suing Carl, more Valtay/Borant shenanigans, plus the introduction
+of the mysterious Dr. Hu in the Open Intellect Pacifist Action Network sponsor. And the Epilogue!! Bea and Ferdinand are
+alive!
+
+I think I've mostly given up on trying to precisely track everything or piece everything together. What this series
+gives up by relying on long exposition and breadth of universe-building, it gains back in generally awesome scenes of
+destruction and sticking it to the man.
+
 [book]: https://en.wikipedia.org/wiki/Dungeon_Crawler_Carl
 [author]: https://en.wikipedia.org/wiki/Matt_Dinniman
